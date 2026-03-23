@@ -1,4 +1,6 @@
 package org.example.group_project_csc;
+//Adrianna and Jahnelle will work on the front end
+//Cobin and Jayden will do the back end
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
