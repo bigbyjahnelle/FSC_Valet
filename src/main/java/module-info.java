@@ -1,8 +1,12 @@
-module org.example.group_project_csc {
+module GROUP_PROJECT_CSC {
     requires javafx.controls;
     requires javafx.fxml;
 
+    opens client to javafx.fxml;
+    opens client.controller to javafx.fxml;
 
-    opens org.example.group_project_csc to javafx.fxml;
-    exports org.example.group_project_csc;
+    exports client;
+    exports client.controller;
+    exports server;
+    exports protocol;
 }
