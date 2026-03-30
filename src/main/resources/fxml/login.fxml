@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.paint.*?>
 
 <StackPane stylesheets="@../style.css"
            xmlns="http://javafx.com/javafx/17.0.12"
@@ -23,9 +21,7 @@
 
         <!-- LOGO -->
         <ImageView fitHeight="200" fitWidth="200">
-            <image>
                 <Image url="@/ram.png"/>
-            </image>
         </ImageView>
 
         <!-- USERNAME BOX -->
@@ -36,9 +32,7 @@
               styleClass="input-box">
 
             <ImageView fitHeight="18" fitWidth="18">
-                <image>
                     <Image url="@/user_icon.png"/>
-                </image>
             </ImageView>
 
             <TextField fx:id="usernameField"
@@ -57,9 +51,7 @@
               styleClass="input-box">
 
             <ImageView fitHeight="18" fitWidth="18">
-                <image>
                     <Image url="@/lock_icon.png"/>
-                </image>
             </ImageView>
 
             <PasswordField fx:id="passwordField"
