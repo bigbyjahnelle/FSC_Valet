@@ -1,10 +1,15 @@
 package client.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import shared.util.ButtonEffects;
 
 import java.io.*;
 import java.net.Socket;
@@ -14,6 +19,7 @@ public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
+    @FXML private Button createAccountButton;
     @FXML private Label statusLabel;
 
     private PrintWriter out;
@@ -22,10 +28,14 @@ public class LoginController {
     @FXML
     public void initialize() {
         loginButton.setOnAction(e -> attemptLogin());
+        createAccountButton.setOnAction(e -> loadCreateAccount());
+
+        ButtonEffects.applyAll(loginButton);
+        ButtonEffects.applyAll(createAccountButton);
+
         connectToServer();
     }
 
-    //Wait for server connection instead of crashing on startup
     private void connectToServer() {
         int attempts = 0;
         while (attempts < 5) {
@@ -63,12 +73,16 @@ public class LoginController {
             if ("LOGIN_SUCCESS".equals(response)) {
                 statusLabel.setStyle("-fx-text-fill: green;");
                 statusLabel.setText("Login successful!");
+                loadDashboard();
+
             } else if ("LOGIN_FAIL:INVALID_CREDENTIALS".equals(response)) {
                 statusLabel.setStyle("-fx-text-fill: red;");
                 statusLabel.setText("Invalid username or password.");
+
             } else if ("LOGIN_FAIL:MALFORMED_REQUEST".equals(response)) {
                 statusLabel.setStyle("-fx-text-fill: red;");
                 statusLabel.setText("Bad request sent to server.");
+
             } else {
                 statusLabel.setStyle("-fx-text-fill: red;");
                 statusLabel.setText("Unexpected server response.");
@@ -78,5 +92,39 @@ public class LoginController {
             statusLabel.setStyle("-fx-text-fill: red;");
             statusLabel.setText("Lost connection to server.");
         }
+    }
+
+    private void loadCreateAccount() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/createAccount.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("FSCValet - Create Account");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusLabel.setStyle("-fx-text-fill: red;");
+            statusLabel.setText("Failed to load create account page.");
+        }
+    }
+
+    private void loadDashboard() {
+        Platform.runLater(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+                Scene scene = new Scene(loader.load());
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                stage.setWidth(1100);
+                stage.setHeight(750);
+                stage.setScene(scene);
+                stage.setTitle("FSCValet - Dashboard");
+                stage.centerOnScreen();
+            } catch (Exception e) {
+                e.printStackTrace();
+                statusLabel.setStyle("-fx-text-fill: red;");
+                statusLabel.setText("Failed to load dashboard.");
+            }
+        });
     }
 }

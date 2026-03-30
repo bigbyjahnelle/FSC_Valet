@@ -7,6 +7,5 @@ module GROUP_PROJECT_CSC {
 
     exports client;
     exports client.controller;
-    exports server;
-    exports protocol;
+    exports shared.util;
 }

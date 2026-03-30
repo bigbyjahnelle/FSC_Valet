@@ -32,6 +32,8 @@ public class ServerMain {
 
                 if (message.startsWith("LOGIN_REQUEST")) {
                     handleLogin(message, out);
+                } else if (message.equals("GET_DASHBOARD")) {
+                    handleGetDashboard(out);
                 } else {
                     out.println("UNKNOWN_COMMAND");
                 }
@@ -43,7 +45,7 @@ public class ServerMain {
     }
 
     private static void handleLogin(String message, PrintWriter out) {
-        String[] parts = message.split(":"); //Checks validity of remote; safe guard
+        String[] parts = message.split(":");
 
         if (parts.length < 3) {
             out.println("LOGIN_FAIL:MALFORMED_REQUEST");
@@ -53,7 +55,7 @@ public class ServerMain {
         String username = parts[1];
         String password = parts[2];
 
-        // Temp credentials — swap for firebase DB later (user admin, password admin)
+        // Temp credentials — swap for DB later
         if ("admin".equals(username) && "admin".equals(password)) {
             System.out.println("Login success for user: " + username);
             out.println("LOGIN_SUCCESS");
@@ -61,5 +63,14 @@ public class ServerMain {
             System.out.println("Login failed for user: " + username);
             out.println("LOGIN_FAIL:INVALID_CREDENTIALS");
         }
+    }
+
+    private static void handleGetDashboard(PrintWriter out) {
+        // Hardcoded for now — replace with DB later
+        int activeVehicles = 0;
+        int availableSpots = 50;
+        int todayCheckins  = 0;
+        System.out.println("Sending dashboard data.");
+        out.println("DASHBOARD:" + activeVehicles + ":" + availableSpots + ":" + todayCheckins);
     }
 }

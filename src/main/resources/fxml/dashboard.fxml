@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="client.controller.DashboardController"
+            style="-fx-background-color: #f0f0f0;">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="0"
+              style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 10 20 10 20;">
+
+            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label text="FSCValet"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+                <Label text="Staff Vehicle Management System"
+                       style="-fx-font-size: 11px; -fx-text-fill: #888888;"/>
+            </VBox>
+
+            <HBox spacing="4" alignment="CENTER_RIGHT">
+                <Button fx:id="navDashboardButton" text="Dashboard"
+                        style="-fx-background-color: #eef2ff; -fx-border-color: #c7d2fe; -fx-border-radius: 6; -fx-background-radius: 6; -fx-font-size: 13px; -fx-text-fill: #4f46e5; -fx-padding: 6 14 6 14; -fx-cursor: hand;"/>
+                <Button fx:id="navCheckInButton" text="Check In" onAction="#handleCheckIn"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 13px; -fx-text-fill: #444; -fx-padding: 6 14 6 14; -fx-cursor: hand;"/>
+                <Button fx:id="navActiveVehiclesButton" text="Active Vehicles" onAction="#handleActiveVehicles"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 13px; -fx-text-fill: #444; -fx-padding: 6 14 6 14; -fx-cursor: hand;"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f0f0f0; -fx-background: #f0f0f0;">
+            <VBox spacing="16" style="-fx-padding: 24;">
+
+                <HBox spacing="16">
+                    <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"
+                          style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20;">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS">
+                                <Label text="Active Vehicles"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #6b7280;"/>
+                                <Label fx:id="activeVehiclesLabel" text="0"
+                                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"
+                          style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20;">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS">
+                                <Label text="Available Spots"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #6b7280;"/>
+                                <Label fx:id="availableSpotsLabel" text="50"
+                                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E280"
+                          style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20;">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS">
+                                <Label text="Total Capacity"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #6b7280;"/>
+                                <Label fx:id="totalCapacityLabel" text="50"
+                                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E280"
+                          style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20;">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS">
+                                <Label text="Today's Check-ins"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #6b7280;"/>
+                                <Label fx:id="todayCheckinsLabel" text="0"
+                                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <VBox style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20;">
+                    <Label text="Parking Status"
+                           style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <VBox.margin><Insets top="12"/></VBox.margin>
+                        <Label text="Occupancy Rate"
+                               style="-fx-font-size: 13px; -fx-text-fill: #6b7280;" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="occupancyPercentLabel" text="0%"
+                               style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                    </HBox>
+
+                    <ProgressBar fx:id="occupancyBar" progress="0.0" maxWidth="1.7976931348623157E308"
+                                 style="-fx-accent: #4f46e5; -fx-pref-height: 10; -fx-background-radius: 5; -fx-border-radius: 5;">
+                        <VBox.margin><Insets top="8" bottom="8"/></VBox.margin>
+                    </ProgressBar>
+
+                    <HBox spacing="12">
+                        <Label fx:id="parkedCountLabel" text="0 Parked"
+                               style="-fx-font-size: 12px; -fx-text-fill: #9ca3af;" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="availableCountLabel" text="50 Available"
+                               style="-fx-font-size: 12px; -fx-text-fill: #9ca3af;"/>
+                    </HBox>
+                </VBox>
+
+                <VBox style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20;">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Recent Check-ins"
+                               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #111827;"
+                               HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="viewAllButton" text="View All" onAction="#handleViewAll"
+                                style="-fx-background-color: transparent; -fx-border-color: #d1d5db; -fx-border-radius: 6; -fx-background-radius: 6; -fx-font-size: 12px; -fx-text-fill: #374151; -fx-padding: 4 12 4 12; -fx-cursor: hand;"/>
+                    </HBox>
+
+                    <VBox fx:id="emptyState" alignment="CENTER" spacing="12"
+                          style="-fx-padding: 40 0 40 0;">
+                        <Label text="No vehicles parked yet"
+                               style="-fx-font-size: 14px; -fx-text-fill: #9ca3af;"/>
+                        <Button fx:id="checkInFirstButton" text="Check In First Vehicle" onAction="#handleCheckIn"
+                                style="-fx-background-color: #111827; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20 10 20; -fx-cursor: hand;"/>
+                    </VBox>
+
+                    <VBox fx:id="vehicleListContainer" spacing="8" managed="false" visible="false"/>
+                </VBox>
+
+                <HBox spacing="16">
+                    <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"
+                          onMouseClicked="#handleCheckIn"
+                          style="-fx-background-color: white; -fx-border-color: #fca5a5; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-style: dashed; -fx-border-width: 1.5; -fx-padding: 20; -fx-cursor: hand;">
+                        <HBox alignment="CENTER_LEFT" spacing="14">
+                            <Label text="+"
+                                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #6366f1; -fx-background-color: #eef2ff; -fx-background-radius: 10; -fx-padding: 8 14 8 14;"/>
+                            <VBox>
+                                <Label text="Check In Vehicle"
+                                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                                <Label text="Add new vehicle to parking"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"
+                          onMouseClicked="#handleActiveVehicles"
+                          style="-fx-background-color: white; -fx-border-color: #86efac; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-style: dashed; -fx-border-width: 1.5; -fx-padding: 20; -fx-cursor: hand;">
+                        <HBox alignment="CENTER_LEFT" spacing="14">
+                            <Label text="="
+                                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16a34a; -fx-background-color: #f0fdf4; -fx-background-radius: 10; -fx-padding: 8 14 8 14;"/>
+                            <VBox>
+                                <Label text="View Active Vehicles"
+                                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                                <Label text="Manage parked vehicles"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
