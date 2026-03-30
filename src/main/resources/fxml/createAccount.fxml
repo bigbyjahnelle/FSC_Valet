@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="14" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="client.controller.CreateAccountController"
+      style="-fx-padding: 50; -fx-background-color: #f9fafb;">
+
+    <Label text="Create Account"
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+
+    <Label text="Sign up to access FSCValet"
+           style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+
+    <HBox spacing="10" maxWidth="320">
+        <TextField fx:id="firstNameField" promptText="First Name" HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="lastNameField"  promptText="Last Name"  HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <TextField fx:id="emailField" promptText="Email address" maxWidth="320"/>
+
+    <PasswordField fx:id="passwordField" promptText="Password (min 6 characters)" maxWidth="320"/>
+
+    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" maxWidth="320"/>
+
+    <Button fx:id="createAccountButton" text="Create Account"
+            minWidth="320"
+            style="-fx-background-color: #111827; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 0 10 0;"/>
+
+    <Label fx:id="statusLabel" text="" style="-fx-text-fill: red; -fx-font-size: 12px;"/>
+
+    <Button fx:id="backToLoginButton" text="Already have an account? Log in"
+            style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-text-fill: #4f46e5; -fx-font-size: 12px;"/>
+
+</VBox>
