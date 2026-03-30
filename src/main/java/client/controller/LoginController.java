@@ -10,10 +10,14 @@ import javafx.stage.Stage;
 import shared.util.ButtonEffects;
 import shared.util.SceneTransition;
 
-import java.io.*;
-import java.net.Socket;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class LoginController {
+
+    private static final String SERVER_URL = "http://localhost:8080";
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -21,39 +25,18 @@ public class LoginController {
     @FXML private Button createAccountButton;
     @FXML private Label statusLabel;
 
-    private PrintWriter out;
-    private BufferedReader in;
+    private final HttpClient httpClient = HttpClient.newHttpClient();
 
     @FXML
     public void initialize() {
         loginButton.setOnAction(e -> attemptLogin());
         createAccountButton.setOnAction(e -> loadCreateAccount());
 
+        usernameField.setOnAction(e -> attemptLogin());
+        passwordField.setOnAction(e -> attemptLogin());
+
         ButtonEffects.applyAll(loginButton);
         ButtonEffects.applyAll(createAccountButton);
-
-        connectToServer();
-    }
-
-    private void connectToServer() {
-        int attempts = 0;
-        while (attempts < 5) {
-            try {
-                Socket socket = new Socket("localhost", 5555);
-                out = new PrintWriter(socket.getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                statusLabel.setText("");
-                System.out.println("Connected to server.");
-                return;
-            } catch (IOException ex) {
-                attempts++;
-                statusLabel.setText("Connecting to server... (" + attempts + "/5)");
-                System.out.println("Connection attempt " + attempts + " failed, retrying...");
-                try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
-            }
-        }
-        statusLabel.setText("Cannot connect to server. Is it running?");
-        loginButton.setDisable(true);
     }
 
     private void attemptLogin() {
@@ -65,31 +48,43 @@ public class LoginController {
             return;
         }
 
-        try {
-            out.println("LOGIN_REQUEST:" + username + ":" + password);
-            String response = in.readLine();
+        loginButton.setDisable(true);
+        statusLabel.setStyle("-fx-text-fill: orange;");
+        statusLabel.setText("Logging in...");
 
-            if ("LOGIN_SUCCESS".equals(response)) {
-                statusLabel.setStyle("-fx-text-fill: green;");
-                statusLabel.setText("Login successful!");
-                loadDashboard();
+        String json = String.format("{\"username\":\"%s\",\"password\":\"%s\"}", username, password);
 
-            } else if ("LOGIN_FAIL:INVALID_CREDENTIALS".equals(response)) {
-                statusLabel.setStyle("-fx-text-fill: red;");
-                statusLabel.setText("Invalid username or password.");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(SERVER_URL + "/api/auth/login"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
 
-            } else if ("LOGIN_FAIL:MALFORMED_REQUEST".equals(response)) {
-                statusLabel.setStyle("-fx-text-fill: red;");
-                statusLabel.setText("Bad request sent to server.");
+        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> Platform.runLater(() -> handleLoginResponse(response)))
+                .exceptionally(ex -> {
+                    Platform.runLater(() -> {
+                        statusLabel.setStyle("-fx-text-fill: red;");
+                        statusLabel.setText("Cannot connect to server. Is it running?");
+                        loginButton.setDisable(false);
+                    });
+                    return null;
+                });
+    }
 
-            } else {
-                statusLabel.setStyle("-fx-text-fill: red;");
-                statusLabel.setText("Unexpected server response.");
-            }
+    private void handleLoginResponse(HttpResponse<String> response) {
+        loginButton.setDisable(false);
 
-        } catch (IOException e) {
+        if (response.statusCode() == 200) {
+            statusLabel.setStyle("-fx-text-fill: green;");
+            statusLabel.setText("Login successful!");
+            loadDashboard();
+        } else if (response.statusCode() == 401) {
             statusLabel.setStyle("-fx-text-fill: red;");
-            statusLabel.setText("Lost connection to server.");
+            statusLabel.setText("Invalid username or password.");
+        } else {
+            statusLabel.setStyle("-fx-text-fill: red;");
+            statusLabel.setText("Unexpected server response.");
         }
     }
 
@@ -99,9 +94,7 @@ public class LoginController {
     }
 
     private void loadDashboard() {
-        Platform.runLater(() -> {
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSCValet - Dashboard");
-        });
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSCValet - Dashboard");
     }
 }
