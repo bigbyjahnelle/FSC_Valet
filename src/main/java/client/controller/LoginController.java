@@ -2,14 +2,13 @@ package client.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import shared.util.ButtonEffects;
+import shared.util.SceneTransition;
 
 import java.io.*;
 import java.net.Socket;
@@ -95,36 +94,14 @@ public class LoginController {
     }
 
     private void loadCreateAccount() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/createAccount.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("FSCValet - Create Account");
-            stage.centerOnScreen();
-        } catch (Exception e) {
-            e.printStackTrace();
-            statusLabel.setStyle("-fx-text-fill: red;");
-            statusLabel.setText("Failed to load create account page.");
-        }
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        SceneTransition.fadeSwitch(stage, "/fxml/createAccount.fxml", "FSCValet - Create Account");
     }
 
     private void loadDashboard() {
         Platform.runLater(() -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
-                Scene scene = new Scene(loader.load());
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.setWidth(1100);
-                stage.setHeight(750);
-                stage.setScene(scene);
-                stage.setTitle("FSCValet - Dashboard");
-                stage.centerOnScreen();
-            } catch (Exception e) {
-                e.printStackTrace();
-                statusLabel.setStyle("-fx-text-fill: red;");
-                statusLabel.setText("Failed to load dashboard.");
-            }
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSCValet - Dashboard");
         });
     }
 }

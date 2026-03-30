@@ -14,9 +14,10 @@ public class ClientMain extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Montserrat-Bold.ttf"), 14);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-        Scene scene = new Scene(loader.load(), 480, 340);
+        Scene scene = new Scene(loader.load());
         stage.setTitle("FSCValet - Login");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 
