@@ -36,3 +36,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Firebase credentials — never commit these ###
+firebase-service-account.json
+*-service-account.json
+serviceAccountKey.json
