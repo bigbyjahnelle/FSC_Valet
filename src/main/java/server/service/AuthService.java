@@ -10,15 +10,6 @@ import server.model.LoginResponse;
 
 @Service
 public class AuthService {
-
-    // TODO COBIN: Firebase login requires the client to authenticate first and send
-    // a Firebase ID token. The flow will be:
-    // 1. Client uses Firebase Client SDK to sign in with email/password
-    // 2. Client gets back a Firebase ID token
-    // 3. Client sends that token to this server
-    // 4. Server calls FirebaseAuth.getInstance().verifyIdToken(idToken) to validate it
-    // 5. Server returns its own session response
-
     public void createAccount(String email, String password, String firstName, String lastName) throws FirebaseAuthException
     {
         UserRecord.CreateRequest createRequest = new UserRecord.CreateRequest()
@@ -27,14 +18,8 @@ public class AuthService {
                 .setDisplayName(firstName + " " + lastName);
 
         UserRecord userRecord = FirebaseAuth.getInstance().createUser(createRequest);
-        System.out.println("Successfully created new user: " + userRecord.getUid());
+        System.out.println("Successfully Created New User: " + userRecord.getUid());
     }
-
-    // TODO COBIN: For create account:
-    // Call FirebaseAuth.getInstance().createUser(new UserRecord.CreateRequest()
-    //     .setEmail(email)
-    //     .setPassword(password)
-    //     .setDisplayName(firstName + " " + lastName));
 
     public LoginResponse authenticate(LoginRequest request) {
         LoginResponse response = new LoginResponse();
