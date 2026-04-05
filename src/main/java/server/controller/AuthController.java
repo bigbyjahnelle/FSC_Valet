@@ -39,7 +39,7 @@ public class AuthController {
 
             return ResponseEntity.ok("User Created Successfully");
         } catch (FirebaseAuthException e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
     }
 }
