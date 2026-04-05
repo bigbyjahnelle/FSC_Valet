@@ -26,6 +26,7 @@ public class LoginController {
     @FXML private Label statusLabel;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
+    private final String fireBaseAPIKey = "AIzaSyCAscy9pfbEQIMNY3QlP3i643FposKj3yc";
 
     @FXML
     public void initialize() {
@@ -52,7 +53,54 @@ public class LoginController {
         statusLabel.setStyle("-fx-text-fill: orange;");
         statusLabel.setText("Logging in...");
 
-        String json = String.format("{\"username\":\"%s\",\"password\":\"%s\"}", username, password);
+        String url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + fireBaseAPIKey;
+        String json = String.format("{\"email\":\"%s\",\"password\":\"%s\",\"returnSecureToken\":true}", username, password);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+
+        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> {
+                    System.out.println("GOOGLE RESPONSE CODE: " + response.statusCode());
+                    System.out.println("GOOGLE RESPONSE BODY: " + response.body()); // ADD THIS LINE
+
+                    if(response.statusCode() == 200) {
+                        String idToken = parseTokenFromJson(response.body());
+                        authenticateWithServer(idToken);
+                    } else {
+                        Platform.runLater(() -> statusLabel.setText("Invalid email or password."));
+                    }
+                });
+
+
+    }
+
+    private String parseTokenFromJson(String responseBody)
+    {
+        try {
+            // Look for the specific key
+            String key = "\"idToken\": \"";
+            int start = responseBody.indexOf(key) + key.length();
+            int end = responseBody.indexOf("\"", start);
+
+            String token = responseBody.substring(start, end);
+            System.out.println("LOG: Successfully extracted token!");
+            return token;
+        } catch (Exception e) {
+            System.out.println("LOG: Extraction failed. Response was: " + responseBody);
+            return "";
+        }
+    }
+
+    private void authenticateWithServer(String idToken)
+    {
+        String email = usernameField.getText().trim();
+        String json = String.format("{\"username\":\"%s\",\"password\":\"\",\"token\":\"%s\"}", email, idToken);
+
+        System.out.println("DEBUG: Sending to Server -> " + json);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(SERVER_URL + "/api/auth/login"))
@@ -61,13 +109,13 @@ public class LoginController {
                 .build();
 
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenAccept(response -> Platform.runLater(() -> handleLoginResponse(response)))
+                .thenAccept(response -> {
+                    System.out.println("DEBUG: Server Response Code -> " + response.statusCode());
+                    System.out.println("DEBUG: Server Response Body -> " + response.body());
+                    Platform.runLater(() -> handleLoginResponse(response));
+                })
                 .exceptionally(ex -> {
-                    Platform.runLater(() -> {
-                        statusLabel.setStyle("-fx-text-fill: red;");
-                        statusLabel.setText("Cannot connect to server. Is it running?");
-                        loginButton.setDisable(false);
-                    });
+                    Platform.runLater(() -> statusLabel.setText("Server connection failed."));
                     return null;
                 });
     }
@@ -77,13 +125,15 @@ public class LoginController {
 
         if (response.statusCode() == 200) {
             statusLabel.setStyle("-fx-text-fill: green;");
+            System.out.println("DEBUG: Recieved Token");
             statusLabel.setText("Login successful!");
             loadDashboard();
-        } else if (response.statusCode() == 401) {
+        } else if (response.statusCode() == 400 ||response.statusCode() == 401) {
             statusLabel.setStyle("-fx-text-fill: red;");
             statusLabel.setText("Invalid username or password.");
         } else {
             statusLabel.setStyle("-fx-text-fill: red;");
+            System.out.println("Debug: Google Error" + response.body());
             statusLabel.setText("Unexpected server response.");
         }
     }
