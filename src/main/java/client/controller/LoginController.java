@@ -78,6 +78,7 @@ public class LoginController {
 
     }
 
+    //This gets the token we need to make server know who is logging in from the database
     private String parseTokenFromJson(String responseBody)
     {
         try {
@@ -95,9 +96,11 @@ public class LoginController {
         }
     }
 
+    //This communicates to the Spring Boot Server that we made with the token that is received by google firebase
     private void authenticateWithServer(String idToken)
     {
         String email = usernameField.getText().trim();
+        //Manually build the json object so it can be called by the server
         String json = String.format("{\"username\":\"%s\",\"password\":\"\",\"token\":\"%s\"}", email, idToken);
 
         System.out.println("DEBUG: Sending to Server -> " + json);
