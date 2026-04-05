@@ -55,3 +55,29 @@
     -fx-text-fill: #DDE4E5;
     -fx-font-size: 14px;
 }
+
+/* LOGO SHADOW */
+.logo {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.26), 6.5, 0, -3, 4);
+}
+
+/* TERMS HYPERLINK */
+.link-text {
+    -fx-text-fill: #C49F40;
+    -fx-border-color: transparent;
+    -fx-underline: true;
+    -fx-font-size: 14px;
+    -fx-padding: 0;
+}
+
+/* INPUT ICON TINT (if using SVG/colored PNGs you can skip this) */
+.input-icon {
+    -fx-opacity: 0.7;
+}
+
+/* ERROR LABEL (optional, for validation feedback) */
+.error-label {
+    -fx-text-fill: #e57373;
+    -fx-font-size: 12px;
+    -fx-padding: 2 0 0 4;
+}
