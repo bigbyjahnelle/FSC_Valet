@@ -31,6 +31,10 @@ public class AuthController {
     public ResponseEntity<String> register(@RequestBody LoginRequest request)
     {
         try {
+            /*
+                Calls the createAccount method in AuthService that communicates to the firebase
+                    to hold the information of the new account that was created
+            */
             authService.createAccount(request.getUsername(), request.getPassword(), "First", "Last");
 
             return ResponseEntity.ok("User Created Successfully");
