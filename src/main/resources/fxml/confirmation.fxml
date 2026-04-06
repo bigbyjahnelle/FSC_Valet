@@ -40,10 +40,6 @@
         <StackPane styleClass="center-area">
             <VBox alignment="CENTER" spacing="22" styleClass="confirmation-wrapper">
 
-                <StackPane styleClass="clip-top">
-                    <Label text="●" styleClass="clip-dot"/>
-                </StackPane>
-
                 <VBox alignment="CENTER" spacing="22" styleClass="confirmation-card">
                     <Label text="Request&#10;Confirmed!"
                            styleClass="confirmation-title"/>

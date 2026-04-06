@@ -55,7 +55,7 @@
     -fx-min-height: 52;
     -fx-max-width: 120;
     -fx-max-height: 52;
-    -fx-background-color: #c9a8d9;
+    -fx-background-color: transparent;
     -fx-background-radius: 24 24 12 12;
     -fx-translate-y: 20;
 }
