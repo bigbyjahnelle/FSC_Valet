@@ -1,0 +1,134 @@
+@font-face {
+    font-family: "Montserrat";
+}
+
+.confirmation-root {
+    -fx-font-family: "Montserrat";
+    -fx-background-color: linear-gradient(to bottom, #1a717a, #0f4249, #092b30, #08252b);
+}
+
+.top-bar {
+    -fx-background-color: rgba(6, 40, 45, 0.88);
+    -fx-border-color: rgba(245, 218, 130, 0.30);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 16 24 16 24;
+}
+
+.brand-title {
+    -fx-text-fill: linear-gradient(to right,
+    #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2px;
+}
+
+.brand-subtitle {
+    -fx-text-fill: #DDE4E5;
+    -fx-font-size: 12px;
+}
+
+.top-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #CFA83D;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #F5DA82;
+    -fx-font-size: 12px;
+    -fx-padding: 8 14 8 14;
+    -fx-cursor: hand;
+}
+
+.top-button:hover {
+    -fx-background-color: rgba(245, 218, 130, 0.10);
+}
+
+.center-area {
+    -fx-padding: 30;
+}
+
+.confirmation-wrapper {
+    -fx-max-width: 520;
+}
+
+.clip-top {
+    -fx-min-width: 120;
+    -fx-min-height: 52;
+    -fx-max-width: 120;
+    -fx-max-height: 52;
+    -fx-background-color: #c9a8d9;
+    -fx-background-radius: 24 24 12 12;
+    -fx-translate-y: 20;
+}
+
+.clip-dot {
+    -fx-text-fill: #7a4c2e;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.confirmation-card {
+    -fx-background-color: #f8f4ea;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 60 50 40 50;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 18, 0.18, 0, 6);
+}
+
+.confirmation-title {
+    -fx-text-fill: #1b1008;
+    -fx-font-size: 56px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-line-spacing: -10px;
+}
+
+.confirmation-check {
+    -fx-text-fill: #1b1008;
+    -fx-font-size: 44px;
+    -fx-font-weight: bold;
+}
+
+.detail-text {
+    -fx-text-fill: #2a1a10;
+    -fx-font-size: 18px;
+    -fx-alignment: center;
+}
+
+.sub-message {
+    -fx-text-fill: #5e5746;
+    -fx-font-size: 13px;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+.cancel-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #F5DA82;
+    -fx-border-width: 1.4;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #F5DA82;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.cancel-button:hover {
+    -fx-background-color: rgba(245, 218, 130, 0.10);
+}
+
+.done-button {
+    -fx-background-color: linear-gradient(to right,
+    #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
+    -fx-text-fill: #114A50;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 24 10 24;
+    -fx-cursor: hand;
+}
+
+.done-button:hover {
+    -fx-opacity: 0.96;
+}

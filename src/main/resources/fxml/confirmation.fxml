@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.controller.PickupConfirmationController"
+            stylesheets="@../css/confirmation.css"
+            styleClass="confirmation-root">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="top-bar">
+            <ImageView fitHeight="42" fitWidth="42" preserveRatio="true">
+                <Image url="@/images/ram.png"/>
+            </ImageView>
+
+            <VBox spacing="2">
+                <Label text="FSC VALET" styleClass="brand-title"/>
+                <Label text="Pickup Confirmation" styleClass="brand-subtitle"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button text="Back to Dashboard"
+                    onAction="#handleBackToDashboard"
+                    styleClass="top-button"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane styleClass="center-area">
+            <VBox alignment="CENTER" spacing="22" styleClass="confirmation-wrapper">
+
+                <StackPane styleClass="clip-top">
+                    <Label text="●" styleClass="clip-dot"/>
+                </StackPane>
+
+                <VBox alignment="CENTER" spacing="22" styleClass="confirmation-card">
+                    <Label text="Request&#10;Confirmed!"
+                           styleClass="confirmation-title"/>
+
+                    <Label text="✓"
+                           styleClass="confirmation-check"/>
+
+                    <VBox alignment="CENTER" spacing="8">
+                        <Label fx:id="dateLabel"
+                               text="Date: May 2, 2026"
+                               styleClass="detail-text"/>
+
+                        <Label fx:id="reservationNumberLabel"
+                               text="Reservation Number: 2340"
+                               styleClass="detail-text"/>
+
+                        <Label fx:id="valetAttendantLabel"
+                               text="Valet Attendant: Jimmy Dean"
+                               styleClass="detail-text"/>
+
+                        <Label fx:id="ramIdLabel"
+                               text="RAM ID: R002"
+                               styleClass="detail-text"/>
+                    </VBox>
+
+                    <Label text="Your pickup request has been successfully submitted."
+                           wrapText="true"
+                           styleClass="sub-message"/>
+                </VBox>
+
+                <HBox alignment="CENTER" spacing="14">
+                    <Button fx:id="cancelRequestButton"
+                            text="Cancel Request"
+                            onAction="#handleCancelRequest"
+                            styleClass="cancel-button"/>
+
+                    <Button fx:id="doneButton"
+                            text="Done"
+                            onAction="#handleBackToDashboard"
+                            styleClass="done-button"/>
+                </HBox>
+
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>
