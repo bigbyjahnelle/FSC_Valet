@@ -20,8 +20,7 @@ public class FirebaseConfig {
         String credentialsPath = System.getenv("FIREBASE_CREDENTIALS");
 
         if (credentialsPath == null || credentialsPath.isEmpty()) {
-            System.out.println("[FirebaseConfig] FIREBASE_CREDENTIALS not set — Firebase disabled. Using hardcoded credentials for now.");
-            return null;
+            throw new RuntimeException("Missing FIREBASE_CREDENTIALS environment variable!");
         }
 
         FileInputStream serviceAccount = new FileInputStream(credentialsPath);
