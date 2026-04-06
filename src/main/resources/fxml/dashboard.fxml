@@ -3,12 +3,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12"
@@ -17,105 +21,191 @@
             stylesheets="@../css/dashboard.css"
             styleClass="dashboard-root">
 
-    <top>
-        <HBox alignment="CENTER_LEFT" styleClass="dashboard-header" spacing="12">
-            <VBox spacing="4">
-                <Label fx:id="greetingLabel"
-                       text="Good Day RAM"
-                       styleClass="dashboard-greeting"/>
-                <Label text="Welcome back to FSC Valet"
-                       styleClass="dashboard-subtext"/>
-            </VBox>
-
-            <Region HBox.hgrow="ALWAYS"/>
-
-            <ImageView fitHeight="42" fitWidth="42" preserveRatio="true">
-                <Image url="@/images/ram.png"/>
-            </ImageView>
-        </HBox>
-    </top>
-
-    <center>
-        <VBox spacing="22" styleClass="dashboard-content">
-
-            <!-- STATUS CARD -->
-            <VBox alignment="CENTER" spacing="14" styleClass="status-card">
-                <Label fx:id="requestStatusLabel"
-                       text="No Active Valet Requests"
-                       styleClass="status-text"/>
-
-                <Label text="Tap below to request valet service"
-                       styleClass="dashboard-subtext"/>
-            </VBox>
-
-            <!-- STATS -->
-            <HBox spacing="14">
-                <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" styleClass="stat-card">
-                    <Label text="Available Spots" styleClass="stat-title"/>
-                    <Label fx:id="availableSpotsLabel" text="50" styleClass="stat-value"/>
-                </VBox>
-
-                <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" styleClass="stat-card">
-                    <Label text="Total Capacity" styleClass="stat-title"/>
-                    <Label fx:id="totalCapacityLabel" text="50" styleClass="stat-value"/>
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox spacing="22" styleClass="sidebar">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <ImageView fitHeight="48" fitWidth="48" preserveRatio="true">
+                    <Image url="@/images/ram.png"/>
+                </ImageView>
+                <VBox spacing="2">
+                    <Label text="FSC VALET" styleClass="sidebar-brand"/>
+                    <Label text="RAM Portal" styleClass="sidebar-subtitle"/>
                 </VBox>
             </HBox>
 
-            <!-- MAIN BUTTON -->
-            <Button fx:id="requestValetButton"
-                    text="REQUEST VALET"
-                    onAction="#handleCheckIn"
-                    styleClass="gold-button"/>
+            <VBox spacing="10">
+                <Button fx:id="navDashboardButton"
+                        text="Profile"
+                        styleClass="sidebar-button sidebar-button-active"/>
+
+                <Button fx:id="navCheckInButton"
+                        text="Make a Request"
+                        onAction="#handleCheckIn"
+                        styleClass="sidebar-button"/>
+
+                <Button fx:id="navActiveVehiclesButton"
+                        text="My Requests"
+                        onAction="#handleActiveVehicles"
+                        styleClass="sidebar-button"/>
+
+                <Button text="Help"
+                        styleClass="sidebar-button"/>
+            </VBox>
 
             <Region VBox.vgrow="ALWAYS"/>
 
-            <!-- HISTORY -->
-            <VBox spacing="16">
-                <HBox alignment="CENTER" spacing="10">
-                    <Region HBox.hgrow="ALWAYS" styleClass="history-line"/>
-                    <Label text="History" styleClass="history-title"/>
-                    <Region HBox.hgrow="ALWAYS" styleClass="history-line"/>
-                </HBox>
-
-                <VBox fx:id="emptyState"
-                      alignment="CENTER"
-                      spacing="8"
-                      styleClass="history-empty-box">
-                    <Label text="No valet history yet"
-                           styleClass="history-empty-text"/>
-                    <Label text="Your previous requests will show here."
-                           styleClass="dashboard-subtext"/>
-                </VBox>
-
-                <VBox fx:id="vehicleListContainer"
-                      spacing="10"
-                      visible="false"
-                      managed="false"/>
-
-                <Button fx:id="viewAllButton"
-                        text="VIEW HISTORY"
-                        onAction="#handleViewAll"
-                        styleClass="ghost-button"/>
+            <VBox spacing="8">
+                <Button text="Settings" styleClass="sidebar-button sidebar-small-button"/>
+                <Button text="Log Out" styleClass="sidebar-button sidebar-small-button"/>
             </VBox>
-
-            <padding>
-                <Insets top="6" right="18" bottom="18" left="18"/>
-            </padding>
         </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="dashboard-scroll">
+            <content>
+                <VBox spacing="22" styleClass="dashboard-content">
+
+                    <!-- TOP BAR -->
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <VBox spacing="3">
+                            <Label fx:id="greetingLabel"
+                                   text="               WELCOME RAM!"
+                                   styleClass="header-title"/>
+                            <Label text="Focus on class while we focus on parking."
+                                   styleClass="header-subtitle"/>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="search-box">
+                            <Label text="⌕" styleClass="search-icon"/>
+                            <TextField fx:id="searchField"
+                                       promptText="Search requests or info"
+                                       styleClass="search-field"/>
+                        </HBox>
+
+                        <Label text="[NAME]" styleClass="top-brand"/>
+                    </HBox>
+
+                    <!-- FILTER CHIPS -->
+                    <HBox spacing="10">
+                        <Button text="Total Capacity" styleClass="chip-button chip-active"/>
+                        <Button text="Available Spots" styleClass="chip-button"/>
+
+                    </HBox>
+
+                    <!-- HERO PANELS -->
+                    <HBox spacing="18">
+                        <VBox HBox.hgrow="ALWAYS" spacing="16" styleClass="main-panel">
+                            <Label text="EVERYTHING IS ONLY ONE CLICK AWAY." styleClass="panel-title"/>
+
+                            <HBox spacing="18" alignment="CENTER_LEFT">
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+
+
+                                    <Label text="Make a valet request when you're arriving on campus, and track it from your dashboard."
+                                           wrapText="true"
+                                           styleClass="panel-subtext"/>
+
+                                    <HBox spacing="12">
+                                        <Button fx:id="requestValetButton"
+                                                text="REQUEST VALET"
+                                                onAction="#handleCheckIn"
+                                                styleClass="primary-button"/>
+
+                                        <Button fx:id="valetStatus"
+                                                text="VALET STATUS"
+                                                onAction="#handleCheckIn"
+                                                styleClass="primary-button"/>
+
+                                        <Button fx:id="viewAllButton"
+                                                text="TRACKER"
+                                                onAction="#handleViewAll"
+                                                styleClass="outline-button"/>
+                                    </HBox>
+                                </VBox>
+
+
+                            </HBox>
+                        </VBox>
+
+
+                    </HBox>
+
+                    <!-- QUICK ACTIONS -->
+                    <VBox spacing="14" styleClass="section-panel">
+                        <Label text="Quick Actions" styleClass="panel-title"/>
+
+                        <HBox spacing="16">
+                            <StackPane HBox.hgrow="ALWAYS" styleClass="action-card" onMouseClicked="#handleCheckIn">
+                                <VBox spacing="6">
+                                    <Label text="Valet News" styleClass="action-title"/>
+                                    <Label text="Keep up to date with FSC Valet news."
+                                           wrapText="true"
+                                           styleClass="action-subtitle"/>
+                                </VBox>
+                            </StackPane>
+
+                            <StackPane HBox.hgrow="ALWAYS" styleClass="action-card" onMouseClicked="#handleActiveVehicles">
+                                <VBox spacing="6">
+                                    <Label text="Survey" styleClass="action-title"/>
+                                    <Label text="We would love to hear from you."
+                                           wrapText="true"
+                                           styleClass="action-subtitle"/>
+                                </VBox>
+                            </StackPane>
+
+                            <StackPane HBox.hgrow="ALWAYS" styleClass="action-card" onMouseClicked="#handleViewAll">
+                                <VBox spacing="6">
+                                    <Label text="Contact us" styleClass="action-title"/>
+                                    <Label text="(631)-909-3299."
+                                           wrapText="true"
+                                           styleClass="action-subtitle"/>
+                                </VBox>
+                            </StackPane>
+                        </HBox>
+                    </VBox>
+
+                    <!-- RECENT REQUESTS -->
+                    <VBox spacing="14" styleClass="section-panel">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Recent Requests" styleClass="panel-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="View All" onAction="#handleViewAll" styleClass="outline-button"/>
+                        </HBox>
+
+                        <VBox fx:id="emptyState" alignment="CENTER" spacing="12" styleClass="empty-state-box">
+                            <Label text="No recent requests yet" styleClass="empty-state-title"/>
+                            <Label text="Once you begin using FSC Valet, your recent activity will appear here."
+                                   wrapText="true"
+                                   styleClass="panel-subtext"/>
+                            <Button fx:id="checkInFirstButton"
+                                    text="MAKE FIRST REQUEST"
+                                    onAction="#handleCheckIn"
+                                    styleClass="primary-button"/>
+                        </VBox>
+
+                        <FlowPane fx:id="vehicleListContainer"
+                                  hgap="16"
+                                  vgap="16"
+                                  visible="false"
+                                  managed="false"/>
+                    </VBox>
+
+                    <!-- FOOTER MESSAGE -->
+                    <HBox alignment="CENTER">
+                        <Label text="No need to worry, your vehicle is safe with FSC Valet!"
+                               styleClass="footer-text"/>
+                    </HBox>
+
+                    <padding>
+                        <Insets top="24" right="24" bottom="24" left="24"/>
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
     </center>
-
-    <bottom>
-        <HBox alignment="CENTER" spacing="12" styleClass="bottom-nav">
-            <Button text="Home" styleClass="bottom-nav-button bottom-nav-active"/>
-            <Label text="|" styleClass="nav-divider"/>
-            <Button text="Request Valet"
-                    onAction="#handleCheckIn"
-                    styleClass="bottom-nav-button"/>
-            <Label text="|" styleClass="nav-divider"/>
-            <Button text="Profile"
-                    onAction="#handleActiveVehicles"
-                    styleClass="bottom-nav-button"/>
-        </HBox>
-    </bottom>
-
 </BorderPane>
