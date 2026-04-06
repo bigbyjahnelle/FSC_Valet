@@ -21,7 +21,7 @@
         <HBox alignment="CENTER_LEFT" styleClass="dashboard-header" spacing="12">
             <VBox spacing="4">
                 <Label fx:id="greetingLabel"
-                       text="Good Evening [NAME]"
+                       text="Good Day RAM"
                        styleClass="dashboard-greeting"/>
                 <Label text="Welcome back to FSC Valet"
                        styleClass="dashboard-subtext"/>
