@@ -13,6 +13,7 @@
     #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
     -fx-font-size: 37px;
     -fx-font-family: "Montserrat";
+    src: url("/fonts/Montserrat-Regular.ttf");
     -fx-letter-spacing: 3.5px;
 }
 
@@ -34,7 +35,7 @@
     -fx-border-width: 0;
 }
 
-/* BUTTON */
+/* ALL BUTTON */
 .login-btn {
     -fx-background-color: linear-gradient(to right,
     #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
@@ -48,6 +49,11 @@
 
 .login-btn:pressed {
     -fx-opacity: 0.95;
+}
+
+.login-btn:hover {
+    -fx-background-color: linear-gradient(to right,
+    #C49F40, #DCB84C, #E8C865, #F5DA82);
 }
 
 /* SUBTEXT */
@@ -70,14 +76,14 @@
     -fx-padding: 0;
 }
 
-/* INPUT ICON TINT (if using SVG/colored PNGs you can skip this) */
+/* INPUT ICON TINT */
 .input-icon {
     -fx-opacity: 0.7;
 }
 
-/* ERROR LABEL (optional, for validation feedback) */
+/* ERROR LABEL */
 .error-label {
-    -fx-text-fill: #e57373;
+    -fx-text-fill: #e10000;
     -fx-font-size: 12px;
     -fx-padding: 2 0 0 4;
 }

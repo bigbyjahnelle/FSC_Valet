@@ -8,7 +8,7 @@
 <StackPane stylesheets="@../style.css"
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="client.controller.SignupController">
+           fx:controller="CreateAccountController">
 
     <VBox alignment="CENTER" spacing="20">
 

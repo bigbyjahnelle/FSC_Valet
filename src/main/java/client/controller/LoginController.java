@@ -22,7 +22,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        loginButton.setOnAction(e -> attemptLogin());
+        loginButton.setOnAction( e -> attemptLogin());
         connectToServer();
     }
 
