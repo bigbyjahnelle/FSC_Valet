@@ -13,6 +13,7 @@
     #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
     -fx-font-size: 37px;
     -fx-font-family: "Montserrat";
+    src: url("/fonts/Montserrat-Regular.ttf");
     -fx-letter-spacing: 3.5px;
 }
 
@@ -34,7 +35,7 @@
     -fx-border-width: 0;
 }
 
-/* BUTTON */
+/* ALL LOGIN BUTTON STYLING */
 .login-btn {
     -fx-background-color: linear-gradient(to right,
     #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
@@ -46,12 +47,63 @@
     -fx-opacity: 1;
 }
 
-.login-btn:pressed {
-    -fx-opacity: 0.95;
+/* HOVER */
+.login-btn:hover {
+    -fx-background-color: red;
+    -fx-cursor: hand;
 }
+
+/* PRESSED */
+.login-btn:pressed {
+    -fx-background-color: red;
+    -fx-opacity: 0.9;
+}
+
+/* ALL SIGNUP BUTTON STYLING */
+.signup-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F5DA82;
+    -fx-underline: true;
+}
+.signup-btn:hover {
+    -fx-text-fill: #FDF4AB;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.signup-btn:pressed {
+    -fx-text-fill: #C49F40;
+}
+
 
 /* SUBTEXT */
 .subtext {
     -fx-text-fill: #DDE4E5;
     -fx-font-size: 14px;
+}
+
+/* LOGO SHADOW */
+.logo {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.26), 6.5, 0, -3, 4);
+}
+
+/* TERMS HYPERLINK */
+.link-text {
+    -fx-text-fill: #C49F40;
+    -fx-border-color: transparent;
+    -fx-underline: true;
+    -fx-font-size: 14px;
+    -fx-padding: 0;
+}
+
+/* INPUT ICON TINT */
+.input-icon {
+    -fx-opacity: 0.7;
+}
+
+/* ERROR LABEL */
+.error-label {
+    -fx-text-fill: #e10000;
+    -fx-font-size: 12px;
+    -fx-padding: 2 0 0 4;
 }
