@@ -1,5 +1,6 @@
 package client.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,7 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import shared.util.ButtonEffects;
 import shared.util.SceneTransition;
+import shared.util.ServerConfig;
 
+import java.net.URI;
+import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
@@ -22,6 +26,8 @@ public class CreateAccountController {
     @FXML private Button createAccountButton;
     @FXML private Button backToLoginButton;
     @FXML private Label statusLabel;
+
+    private final HttpClient httpClient = HttpClient.newHttpClient();
 
     @FXML
     public void initialize() {
@@ -39,7 +45,6 @@ public class CreateAccountController {
         String password  = passwordField.getText();
         String confirm   = confirmPasswordField.getText();
 
-        // Basic validation
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
             statusLabel.setStyle("-fx-text-fill: red;");
             statusLabel.setText("Please fill in all fields.");
@@ -61,51 +66,32 @@ public class CreateAccountController {
         statusLabel.setStyle("-fx-text-fill: orange");
         statusLabel.setText("Creating account...");
 
-        //This helps set up the data that is going to be sent to the register api
-        String json = String.format("{\"username\":\"%s\",\"password\":\"%s\"}",
-                email, password);
+        String json = String.format(
+                "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}",
+                firstName, lastName, email, password
+        );
 
-        //This helps set up the data that is going to be sent to the register api
-        java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
-                .uri(java.net.URI.create("http://localhost:8080/api/auth/register"))
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(ServerConfig.SERVER_URL + "/api/auth/register"))
                 .header("Content-Type", "application/json")
-                .POST(java.net.http.HttpRequest.BodyPublishers.ofString(json))
+                .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
 
-        /*
-            Once the data is sent in and done successfully it will redirect the user to the login screen.
-            Other-wise it will tell the user the certain error that is occurring.
-        */
-        java.net.http.HttpClient.newHttpClient()
-                .sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenAccept(response -> javafx.application.Platform.runLater(() -> {
-                    if(response.statusCode() == 200)
-                    {
+        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> Platform.runLater(() -> {
+                    if (response.statusCode() == 200) {
                         statusLabel.setStyle("-fx-text-fill: green;");
                         statusLabel.setText("Success! Redirecting...");
                         loadLogin();
-                    }
-                    else
-                    {
+                    } else {
                         statusLabel.setStyle("-fx-text-fill: red;");
-                        statusLabel.setText("Sever Error: " + response.body());
+                        statusLabel.setText("Server Error: " + response.body());
                     }
                 }))
-                .exceptionally(ex ->{
-                        javafx.application.Platform.runLater(() -> {
-                            statusLabel.setText("Could not connect to server.");
-                        });
-
-                        return null;
-                        });
-
-        /*
-            Just for us to talk about. I asked AI why it didn't want me to do this,
-                and it said it would give users access to the firebase and delete data from it.
-        */
-        // TODO COBIN: Firebase — register user with Firebase Authentication
-        // FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-        // Then store profile (firstName, lastName) in Firebase Realtime DB or Firestore
+                .exceptionally(ex -> {
+                    Platform.runLater(() -> statusLabel.setText("Could not connect to server."));
+                    return null;
+                });
     }
 
     private void loadLogin() {

@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import shared.util.ButtonEffects;
 import shared.util.SceneTransition;
+import shared.util.ServerConfig;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -17,9 +18,7 @@ import java.net.http.HttpResponse;
 
 public class LoginController {
 
-    private static final String SERVER_URL = "http://localhost:8080";
-
-    @FXML private TextField usernameField;
+    @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private Button createAccountButton;
@@ -33,7 +32,7 @@ public class LoginController {
         loginButton.setOnAction(e -> attemptLogin());
         createAccountButton.setOnAction(e -> loadCreateAccount());
 
-        usernameField.setOnAction(e -> attemptLogin());
+        emailField.setOnAction(e -> attemptLogin());
         passwordField.setOnAction(e -> attemptLogin());
 
         ButtonEffects.applyAll(loginButton);
@@ -41,11 +40,11 @@ public class LoginController {
     }
 
     private void attemptLogin() {
-        String username = usernameField.getText().trim();
+        String email    = emailField.getText().trim();
         String password = passwordField.getText().trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            statusLabel.setText("Please enter username and password.");
+        if (email.isEmpty() || password.isEmpty()) {
+            statusLabel.setText("Please enter email and password.");
             return;
         }
 
@@ -53,8 +52,8 @@ public class LoginController {
         statusLabel.setStyle("-fx-text-fill: orange;");
         statusLabel.setText("Logging in...");
 
-        String url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + fireBaseAPIKey;
-        String json = String.format("{\"email\":\"%s\",\"password\":\"%s\",\"returnSecureToken\":true}", username, password);
+        String url  = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + fireBaseAPIKey;
+        String json = String.format("{\"email\":\"%s\",\"password\":\"%s\",\"returnSecureToken\":true}", email, password);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -65,48 +64,38 @@ public class LoginController {
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenAccept(response -> {
                     System.out.println("GOOGLE RESPONSE CODE: " + response.statusCode());
-                    System.out.println("GOOGLE RESPONSE BODY: " + response.body()); // ADD THIS LINE
+                    System.out.println("GOOGLE RESPONSE BODY: " + response.body());
 
-                    if(response.statusCode() == 200) {
+                    if (response.statusCode() == 200) {
                         String idToken = parseTokenFromJson(response.body());
                         authenticateWithServer(idToken);
                     } else {
                         Platform.runLater(() -> statusLabel.setText("Invalid email or password."));
                     }
                 });
-
-
     }
 
-    //This gets the token we need to make server know who is logging in from the database
-    private String parseTokenFromJson(String responseBody)
-    {
+    private String parseTokenFromJson(String responseBody) {
         try {
-            // Look for the specific key
-            String key = "\"idToken\": \"";
-            int start = responseBody.indexOf(key) + key.length();
-            int end = responseBody.indexOf("\"", start);
-
-            String token = responseBody.substring(start, end);
+            String key   = "\"idToken\": \"";
+            int start    = responseBody.indexOf(key) + key.length();
+            int end      = responseBody.indexOf("\"", start);
             System.out.println("LOG: Successfully extracted token!");
-            return token;
+            return responseBody.substring(start, end);
         } catch (Exception e) {
             System.out.println("LOG: Extraction failed. Response was: " + responseBody);
             return "";
         }
     }
 
-    //This communicates to the Spring Boot Server that we made with the token that is received by google firebase
-    private void authenticateWithServer(String idToken)
-    {
-        String email = usernameField.getText().trim();
-        //Manually build the json object so it can be called by the server
-        String json = String.format("{\"username\":\"%s\",\"password\":\"\",\"token\":\"%s\"}", email, idToken);
+    private void authenticateWithServer(String idToken) {
+        String email = emailField.getText().trim();
+        String json  = String.format("{\"email\":\"%s\",\"password\":\"\",\"token\":\"%s\"}", email, idToken);
 
         System.out.println("DEBUG: Sending to Server -> " + json);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(SERVER_URL + "/api/auth/login"))
+                .uri(URI.create(ServerConfig.SERVER_URL + "/api/auth/login"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
@@ -128,12 +117,12 @@ public class LoginController {
 
         if (response.statusCode() == 200) {
             statusLabel.setStyle("-fx-text-fill: green;");
-            System.out.println("DEBUG: Recieved Token");
+            System.out.println("DEBUG: Received Token");
             statusLabel.setText("Login successful!");
             loadDashboard();
-        } else if (response.statusCode() == 400 ||response.statusCode() == 401) {
+        } else if (response.statusCode() == 400 || response.statusCode() == 401) {
             statusLabel.setStyle("-fx-text-fill: red;");
-            statusLabel.setText("Invalid username or password.");
+            statusLabel.setText("Invalid email or password.");
         } else {
             statusLabel.setStyle("-fx-text-fill: red;");
             System.out.println("Debug: Google Error" + response.body());

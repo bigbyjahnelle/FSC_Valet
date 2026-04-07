@@ -1,10 +1,10 @@
 package server.controller;
 
-import com.google.firebase.auth.FirebaseAuthException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.model.LoginRequest;
 import server.model.LoginResponse;
+import server.model.RegisterRequest;
 import server.service.AuthService;
 
 @RestController
@@ -28,17 +28,17 @@ public class AuthController {
 
     //Method to help create the account on the createAccount page
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody LoginRequest request)
+    public ResponseEntity<String> register(@RequestBody RegisterRequest request)
     {
         try {
-            /*
-                Calls the createAccount method in AuthService that communicates to the firebase
-                    to hold the information of the new account that was created
-            */
-            authService.createAccount(request.getUsername(), request.getPassword(), "First", "Last");
-
+            authService.createAccount(
+                    request.getEmail(),
+                    request.getPassword(),
+                    request.getFirstName(),
+                    request.getLastName()
+            );
             return ResponseEntity.ok("User Created Successfully");
-        } catch (FirebaseAuthException e) {
+        } catch (Exception e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
     }
