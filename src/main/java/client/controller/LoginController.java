@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import shared.util.ButtonEffects;
 import shared.util.SceneTransition;
 import shared.util.ServerConfig;
+import shared.util.SessionManager;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -67,7 +68,10 @@ public class LoginController {
                     System.out.println("GOOGLE RESPONSE BODY: " + response.body());
 
                     if (response.statusCode() == 200) {
-                        String idToken = parseTokenFromJson(response.body());
+                        String idToken  = parseFromJson(response.body(), "idToken");
+                        String uid      = parseFromJson(response.body(), "localId");
+                        String fullName = parseFromJson(response.body(), "displayName");
+                        SessionManager.setUser(uid, email, fullName);
                         authenticateWithServer(idToken);
                     } else {
                         Platform.runLater(() -> statusLabel.setText("Invalid email or password."));
@@ -75,15 +79,21 @@ public class LoginController {
                 });
     }
 
-    private String parseTokenFromJson(String responseBody) {
+    /** Extracts a string value from a flat JSON response by key name. */
+    private String parseFromJson(String json, String key) {
         try {
-            String key   = "\"idToken\": \"";
-            int start    = responseBody.indexOf(key) + key.length();
-            int end      = responseBody.indexOf("\"", start);
-            System.out.println("LOG: Successfully extracted token!");
-            return responseBody.substring(start, end);
+            String search = "\"" + key + "\": \"";
+            // Firebase sometimes omits the space, so fall back
+            int start = json.indexOf(search);
+            if (start == -1) {
+                search = "\"" + key + "\":\"";
+                start  = json.indexOf(search);
+            }
+            if (start == -1) return "";
+            start += search.length();
+            int end = json.indexOf("\"", start);
+            return json.substring(start, end);
         } catch (Exception e) {
-            System.out.println("LOG: Extraction failed. Response was: " + responseBody);
             return "";
         }
     }

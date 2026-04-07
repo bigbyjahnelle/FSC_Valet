@@ -87,7 +87,7 @@
                                        styleClass="search-field"/>
                         </HBox>
 
-                        <Label text="[NAME]" styleClass="top-brand"/>
+                        <Label fx:id="userNameLabel" text="[NAME]" styleClass="top-brand"/>
                     </HBox>
 
                     <!-- FILTER CHIPS -->

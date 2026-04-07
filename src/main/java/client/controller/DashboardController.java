@@ -9,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import shared.util.ButtonEffects;
 import shared.util.ServerConfig;
+import shared.util.SessionManager;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -33,6 +34,7 @@ public class DashboardController {
     @FXML private Label parkedCountLabel;
     @FXML private Label availableCountLabel;
 
+    @FXML private Label userNameLabel;
     @FXML private VBox emptyState;
     @FXML private FlowPane vehicleListContainer;
 
@@ -42,6 +44,8 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
+        userNameLabel.setText("Hello, " + SessionManager.getFirstName());
+
         ButtonEffects.applyAll(navDashboardButton);
         ButtonEffects.applyAll(navCheckInButton);
         ButtonEffects.applyAll(navActiveVehiclesButton);
