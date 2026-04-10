@@ -5,8 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import shared.util.ButtonEffects;
+import shared.util.ServerConfig;
+import shared.util.SessionManager;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -14,8 +17,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class DashboardController {
-
-    private static final String SERVER_URL = "http://localhost:8080";
 
     @FXML private Button navDashboardButton;
     @FXML private Button navCheckInButton;
@@ -33,8 +34,9 @@ public class DashboardController {
     @FXML private Label parkedCountLabel;
     @FXML private Label availableCountLabel;
 
+    @FXML private Label userNameLabel;
     @FXML private VBox emptyState;
-    @FXML private VBox vehicleListContainer;
+    @FXML private FlowPane vehicleListContainer;
 
     private static final int TOTAL_CAPACITY = 50;
 
@@ -42,6 +44,8 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
+        userNameLabel.setText("Hello, " + SessionManager.getFirstName());
+
         ButtonEffects.applyAll(navDashboardButton);
         ButtonEffects.applyAll(navCheckInButton);
         ButtonEffects.applyAll(navActiveVehiclesButton);
@@ -53,7 +57,7 @@ public class DashboardController {
 
     private void requestDashboardData() {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(SERVER_URL + "/api/dashboard"))
+                .uri(URI.create(ServerConfig.SERVER_URL + "/api/dashboard"))
                 .GET()
                 .build();
 

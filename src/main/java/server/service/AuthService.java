@@ -7,10 +7,20 @@ import com.google.firebase.auth.UserRecord;
 import org.springframework.stereotype.Service;
 import server.model.LoginRequest;
 import server.model.LoginResponse;
+import server.model.User;
+
+import java.util.Date;
 
 @Service
 public class AuthService {
-    public void createAccount(String email, String password, String firstName, String lastName) throws FirebaseAuthException
+
+    private final UserService userService;
+
+    public AuthService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void createAccount(String email, String password, String firstName, String lastName) throws Exception
     {
         UserRecord.CreateRequest createRequest = new UserRecord.CreateRequest()
                 .setEmail(email)
@@ -19,6 +29,15 @@ public class AuthService {
 
         UserRecord userRecord = FirebaseAuth.getInstance().createUser(createRequest);
         System.out.println("Successfully Created New User: " + userRecord.getUid());
+
+        // Save user profile to Firestore
+        User user = new User();
+        user.setUid(userRecord.getUid());
+        user.setEmail(email);
+        user.setFullName(firstName + " " + lastName);
+        user.setRole("CUSTOMER");
+        user.setCreatedAt(new Date());
+        userService.saveUser(user);
     }
 
     public LoginResponse authenticate(LoginRequest request) {

@@ -35,8 +35,8 @@
                     <Image url="@/images/user_icon.png"/>
             </ImageView>
 
-            <TextField fx:id="usernameField"
-                       promptText="USERNAME"
+            <TextField fx:id="emailField"
+                       promptText="EMAIL"
                        styleClass="input-field"
                        prefWidth="240"
                        minWidth="240"
