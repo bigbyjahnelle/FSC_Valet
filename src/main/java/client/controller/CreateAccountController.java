@@ -28,6 +28,7 @@ public class CreateAccountController {
     @FXML private Label statusLabel;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
+    private final String fireBaseAPIKey = System.getenv("FIREBASE_WEB_API_KEY");
 
     @FXML
     public void initialize() {
@@ -66,13 +67,15 @@ public class CreateAccountController {
         statusLabel.setStyle("-fx-text-fill: orange");
         statusLabel.setText("Creating account...");
 
+        //Added the google URL for the firebase to make it work with the new API key
+        String googleUrl = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + fireBaseAPIKey;
         String json = String.format(
                 "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}",
                 firstName, lastName, email, password
         );
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(ServerConfig.SERVER_URL + "/api/auth/register"))
+                .uri(URI.create(googleUrl))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
