@@ -26,7 +26,8 @@ public class LoginController {
     @FXML private Label statusLabel;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
-    private final String fireBaseAPIKey = "AIzaSyCAscy9pfbEQIMNY3QlP3i643FposKj3yc";
+    //New API key for the login
+    private final String fireBaseAPIKey = System.getenv("FIREBASE_WEB_API_KEY");
 
     @FXML
     public void initialize() {
@@ -52,6 +53,13 @@ public class LoginController {
         loginButton.setDisable(true);
         statusLabel.setStyle("-fx-text-fill: orange;");
         statusLabel.setText("Logging in...");
+
+        //Checks for the API key in the firebase to make sure it is valid/there on login request
+        if(fireBaseAPIKey == null)
+        {
+            System.err.println("CRITICAL ERROR: FIREBASE_WEB_API_KEY not found in environment variables");
+            return;
+        }
 
         String url  = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + fireBaseAPIKey;
         String json = String.format("{\"email\":\"%s\",\"password\":\"%s\",\"returnSecureToken\":true}", email, password);
