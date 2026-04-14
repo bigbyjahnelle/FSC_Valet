@@ -49,13 +49,15 @@
 
 /* HOVER */
 .login-btn:hover {
-    -fx-background-color: red;
+    -fx-background-color: linear-gradient(to right,
+    #d1a331, #dcb249, #eac451, #f8d66d, #F5DA82, #FDF4AB);
     -fx-cursor: hand;
 }
 
 /* PRESSED */
 .login-btn:pressed {
-    -fx-background-color: red;
+    -fx-background-color: linear-gradient(to right,
+    #8f6d1f, #a8852f, #c9a93d);
     -fx-opacity: 0.9;
 }
 
@@ -79,7 +81,7 @@
 /* SUBTEXT */
 .subtext {
     -fx-text-fill: #DDE4E5;
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
 }
 
 /* LOGO SHADOW */
@@ -106,4 +108,21 @@
     -fx-text-fill: #e10000;
     -fx-font-size: 12px;
     -fx-padding: 2 0 0 4;
+}
+
+.input-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E5F0F4;
+    -fx-border-width: 0;
+}
+
+/* add subtle divider */
+.name-divider {
+    -fx-background-color: #568991;
+    -fx-pref-width: 1.5;
+    -fx-min-width: 1.5;
+    -fx-max-width: 1.5;
+    -fx-pref-height: 24;
+    -fx-opacity: 0.6;
+    -fx-translate-x: -14px;
 }
