@@ -44,4 +44,14 @@ public class CarController
         }
     }
 
+    @GetMapping("/{ownerId}")
+    public ResponseEntity<List<Car>> getCarsByOwner(@PathVariable String ownerId)
+    {
+        try {
+            List<Car> cars = carService.getCarsByOwner(ownerId);
+            return ResponseEntity.ok(cars);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
 }
