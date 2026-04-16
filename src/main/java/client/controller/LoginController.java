@@ -1,5 +1,6 @@
 package client.controller;
 
+import jakarta.websocket.Session;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -121,7 +122,7 @@ public class LoginController {
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenAccept(response -> {
                     System.out.println("DEBUG: Server Response Code -> " + response.statusCode());
-                    System.out.println("DEBUG: Server Response Body -> " + response.body());
+                    //System.out.println("DEBUG: Server Response Body -> " + response.body());
                     Platform.runLater(() -> handleLoginResponse(response));
                 })
                 .exceptionally(ex -> {
@@ -135,7 +136,17 @@ public class LoginController {
 
         if (response.statusCode() == 200) {
             statusLabel.setStyle("-fx-text-fill: green;");
-            System.out.println("DEBUG: Received Token");
+
+            String responseBody = response.body();
+
+            String parsedName = parseFromJson(responseBody, "firstName");
+
+            SessionManager.setFirstName(parsedName);
+
+            String uid = parseFromJson(responseBody, "uid");
+            SessionManager.setUser(uid, emailField.getText(), parsedName);
+
+            //System.out.println("DEBUG: Received Token");
             statusLabel.setText("Login successful!");
             loadDashboard();
         } else if (response.statusCode() == 400 || response.statusCode() == 401) {
