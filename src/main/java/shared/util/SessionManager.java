@@ -20,7 +20,12 @@ public class SessionManager {
                 : fullName;
     }
 
-    public static String getFirstName() { return firstName; }
+    public static void setFirstName(String firstName)
+    {
+        SessionManager.firstName = firstName;
+    }
+
+    public static String getFirstName() { return (firstName != null && !firstName.isEmpty()) ? firstName : "User"; }
     public static String getFullName()  { return fullName;  }
     public static String getUid()       { return uid;       }
     public static String getEmail()     { return email;     }
