@@ -25,6 +25,10 @@ public class SessionManager {
         SessionManager.firstName = firstName;
     }
 
+    /*
+        TODO Need to make it not only display "User" on the dashboard.
+             We might need to refactor how the firstName is gotten, but we need to discuss
+    */
     public static String getFirstName() { return (firstName != null && !firstName.isEmpty()) ? firstName : "User"; }
     public static String getFullName()  { return fullName;  }
     public static String getUid()       { return uid;       }
