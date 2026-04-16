@@ -47,11 +47,29 @@ public class CarController
     @GetMapping("/{ownerId}")
     public ResponseEntity<List<Car>> getCarsByOwner(@PathVariable String ownerId)
     {
-        try {
+        try
+        {
             List<Car> cars = carService.getCarsByOwner(ownerId);
             return ResponseEntity.ok(cars);
         } catch (Exception e) {
             return ResponseEntity.status(500).build();
+        }
+    }
+
+    @DeleteMapping("/{carId}")
+    public ResponseEntity<String> deleteCar(@PathVariable String carId, @RequestParam String requesterUid)
+    {
+        try
+        {
+            boolean success = carService.deleteCar(carId, requesterUid);
+            if(success)
+            {
+                return ResponseEntity.ok("Car deleted");
+            }
+
+            return ResponseEntity.status(403).body("Unauthorized or car not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
     }
 }
