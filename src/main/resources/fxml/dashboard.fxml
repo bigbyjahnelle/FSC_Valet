@@ -118,7 +118,7 @@
 
                                         <Button fx:id="valetStatus"
                                                 text="VALET STATUS"
-                                                onAction="#handleCheckIn"
+                                                onAction="#handleActiveVehicles"
                                                 styleClass="primary-button"/>
 
                                         <Button fx:id="viewAllButton"
