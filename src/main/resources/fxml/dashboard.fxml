@@ -35,10 +35,6 @@
             </HBox>
 
             <VBox spacing="10">
-                <Button fx:id="navDashboardButton"
-                        text="Profile"
-                        styleClass="sidebar-button sidebar-button-active"/>
-
                 <Button fx:id="navCheckInButton"
                         text="Make a Request"
                         onAction="#handleCheckIn"
@@ -50,6 +46,7 @@
                         styleClass="sidebar-button"/>
 
                 <Button text="Profile"
+                        onAction="#handleProfile"
                         styleClass="sidebar-button"/>
             </VBox>
 
@@ -67,20 +64,13 @@
                     <HBox alignment="CENTER_LEFT" spacing="20">
                         <VBox spacing="3">
                             <Label fx:id="greetingLabel"
-                                   text="               WELCOME RAM!"
+                                   text="WELCOME RAM!"
                                    styleClass="header-title"/>
                             <Label text="Focus on class while we focus on parking."
                                    styleClass="header-subtitle"/>
                         </VBox>
 
                         <Region HBox.hgrow="ALWAYS"/>
-
-                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="search-box">
-                            <Label text="⌕" styleClass="search-icon"/>
-                            <TextField fx:id="searchField"
-                                       promptText="Search requests or info"
-                                       styleClass="search-field"/>
-                        </HBox>
 
                         <Label fx:id="userNameLabel" text="[NAME]" styleClass="top-brand"/>
                     </HBox>

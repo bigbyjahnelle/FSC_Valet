@@ -20,7 +20,6 @@ import java.net.http.HttpResponse;
 
 public class DashboardController {
 
-    @FXML private Button navDashboardButton;
     @FXML private Button navCheckInButton;
     @FXML private Button navActiveVehiclesButton;
     @FXML private Button viewAllButton;
@@ -48,7 +47,6 @@ public class DashboardController {
     public void initialize() {
         userNameLabel.setText("Hello, " + SessionManager.getFirstName());
 
-        ButtonEffects.applyAll(navDashboardButton);
         ButtonEffects.applyAll(navCheckInButton);
         ButtonEffects.applyAll(navActiveVehiclesButton);
         ButtonEffects.applyAll(viewAllButton);
@@ -120,20 +118,26 @@ public class DashboardController {
     }
 
     @FXML
+    private void handleProfile() {
+        Stage stage = (Stage) navCheckInButton.getScene().getWindow();
+        SceneTransition.fadeSwitch(stage, "/fxml/profile.fxml", "FSC Valet - Profile");
+    }
+
+    @FXML
     private void handleCheckIn() {
-        Stage stage = (Stage) navDashboardButton.getScene().getWindow();
+        Stage stage = (Stage) navCheckInButton.getScene().getWindow();
         SceneTransition.fadeSwitch(stage, "/fxml/makeRequest.fxml", "FSC Valet - Make a Request");
     }
 
     @FXML
     private void handleActiveVehicles() {
-        Stage stage = (Stage) navDashboardButton.getScene().getWindow();
+        Stage stage = (Stage) navCheckInButton.getScene().getWindow();
         SceneTransition.fadeSwitch(stage, "/fxml/myRequests.fxml", "FSC Valet - My Requests");
     }
 
     @FXML
     private void handleViewAll() {
-        Stage stage = (Stage) navDashboardButton.getScene().getWindow();
+        Stage stage = (Stage) navCheckInButton.getScene().getWindow();
         SceneTransition.fadeSwitch(stage, "/fxml/myRequests.fxml", "FSC Valet - My Requests");
     }
 }
