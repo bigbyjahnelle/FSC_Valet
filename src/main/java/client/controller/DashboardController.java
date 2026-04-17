@@ -7,7 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import shared.util.ButtonEffects;
+import shared.util.SceneTransition;
 import shared.util.ServerConfig;
 import shared.util.SessionManager;
 
@@ -119,7 +121,8 @@ public class DashboardController {
 
     @FXML
     private void handleCheckIn() {
-        System.out.println("Navigate to Check In");
+        Stage stage = (Stage) navDashboardButton.getScene().getWindow();
+        SceneTransition.fadeSwitch(stage, "/fxml/makeRequest.fxml", "FSC Valet - Make a Request");
     }
 
     @FXML

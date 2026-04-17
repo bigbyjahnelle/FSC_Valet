@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.controller.MakeRequestController">
+
+    <!-- HEADER -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16">
+            <Button text="← Back" onAction="#handleBack"/>
+            <Label text="Make a Valet Request"/>
+            <padding>
+                <Insets top="16" right="24" bottom="16" left="24"/>
+            </padding>
+        </HBox>
+    </top>
+
+    <!-- FORM -->
+    <center>
+        <VBox spacing="16" maxWidth="480">
+            <padding>
+                <Insets top="32" right="24" bottom="32" left="24"/>
+            </padding>
+
+            <Label text="Car Details" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+            <VBox spacing="4">
+                <Label text="Make (e.g. Toyota)"/>
+                <TextField fx:id="makeField" promptText="Make"/>
+            </VBox>
+
+            <VBox spacing="4">
+                <Label text="Model (e.g. Camry)"/>
+                <TextField fx:id="modelField" promptText="Model"/>
+            </VBox>
+
+            <VBox spacing="4">
+                <Label text="Year"/>
+                <TextField fx:id="yearField" promptText="Year (e.g. 2020)"/>
+            </VBox>
+
+            <VBox spacing="4">
+                <Label text="Color"/>
+                <TextField fx:id="colorField" promptText="Color"/>
+            </VBox>
+
+            <VBox spacing="4">
+                <Label text="License Plate"/>
+                <TextField fx:id="licensePlateField" promptText="License Plate"/>
+            </VBox>
+
+            <Label fx:id="statusLabel" text="" style="-fx-text-fill: red;"/>
+
+            <Button text="Submit Request" onAction="#handleSubmit"/>
+        </VBox>
+    </center>
+</BorderPane>
