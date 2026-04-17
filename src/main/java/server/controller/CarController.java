@@ -41,9 +41,9 @@ public class CarController {
 
     // DELETE /api/cars/{carId}
     @DeleteMapping("/{carId}")
-    public ResponseEntity<String> deleteCar(@PathVariable String carId) {
+    public ResponseEntity<String> deleteCar(@PathVariable String carId, String Uid) {
         try {
-            carService.deleteCar(carId);
+            carService.deleteCar(carId, Uid);
             return ResponseEntity.ok("Car deleted.");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
