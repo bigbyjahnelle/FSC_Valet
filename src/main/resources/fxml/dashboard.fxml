@@ -49,16 +49,11 @@
                         onAction="#handleActiveVehicles"
                         styleClass="sidebar-button"/>
 
-                <Button text="Help"
+                <Button text="Profile"
                         styleClass="sidebar-button"/>
             </VBox>
 
             <Region VBox.vgrow="ALWAYS"/>
-
-            <VBox spacing="8">
-                <Button text="Settings" styleClass="sidebar-button sidebar-small-button"/>
-                <Button text="Log Out" styleClass="sidebar-button sidebar-small-button"/>
-            </VBox>
         </VBox>
     </left>
 
