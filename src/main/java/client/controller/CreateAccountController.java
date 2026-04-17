@@ -68,14 +68,14 @@ public class CreateAccountController {
         statusLabel.setText("Creating account...");
 
         //Added the google URL for the firebase to make it work with the new API key
-        String googleUrl = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + fireBaseAPIKey;
+        String serverUrl = ServerConfig.SERVER_URL + "/api/auth/register";
         String json = String.format(
                 "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}",
                 firstName, lastName, email, password
         );
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(googleUrl))
+                .uri(URI.create(serverUrl))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
