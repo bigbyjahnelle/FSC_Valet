@@ -1,18 +1,19 @@
 package server.service;
 
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.Query;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.Transaction;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
 import org.springframework.stereotype.Service;
 import server.model.Ticket;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
@@ -121,5 +122,26 @@ public class TicketService {
         return docs.stream()
                 .map(doc -> doc.toObject(Ticket.class))
                 .toList();
+    }
+
+    // Returns all tickets matching the given status (e.g. "IN_PROGRESS")
+    public List<Ticket> getTicketsByStatus(String status) throws ExecutionException, InterruptedException {
+         ApiFuture<QuerySnapshot> future = firestore.collection("tickets")
+             .whereEqualTo("status", status)
+             .get();
+         return future.get().getDocuments().stream()
+             .map(doc -> doc.toObject(Ticket.class))
+             .collect(Collectors.toList());
+    }
+
+    // Returns count of tickets created today
+    public int getTodayCheckinCount() throws ExecutionException, InterruptedException {
+        // Query Firestore: tickets where createdAt >= start of today
+         long startOfDay = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
+             .toInstant().toEpochMilli();
+         ApiFuture<QuerySnapshot> future = firestore.collection("tickets")
+             .whereGreaterThanOrEqualTo("createdAt", startOfDay)
+             .get();
+         return (int) future.get().getDocuments().size();
     }
 }
