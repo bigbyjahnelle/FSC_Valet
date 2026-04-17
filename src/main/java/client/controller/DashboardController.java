@@ -127,11 +127,13 @@ public class DashboardController {
 
     @FXML
     private void handleActiveVehicles() {
-        System.out.println("Navigate to Active Vehicles");
+        Stage stage = (Stage) navDashboardButton.getScene().getWindow();
+        SceneTransition.fadeSwitch(stage, "/fxml/myRequests.fxml", "FSC Valet - My Requests");
     }
 
     @FXML
     private void handleViewAll() {
-        System.out.println("View all tickets");
+        Stage stage = (Stage) navDashboardButton.getScene().getWindow();
+        SceneTransition.fadeSwitch(stage, "/fxml/myRequests.fxml", "FSC Valet - My Requests");
     }
 }
