@@ -1,37 +1,54 @@
 package server.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.model.Car;
 import server.service.CarService;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+/**
+ * TODO (Cobin): REST endpoints for car management.
+ *
+ * Suggested endpoints:
+ *   POST   /api/cars           — add a new car for the logged-in customer
+ *   GET    /api/cars/{ownerId} — get all cars belonging to a customer
+ *   DELETE /api/cars/{carId}   — remove a car
+ *
+ * Use CarService for all Firestore operations.
+ * Validate that the requesting user owns the car before allowing delete.
+ */
 @RestController
 @RequestMapping("/api/cars")
-public class CarController {
+public class CarController
+{
+    // TODO (Cobin): inject CarService and implement endpoints
+    @Autowired
+    private CarService carService;
 
-    private final CarService carService;
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody Car car)
+    {
+        try
+        {
+            String updateTime = carService.registerCar(car);
+            return ResponseEntity.ok("Car registered successfully at " + updateTime);
 
-    public CarController(CarService carService) {
-        this.carService = carService;
-    }
-
-    // POST /api/cars
-    @PostMapping
-    public ResponseEntity<Car> addCar(@RequestBody Car car) {
-        try {
-            Car created = carService.addCar(car);
-            return ResponseEntity.ok(created);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
+        }catch (InterruptedException | ExecutionException e) {
+            // This catches the specific Firestore errors
+            return ResponseEntity.status(500).body("Firestore Error: " + e.getMessage());
+        }catch (Exception e) {
+            return ResponseEntity.status(500).body("General Error: " + e.getMessage());
         }
     }
 
-    // GET /api/cars/{ownerId}
     @GetMapping("/{ownerId}")
-    public ResponseEntity<List<Car>> getCarsByOwner(@PathVariable String ownerId) {
-        try {
+    public ResponseEntity<List<Car>> getCarsByOwner(@PathVariable String ownerId)
+    {
+        try
+        {
             List<Car> cars = carService.getCarsByOwner(ownerId);
             return ResponseEntity.ok(cars);
         } catch (Exception e) {
@@ -39,12 +56,18 @@ public class CarController {
         }
     }
 
-    // DELETE /api/cars/{carId}
     @DeleteMapping("/{carId}")
-    public ResponseEntity<String> deleteCar(@PathVariable String carId) {
-        try {
-            carService.deleteCar(carId);
-            return ResponseEntity.ok("Car deleted.");
+    public ResponseEntity<String> deleteCar(@PathVariable String carId, @RequestParam String requesterUid)
+    {
+        try
+        {
+            boolean success = carService.deleteCar(carId, requesterUid);
+            if(success)
+            {
+                return ResponseEntity.ok("Car deleted");
+            }
+
+            return ResponseEntity.status(403).body("Unauthorized or car not found");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
