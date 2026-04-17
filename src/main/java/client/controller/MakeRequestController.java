@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import shared.util.ConfirmationData;
 import shared.util.SceneTransition;
 import shared.util.ServerConfig;
 import shared.util.SessionManager;
@@ -56,6 +57,15 @@ public class MakeRequestController {
         submitRequest(make, model, year, color, plate);
     }
 
+    private String extractString(String json, String key) {
+        String search = "\"" + key + "\":\"";
+        int start = json.indexOf(search);
+        if (start == -1) return null;
+        start += search.length();
+        int end = json.indexOf("\"", start);
+        return end == -1 ? null : json.substring(start, end);
+    }
+
     private void submitRequest(String make, String model, int year, String color, String plate) {
         String uid = SessionManager.getUid();
 
@@ -73,6 +83,15 @@ public class MakeRequestController {
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenAccept(response -> Platform.runLater(() -> {
                     if (response.statusCode() == 200 || response.statusCode() == 201) {
+                        String body = response.body();
+                        String ticketNumber = extractString(body, "ticketNumber");
+                        String type         = extractString(body, "type");
+                        String today        = java.time.LocalDate.now().toString();
+                        ConfirmationData.set(
+                            ticketNumber != null ? ticketNumber : "—",
+                            type != null ? type : "—",
+                            today
+                        );
                         Stage stage = (Stage) makeField.getScene().getWindow();
                         SceneTransition.fadeSwitch(stage, "/fxml/confirmation.fxml", "FSC Valet - Confirmation");
                     } else {
