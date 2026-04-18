@@ -78,8 +78,8 @@ public class LoginController {
                     if (response.statusCode() == 200) {
                         String idToken  = parseFromJson(response.body(), "idToken");
                         String uid      = parseFromJson(response.body(), "localId");
-                        String fullName = parseFromJson(response.body(), "displayName");
-                        SessionManager.setUser(uid, email, fullName);
+                        String fullName = parseFromJson(response.body(), "fullName");
+                        SessionManager.setUser(uid, email, fullName != null ? fullName : "");
                         authenticateWithServer(idToken);
                     } else {
                         Platform.runLater(() -> statusLabel.setText("Invalid email or password."));

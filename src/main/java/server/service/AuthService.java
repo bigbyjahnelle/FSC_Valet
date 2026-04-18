@@ -52,9 +52,15 @@ public class AuthService {
             String uId = decodedToken.getUid();
             String email = decodedToken.getEmail();
 
+            UserRecord userRecord = FirebaseAuth.getInstance().getUser(uId);
+            String fullName = userRecord.getDisplayName();
+            if (fullName == null) fullName = "";
+
             response.setSuccess(true);
             response.setMessage("Login Successful For: " + email);
             response.setToken(idToken);
+
+            response.setFullName(fullName);
 
             return response;
         } catch (FirebaseAuthException e) {

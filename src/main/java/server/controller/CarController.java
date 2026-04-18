@@ -1,23 +1,52 @@
 package server.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import server.model.Car;
+import server.service.CarService;
 
-/**
- * TODO (Cobin): REST endpoints for car management.
- *
- * Suggested endpoints:
- *   POST   /api/cars           — add a new car for the logged-in customer
- *   GET    /api/cars/{ownerId} — get all cars belonging to a customer
- *   DELETE /api/cars/{carId}   — remove a car
- *
- * Use CarService for all Firestore operations.
- * Validate that the requesting user owns the car before allowing delete.
- */
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
 
-    // TODO (Cobin): inject CarService and implement endpoints
+    private final CarService carService;
 
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
+
+    // POST /api/cars
+    @PostMapping
+    public ResponseEntity<Car> addCar(@RequestBody Car car) {
+        try {
+            Car created = carService.addCar(car);
+            return ResponseEntity.ok(created);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    // GET /api/cars/{ownerId}
+    @GetMapping("/{ownerId}")
+    public ResponseEntity<List<Car>> getCarsByOwner(@PathVariable String ownerId) {
+        try {
+            List<Car> cars = carService.getCarsByOwner(ownerId);
+            return ResponseEntity.ok(cars);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    // DELETE /api/cars/{carId}
+    @DeleteMapping("/{carId}")
+    public ResponseEntity<String> deleteCar(@PathVariable String carId) {
+        try {
+            carService.deleteCar(carId);
+            return ResponseEntity.ok("Car deleted.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
+    }
 }
