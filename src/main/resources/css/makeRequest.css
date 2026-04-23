@@ -1,0 +1,152 @@
+@font-face {
+    font-family: "Montserrat";
+}
+
+/* ROOT */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #1a717a, #0f4249, #092b30, #08252b);
+    -fx-font-family: "Montserrat";
+}
+
+/* ── HEADER ─────────────────────────────────── */
+.mr-header {
+    -fx-background-color: rgba(8, 37, 43, 0.72);
+    -fx-border-color: rgba(245, 218, 130, 0.18);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 16 24 16 24;
+    -fx-spacing: 16;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.mr-title {
+    -fx-text-fill: #F5DA82;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(86, 137, 145, 0.55);
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #DDE4E5;
+    -fx-font-size: 13px;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
+}
+
+.back-btn:hover {
+    -fx-border-color: #F5DA82;
+    -fx-text-fill: #F5DA82;
+}
+
+.back-btn:pressed {
+    -fx-opacity: 0.75;
+}
+
+/* ── SCROLL PANE ─────────────────────────────── */
+.mr-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.mr-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ── FORM CARD ───────────────────────────────── */
+.form-card {
+    -fx-background-color: rgba(10, 44, 50, 0.68);
+    -fx-border-color: rgba(86, 137, 145, 0.32);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 18;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.28), 20, 0.08, 0, 5);
+    -fx-pref-width: 500;
+    -fx-max-width: 500;
+    -fx-spacing: 18;
+}
+
+/* ── SECTION HEADER ──────────────────────────── */
+.section-title {
+    -fx-text-fill: #F5DA82;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 6 0;
+}
+
+.section-divider {
+    -fx-background-color: rgba(86, 137, 145, 0.28);
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+}
+
+/* ── FIELD LABEL ─────────────────────────────── */
+.field-label {
+    -fx-text-fill: #8db8be;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 2 2;
+}
+
+/* ── INPUT BOX ───────────────────────────────── */
+.input-box {
+    -fx-border-color: #3d7079;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-padding: 2 10 2 10;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-height: 44;
+}
+
+/* ── INPUT FIELD ─────────────────────────────── */
+.input-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E5F0F4;
+    -fx-prompt-text-fill: rgba(180, 210, 215, 0.45);
+    -fx-border-width: 0;
+    -fx-font-size: 14px;
+    -fx-font-family: "Montserrat";
+}
+
+.input-field:focused {
+    -fx-background-color: transparent;
+}
+
+/* ── STATUS LABEL ────────────────────────────── */
+.status-label {
+    -fx-text-fill: #e10000;
+    -fx-font-size: 12px;
+    -fx-padding: 0 0 0 2;
+}
+
+/* ── SUBMIT BUTTON ───────────────────────────── */
+.submit-btn {
+    -fx-background-color: linear-gradient(to right,
+        #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
+    -fx-background-insets: 0;
+    -fx-text-fill: #114A50;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 14 0 14 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(220, 184, 76, 0.30), 10, 0.2, 0, 2);
+}
+
+.submit-btn:hover {
+    -fx-background-color: linear-gradient(to right,
+        #d1a331, #dcb249, #eac451, #f8d66d, #F5DA82, #FDF4AB);
+}
+
+.submit-btn:pressed {
+    -fx-background-color: linear-gradient(to right,
+        #8f6d1f, #a8852f, #c9a93d);
+    -fx-opacity: 0.9;
+}
