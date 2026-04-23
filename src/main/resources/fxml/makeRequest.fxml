@@ -2,65 +2,98 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.controller.MakeRequestController">
+            fx:controller="client.controller.MakeRequestController"
+            stylesheets="@../css/makeRequest.css">
 
     <!-- HEADER -->
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="16">
-            <Button text="← Back" onAction="#handleBack"/>
-            <Label text="Make a Valet Request"/>
-            <padding>
-                <Insets top="16" right="24" bottom="16" left="24"/>
-            </padding>
+        <HBox styleClass="mr-header">
+            <Button text="← Back" styleClass="back-btn" onAction="#handleBack"/>
+            <Label text="Make a Valet Request" styleClass="mr-title"/>
         </HBox>
     </top>
 
     <!-- FORM -->
     <center>
-        <VBox spacing="16" maxWidth="480">
-            <padding>
-                <Insets top="32" right="24" bottom="32" left="24"/>
-            </padding>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="mr-scroll" hbarPolicy="NEVER">
+            <StackPane>
+                <padding>
+                    <Insets top="40" right="24" bottom="40" left="24"/>
+                </padding>
 
-            <Label text="Car Details" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                <VBox styleClass="form-card">
+                    <padding>
+                        <Insets top="36" right="40" bottom="36" left="40"/>
+                    </padding>
 
-            <VBox spacing="4">
-                <Label text="Make (e.g. Toyota)"/>
-                <TextField fx:id="makeField" promptText="Make"/>
-            </VBox>
+                    <!-- SECTION HEADER -->
+                    <Label text="Car Details" styleClass="section-title"/>
+                    <Region styleClass="section-divider" maxWidth="Infinity"/>
 
-            <VBox spacing="4">
-                <Label text="Model (e.g. Camry)"/>
-                <TextField fx:id="modelField" promptText="Model"/>
-            </VBox>
+                    <!-- MAKE -->
+                    <VBox spacing="4">
+                        <Label text="MAKE" styleClass="field-label"/>
+                        <HBox styleClass="input-box">
+                            <TextField fx:id="makeField" promptText="e.g. Toyota"
+                                       styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
 
-            <VBox spacing="4">
-                <Label text="Year"/>
-                <TextField fx:id="yearField" promptText="Year (e.g. 2020)"/>
-            </VBox>
+                    <!-- MODEL -->
+                    <VBox spacing="4">
+                        <Label text="MODEL" styleClass="field-label"/>
+                        <HBox styleClass="input-box">
+                            <TextField fx:id="modelField" promptText="e.g. Camry"
+                                       styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
 
-            <VBox spacing="4">
-                <Label text="Color"/>
-                <TextField fx:id="colorField" promptText="Color"/>
-            </VBox>
+                    <!-- YEAR -->
+                    <VBox spacing="4">
+                        <Label text="YEAR" styleClass="field-label"/>
+                        <HBox styleClass="input-box">
+                            <TextField fx:id="yearField" promptText="e.g. 2020"
+                                       styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
 
-            <VBox spacing="4">
-                <Label text="License Plate"/>
-                <TextField fx:id="licensePlateField" promptText="License Plate"/>
-            </VBox>
+                    <!-- COLOR -->
+                    <VBox spacing="4">
+                        <Label text="COLOR" styleClass="field-label"/>
+                        <HBox styleClass="input-box">
+                            <TextField fx:id="colorField" promptText="e.g. Silver"
+                                       styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
 
-            <Label fx:id="statusLabel" text="" style="-fx-text-fill: red;"/>
+                    <!-- LICENSE PLATE -->
+                    <VBox spacing="4">
+                        <Label text="LICENSE PLATE" styleClass="field-label"/>
+                        <HBox styleClass="input-box">
+                            <TextField fx:id="licensePlateField" promptText="e.g. ABC-1234"
+                                       styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
 
-            <Button text="Submit Request" onAction="#handleSubmit"/>
-        </VBox>
+                    <!-- STATUS -->
+                    <Label fx:id="statusLabel" text="" styleClass="status-label"/>
+
+                    <!-- SUBMIT -->
+                    <Button text="Submit Request" styleClass="submit-btn"
+                            onAction="#handleSubmit" maxWidth="Infinity"/>
+                </VBox>
+            </StackPane>
+        </ScrollPane>
     </center>
 </BorderPane>
