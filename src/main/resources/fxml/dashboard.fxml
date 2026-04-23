@@ -3,14 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -58,117 +57,96 @@
     <center>
         <ScrollPane fitToWidth="true" styleClass="dashboard-scroll">
             <content>
-                <VBox spacing="22" styleClass="dashboard-content">
+                <VBox spacing="20" styleClass="dashboard-content">
 
                     <!-- TOP BAR -->
-                    <HBox alignment="CENTER_LEFT" spacing="20">
-                        <VBox spacing="3">
-                            <Label fx:id="greetingLabel"
-                                   text="WELCOME RAM!"
-                                   styleClass="header-title"/>
-                            <Label text="Focus on class while we focus on parking."
-                                   styleClass="header-subtitle"/>
-                        </VBox>
-
-                        <Region HBox.hgrow="ALWAYS"/>
-
-                        <Label fx:id="userNameLabel" text="[NAME]" styleClass="top-brand"/>
+                    <HBox alignment="CENTER_RIGHT">
+                        <Label fx:id="userNameLabel" text="" styleClass="top-brand"/>
                     </HBox>
 
-                    <!-- FILTER CHIPS -->
-                    <HBox spacing="10">
-                        <Button text="Total Capacity" styleClass="chip-button chip-active"/>
-                        <Button text="Available Spots" styleClass="chip-button"/>
-
-                    </HBox>
-
-                    <!-- HERO PANELS -->
-                    <HBox spacing="18">
-                        <VBox HBox.hgrow="ALWAYS" spacing="16" styleClass="main-panel">
-                            <Label text="EVERYTHING IS ONLY ONE CLICK AWAY." styleClass="panel-title"/>
-
-                            <HBox spacing="18" alignment="CENTER_LEFT">
-                                <VBox spacing="8" HBox.hgrow="ALWAYS">
-
-
-                                    <Label text="Make a valet request when you're arriving on campus, and track it from your dashboard."
-                                           wrapText="true"
-                                           styleClass="panel-subtext"/>
-
-                                    <HBox spacing="12">
-                                        <Button fx:id="requestValetButton"
-                                                text="REQUEST VALET"
-                                                onAction="#handleCheckIn"
-                                                styleClass="primary-button"/>
-
-                                        <Button fx:id="valetStatus"
-                                                text="VALET STATUS"
-                                                onAction="#handleActiveVehicles"
-                                                styleClass="primary-button"/>
-
-                                        <Button fx:id="viewAllButton"
-                                                text="TRACKER"
-                                                onAction="#handleViewAll"
-                                                styleClass="outline-button"/>
-                                    </HBox>
+                    <!-- 4 STAT CARDS -->
+                    <HBox spacing="16">
+                        <VBox HBox.hgrow="ALWAYS" styleClass="stat-card">
+                            <HBox alignment="CENTER_LEFT">
+                                <VBox HBox.hgrow="ALWAYS" spacing="6">
+                                    <Label text="Active Vehicles" styleClass="stat-card-label"/>
+                                    <Label fx:id="activeVehiclesLabel" text="0" styleClass="stat-card-value"/>
                                 </VBox>
-
-
+                                <StackPane styleClass="stat-icon stat-icon-blue">
+                                    <Label text="🚗" style="-fx-font-size: 22px;"/>
+                                </StackPane>
                             </HBox>
                         </VBox>
 
+                        <VBox HBox.hgrow="ALWAYS" styleClass="stat-card">
+                            <HBox alignment="CENTER_LEFT">
+                                <VBox HBox.hgrow="ALWAYS" spacing="6">
+                                    <Label text="Available Spots" styleClass="stat-card-label"/>
+                                    <Label fx:id="availableSpotsLabel" text="50" styleClass="stat-card-value"/>
+                                </VBox>
+                                <StackPane styleClass="stat-icon stat-icon-green">
+                                    <Label text="P" styleClass="stat-icon-letter stat-icon-letter-green"/>
+                                </StackPane>
+                            </HBox>
+                        </VBox>
 
+                        <VBox HBox.hgrow="ALWAYS" styleClass="stat-card">
+                            <HBox alignment="CENTER_LEFT">
+                                <VBox HBox.hgrow="ALWAYS" spacing="6">
+                                    <Label text="Total Capacity" styleClass="stat-card-label"/>
+                                    <Label fx:id="totalCapacityLabel" text="50" styleClass="stat-card-value"/>
+                                </VBox>
+                                <StackPane styleClass="stat-icon stat-icon-purple">
+                                    <Label text="↗" styleClass="stat-icon-letter stat-icon-letter-purple"/>
+                                </StackPane>
+                            </HBox>
+                        </VBox>
+
+                        <VBox HBox.hgrow="ALWAYS" styleClass="stat-card">
+                            <HBox alignment="CENTER_LEFT">
+                                <VBox HBox.hgrow="ALWAYS" spacing="6">
+                                    <Label text="Today's Check-ins" styleClass="stat-card-label"/>
+                                    <Label fx:id="todayCheckinsLabel" text="0" styleClass="stat-card-value"/>
+                                </VBox>
+                                <StackPane styleClass="stat-icon stat-icon-orange">
+                                    <Label text="🕐" style="-fx-font-size: 22px;"/>
+                                </StackPane>
+                            </HBox>
+                        </VBox>
                     </HBox>
 
-                    <!-- QUICK ACTIONS -->
-                    <VBox spacing="14" styleClass="section-panel">
-                        <Label text="Quick Actions" styleClass="panel-title"/>
+                    <!-- PARKING STATUS -->
+                    <VBox spacing="12" styleClass="section-panel">
+                        <Label text="Parking Status" styleClass="panel-title"/>
 
-                        <HBox spacing="16">
-                            <StackPane HBox.hgrow="ALWAYS" styleClass="action-card" onMouseClicked="#handleCheckIn">
-                                <VBox spacing="6">
-                                    <Label text="Valet News" styleClass="action-title"/>
-                                    <Label text="Keep up to date with FSC Valet news."
-                                           wrapText="true"
-                                           styleClass="action-subtitle"/>
-                                </VBox>
-                            </StackPane>
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Occupancy Rate" styleClass="stat-card-label"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="occupancyPercentLabel" text="0%" styleClass="occupancy-percent"/>
+                        </HBox>
 
-                            <StackPane HBox.hgrow="ALWAYS" styleClass="action-card" onMouseClicked="#handleActiveVehicles">
-                                <VBox spacing="6">
-                                    <Label text="Survey" styleClass="action-title"/>
-                                    <Label text="We would love to hear from you."
-                                           wrapText="true"
-                                           styleClass="action-subtitle"/>
-                                </VBox>
-                            </StackPane>
+                        <ProgressBar fx:id="occupancyBar" progress="0" maxWidth="Infinity" styleClass="dashboard-progress-bar"/>
 
-                            <StackPane HBox.hgrow="ALWAYS" styleClass="action-card" onMouseClicked="#handleViewAll">
-                                <VBox spacing="6">
-                                    <Label text="Contact us" styleClass="action-title"/>
-                                    <Label text="(631)-909-3299."
-                                           wrapText="true"
-                                           styleClass="action-subtitle"/>
-                                </VBox>
-                            </StackPane>
+                        <HBox>
+                            <Label fx:id="parkedCountLabel" text="0 Parked" styleClass="stat-card-label"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="availableCountLabel" text="50 Available" styleClass="stat-card-label"/>
                         </HBox>
                     </VBox>
 
-                    <!-- RECENT REQUESTS -->
+                    <!-- RECENT CHECK-INS -->
                     <VBox spacing="14" styleClass="section-panel">
                         <HBox alignment="CENTER_LEFT">
-                            <Label text="Recent Requests" styleClass="panel-title"/>
+                            <Label text="Recent Check-ins" styleClass="panel-title"/>
                             <Region HBox.hgrow="ALWAYS"/>
-                            <Button text="View All" onAction="#handleViewAll" styleClass="outline-button"/>
+                            <Button fx:id="viewAllButton" text="View All" onAction="#handleViewAll" styleClass="outline-button"/>
                         </HBox>
 
                         <VBox fx:id="emptyState" alignment="CENTER" spacing="12" styleClass="empty-state-box">
-                            <Label text="No recent requests yet" styleClass="empty-state-title"/>
-                            <Label text="Once you begin using FSC Valet, your recent activity will appear here."
-                                   wrapText="true"
-                                   styleClass="panel-subtext"/>
+                            <Label text="🚗" styleClass="empty-car-icon"/>
+                            <Label text="No vehicles parked yet" styleClass="empty-state-title"/>
                             <Button fx:id="checkInFirstButton"
-                                    text="MAKE FIRST REQUEST"
+                                    text="Check In First Vehicle"
                                     onAction="#handleCheckIn"
                                     styleClass="primary-button"/>
                         </VBox>
@@ -180,10 +158,31 @@
                                   managed="false"/>
                     </VBox>
 
-                    <!-- FOOTER MESSAGE -->
-                    <HBox alignment="CENTER">
-                        <Label text="No need to worry, your vehicle is safe with FSC Valet!"
-                               styleClass="footer-text"/>
+                    <!-- BOTTOM ACTION CARDS -->
+                    <HBox spacing="16">
+                        <VBox HBox.hgrow="ALWAYS" styleClass="action-card-dashed" onMouseClicked="#handleCheckIn">
+                            <HBox alignment="CENTER_LEFT" spacing="16">
+                                <StackPane styleClass="action-icon action-icon-blue">
+                                    <Label text="+" styleClass="action-icon-plus"/>
+                                </StackPane>
+                                <VBox spacing="4">
+                                    <Label text="Check In Vehicle" styleClass="action-title"/>
+                                    <Label text="Add new vehicle to parking" styleClass="action-subtitle"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                        <VBox HBox.hgrow="ALWAYS" styleClass="action-card-dashed" onMouseClicked="#handleActiveVehicles">
+                            <HBox alignment="CENTER_LEFT" spacing="16">
+                                <StackPane styleClass="action-icon action-icon-green">
+                                    <Label text="&#8801;" styleClass="action-icon-menu"/>
+                                </StackPane>
+                                <VBox spacing="4">
+                                    <Label text="View Active Vehicles" styleClass="action-title"/>
+                                    <Label text="Manage parked vehicles" styleClass="action-subtitle"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
                     </HBox>
 
                     <padding>

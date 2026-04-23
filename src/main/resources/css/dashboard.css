@@ -257,3 +257,113 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
+
+/* ── Stat cards ── */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 8, 0.1, 0, 2);
+}
+
+.stat-card-label {
+    -fx-text-fill: #888888;
+    -fx-font-size: 13px;
+}
+
+.stat-card-value {
+    -fx-text-fill: #111111;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+.stat-icon {
+    -fx-min-width: 52;
+    -fx-min-height: 52;
+    -fx-max-width: 52;
+    -fx-max-height: 52;
+    -fx-background-radius: 12;
+    -fx-alignment: center;
+}
+
+.stat-icon-blue   { -fx-background-color: #dde8ff; }
+.stat-icon-green  { -fx-background-color: #d5f5e3; }
+.stat-icon-purple { -fx-background-color: #ead5f5; }
+.stat-icon-orange { -fx-background-color: #fde8cc; }
+
+.stat-icon-letter {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.stat-icon-letter-green  { -fx-text-fill: #27ae60; }
+.stat-icon-letter-purple { -fx-text-fill: #8e44ad; }
+
+/* ── Parking status ── */
+.occupancy-percent {
+    -fx-text-fill: #111111;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.dashboard-progress-bar {
+    -fx-pref-height: 10;
+}
+
+.dashboard-progress-bar > .track {
+    -fx-background-color: #e8e8e8;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+}
+
+.dashboard-progress-bar > .bar {
+    -fx-background-color: #0f4249;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+}
+
+/* ── Bottom action cards ── */
+.action-card-dashed {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #c0c0c0;
+    -fx-border-style: dashed;
+    -fx-border-radius: 14;
+    -fx-border-width: 2;
+    -fx-padding: 22;
+    -fx-cursor: hand;
+}
+
+.action-card-dashed:hover {
+    -fx-background-color: #f7f7f7;
+}
+
+.action-icon {
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-max-width: 50;
+    -fx-max-height: 50;
+    -fx-background-radius: 12;
+}
+
+.action-icon-blue  { -fx-background-color: #dde8ff; }
+.action-icon-green { -fx-background-color: #d5f5e3; }
+
+.action-icon-plus {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3a5fc8;
+}
+
+.action-icon-menu {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27ae60;
+}
+
+/* ── Empty state ── */
+.empty-car-icon {
+    -fx-font-size: 44px;
+    -fx-text-fill: #cccccc;
+}
