@@ -22,7 +22,7 @@
         </Label>
 
         <!-- LOGO -->
-        <ImageView fitHeight="200" fitWidth="200">
+        <ImageView fitHeight="200" fitWidth="200" styleClass="logo">
                 <Image url="@/images/ram.png"/>
         </ImageView>
 
@@ -33,7 +33,7 @@
               alignment="CENTER_LEFT"
               styleClass="input-box">
 
-            <ImageView fitHeight="18" fitWidth="18">
+            <ImageView fitHeight="18" fitWidth="18" >
                     <Image url="@/images/user_icon.png"/>
             </ImageView>
 
