@@ -120,4 +120,8 @@ public class CarService {
 
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
+
+    // Adrianna Lambert - I added this only so the error stops appearing on my code, you can delete this if you want
+    public void deleteCar(String carId) {
+    }
 }
