@@ -4,48 +4,113 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.controller.MyRequestsController">
+            fx:controller="client.controller.MyRequestsController"
+            stylesheets="@../css/my_requests.css"
+            styleClass="requests-root">
 
-    <!-- HEADER -->
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="16">
-            <Button text="← Back" onAction="#handleBack"/>
-            <Label text="My Requests"/>
-            <padding>
-                <Insets top="16" right="24" bottom="16" left="24"/>
-            </padding>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="top-bar">
+            <ImageView fitHeight="42" fitWidth="42" preserveRatio="true">
+                <Image url="@/images/ram.png"/>
+            </ImageView>
+
+            <VBox spacing="2">
+                <Label text="FSC VALET" styleClass="brand-title"/>
+                <Label text="My Requests" styleClass="brand-subtitle"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button text="Back to Dashboard"
+                    onAction="#handleBack"
+                    styleClass="outline-button"/>
         </HBox>
     </top>
 
-    <!-- LIST -->
     <center>
-        <VBox spacing="16">
+        <VBox spacing="20" styleClass="page-content">
+            <VBox spacing="6">
+                <Label text="My Requests" styleClass="page-title"/>
+                <Label text="Track your valet tickets, view their status, and manage your recent activity."
+                       styleClass="page-subtitle" wrapText="true"/>
+            </VBox>
+
+            <HBox spacing="16">
+                <VBox HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" styleClass="summary-card">
+                    <Label text="Request Overview" styleClass="summary-title"/>
+                    <Label text="Your valet request history will appear below once your tickets are retrieved from the system."
+                           styleClass="summary-text" wrapText="true"/>
+                </VBox>
+
+                <VBox styleClass="action-panel" spacing="12">
+                    <Label text="Need Another Request?" styleClass="summary-title"/>
+                    <Label text="Submit a new valet request from here."
+                           styleClass="summary-text" wrapText="true"/>
+                    <Button text="Make a Request"
+                            onAction="#handleMakeRequest"
+                            styleClass="primary-button"/>
+                </VBox>
+            </HBox>
+
+            <StackPane VBox.vgrow="ALWAYS">
+
+                <VBox fx:id="emptyState"
+                      alignment="CENTER"
+                      spacing="14"
+                      styleClass="empty-state-box">
+                    <ImageView fitHeight="90" fitWidth="90" preserveRatio="true">
+                        <Image url="@/images/ram.png"/>
+                    </ImageView>
+
+                    <Label text="No requests found"
+                           styleClass="empty-state-title"/>
+
+                    <Label text="You have not submitted any valet requests yet. Once you do, your tickets and statuses will appear here."
+                           wrapText="true"
+                           styleClass="empty-state-subtext"/>
+
+                    <Button text="Make First Request"
+                            onAction="#handleMakeRequest"
+                            styleClass="primary-button"/>
+                </VBox>
+
+                <ScrollPane fx:id="listScroll"
+                            fitToWidth="true"
+                            visible="false"
+                            managed="false"
+                            styleClass="requests-scroll">
+                    <content>
+                        <VBox fx:id="ticketList"
+                              spacing="14"
+                              styleClass="ticket-list">
+                            <padding>
+                                <Insets top="4" right="4" bottom="4" left="4"/>
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+            </StackPane>
+
+            <HBox alignment="CENTER">
+                <Label text="Focus on class while we focus on parking"
+                       styleClass="footer-text"/>
+            </HBox>
+
             <padding>
                 <Insets top="24" right="24" bottom="24" left="24"/>
             </padding>
-
-            <!-- Empty state -->
-            <VBox fx:id="emptyState" spacing="8" alignment="CENTER">
-                <Label text="No requests yet."/>
-                <Button text="Make a Request" onAction="#handleMakeRequest"/>
-            </VBox>
-
-            <!-- Ticket list -->
-            <ScrollPane fx:id="listScroll" fitToWidth="true" visible="false" managed="false">
-                <content>
-                    <VBox fx:id="ticketList" spacing="12">
-                        <padding>
-                            <Insets top="4" right="4" bottom="4" left="4"/>
-                        </padding>
-                    </VBox>
-                </content>
-            </ScrollPane>
         </VBox>
     </center>
 </BorderPane>
