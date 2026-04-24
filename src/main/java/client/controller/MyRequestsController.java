@@ -92,18 +92,24 @@ public class MyRequestsController {
         return end == -1 ? null : json.substring(start, end);
     }
 
-    private VBox buildTicketRow(String[] ticket) {
+    private VBox buildTicketRow(String[] ticket) { //Jahnelle adjusted
         String number = ticket[0] != null ? ticket[0] : "—";
         String type   = ticket[1] != null ? ticket[1] : "—";
         String status = ticket[2] != null ? ticket[2] : "—";
 
-        Label numLabel    = new Label("Ticket: " + number);
-        Label typeLabel   = new Label("Type: " + type);
-        Label statusLabel = new Label("Status: " + status);
+        Label numLabel = new Label("Ticket: " + number);
+        numLabel.getStyleClass().add("ticket-number");
 
-        VBox row = new VBox(4, numLabel, typeLabel, statusLabel);
-        row.setPadding(new Insets(12));
-        row.setStyle("-fx-border-color: #aaaaaa; -fx-border-radius: 4;");
+        Label typeLabel = new Label("Type: " + type);
+        typeLabel.getStyleClass().add("ticket-detail");
+
+        Label statusLabel = new Label("Status: " + status);
+        statusLabel.getStyleClass().add("ticket-status");
+
+        VBox row = new VBox(6, numLabel, typeLabel, statusLabel);
+        row.setPadding(new Insets(16));
+        row.getStyleClass().add("ticket-card");
+
         return row;
     }
 
