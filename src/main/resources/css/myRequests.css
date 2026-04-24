@@ -2,148 +2,208 @@
     font-family: "Montserrat";
 }
 
+/* ROOT */
+.root,
 .requests-root {
-    -fx-font-family: "Montserrat";
     -fx-background-color: linear-gradient(to bottom, #1a717a, #0f4249, #092b30, #08252b);
+    -fx-font-family: "Montserrat";
 }
 
-.top-bar {
-    -fx-background-color: rgba(6, 40, 45, 0.88);
-    -fx-border-color: rgba(245, 218, 130, 0.30);
+/* BORDERPANE/CENTER AREAS STAY TRANSPARENT */
+.border-pane {
+    -fx-background-color: transparent;
+}
+
+.stack-pane,
+.vbox,
+.hbox {
+    -fx-background-color: transparent;
+}
+
+/* ── HEADER ─────────────────────────────────── */
+.mr-header {
+    -fx-background-color: rgba(8, 37, 43, 0.72);
+    -fx-border-color: rgba(245, 218, 130, 0.18);
     -fx-border-width: 0 0 1 0;
     -fx-padding: 16 24 16 24;
+    -fx-spacing: 16;
+    -fx-alignment: CENTER_LEFT;
 }
 
-.brand-title {
-    -fx-text-fill: linear-gradient(to right,
-    #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-letter-spacing: 2px;
-}
-
-.brand-subtitle {
-    -fx-text-fill: #DDE4E5;
-    -fx-font-size: 12px;
-}
-
-.page-content {
-    -fx-background-color: transparent;
-}
-
-.page-title {
-    -fx-text-fill: #F5DA82;
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-}
-
-.page-subtitle {
-    -fx-text-fill: #DDE4E5;
-    -fx-font-size: 13px;
-}
-
-.summary-card {
-    -fx-background-color: rgba(8, 45, 51, 0.55);
-    -fx-border-color: rgba(245, 218, 130, 0.45);
-    -fx-border-width: 1.2;
-    -fx-border-radius: 16;
-    -fx-background-radius: 16;
-    -fx-padding: 20;
-    -fx-spacing: 8;
-}
-
-.action-panel {
-    -fx-pref-width: 260;
-    -fx-background-color: rgba(8, 45, 51, 0.50);
-    -fx-border-color: rgba(245, 218, 130, 0.40);
-    -fx-border-width: 1.2;
-    -fx-border-radius: 16;
-    -fx-background-radius: 16;
-    -fx-padding: 18;
-}
-
-.summary-title {
-    -fx-text-fill: #F5DA82;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-}
-
-.summary-text {
-    -fx-text-fill: #DDE4E5;
-    -fx-font-size: 13px;
-}
-
-.primary-button {
-    -fx-background-color: linear-gradient(to right,
-    #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
-    -fx-background-insets: 0;
-    -fx-text-fill: #114A50;
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 8;
-    -fx-padding: 10 20 10 20;
-    -fx-cursor: hand;
-}
-
-.primary-button:hover {
-    -fx-opacity: 0.96;
-}
-
-.outline-button {
-    -fx-background-color: transparent;
-    -fx-border-color: #CFA83D;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-text-fill: #F5DA82;
-    -fx-font-size: 12px;
-    -fx-padding: 8 14 8 14;
-    -fx-cursor: hand;
-}
-
-.outline-button:hover {
-    -fx-background-color: rgba(245, 218, 130, 0.10);
-}
-
-.empty-state-box {
-    -fx-max-width: 700;
-    -fx-background-color: rgba(8, 45, 51, 0.48);
-    -fx-border-color: rgba(245, 218, 130, 0.35);
-    -fx-border-width: 1.2;
-    -fx-border-radius: 18;
-    -fx-background-radius: 18;
-    -fx-padding: 36;
-}
-
-.empty-state-title {
+.mr-title {
     -fx-text-fill: #F5DA82;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
 
-.empty-state-subtext {
+/* BACK BUTTON */
+.back-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(86, 137, 145, 0.55);
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
     -fx-text-fill: #DDE4E5;
     -fx-font-size: 13px;
-    -fx-text-alignment: center;
-    -fx-alignment: center;
-    -fx-max-width: 420;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
 }
 
-.requests-scroll {
+.back-btn:hover {
+    -fx-border-color: #F5DA82;
+    -fx-text-fill: #F5DA82;
+}
+
+.back-btn:pressed {
+    -fx-opacity: 0.75;
+}
+
+/* ── SCROLL PANE ─────────────────────────────── */
+.mr-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-padding: 0;
+}
+
+.mr-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.mr-scroll .corner {
+    -fx-background-color: transparent;
+}
+
+.inner-scroll {
     -fx-background: transparent;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
-.requests-scroll > .viewport {
+.inner-scroll > .viewport {
     -fx-background-color: transparent;
 }
 
-.ticket-list {
+.inner-scroll .corner {
     -fx-background-color: transparent;
 }
 
-.footer-text {
+/* ── PAGE WRAPPER ────────────────────────────── */
+.page-wrapper {
+    -fx-background-color: transparent;
+}
+
+.page-shell {
+    -fx-background-color: transparent;
+}
+
+/* ── FORM CARD ───────────────────────────────── */
+.form-card {
+    -fx-background-color: rgba(10, 44, 50, 0.68);
+    -fx-border-color: rgba(86, 137, 145, 0.32);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 18;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.28), 20, 0.08, 0, 5);
+    -fx-pref-width: 640;
+    -fx-max-width: 640;
+    -fx-spacing: 18;
+}
+
+/* ── SECTION HEADER ──────────────────────────── */
+.section-title {
+    -fx-text-fill: #F5DA82;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 6 0;
+}
+
+.section-divider {
+    -fx-background-color: rgba(86, 137, 145, 0.28);
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+}
+
+.info-text {
     -fx-text-fill: #DDE4E5;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+}
+
+/* ── EMPTY STATE ─────────────────────────────── */
+.empty-state-box {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-border-color: rgba(86, 137, 145, 0.24);
+    -fx-border-width: 1.2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 26 20 26 20;
+}
+
+.empty-state-title {
+    -fx-text-fill: #F5DA82;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.empty-state-text {
+    -fx-text-fill: #DDE4E5;
+    -fx-font-size: 13px;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-max-width: 360;
+}
+
+/* ── SUBMIT BUTTON ───────────────────────────── */
+.submit-btn {
+    -fx-background-color: linear-gradient(to right,
+        #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
+    -fx-background-insets: 0;
+    -fx-text-fill: #114A50;
     -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 14 0 14 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(220, 184, 76, 0.30), 10, 0.2, 0, 2);
+}
+
+.submit-btn:hover {
+    -fx-background-color: linear-gradient(to right,
+        #d1a331, #dcb249, #eac451, #f8d66d, #F5DA82, #FDF4AB);
+}
+
+.submit-btn:pressed {
+    -fx-background-color: linear-gradient(to right,
+        #8f6d1f, #a8852f, #c9a93d);
+    -fx-opacity: 0.9;
+}
+
+/* ── TICKET CARD STYLES ──────────────────────── */
+.ticket-card {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-border-color: rgba(86, 137, 145, 0.30);
+    -fx-border-width: 1.3;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+    -fx-spacing: 8;
+}
+
+.ticket-number {
+    -fx-text-fill: #F5DA82;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.ticket-detail {
+    -fx-text-fill: #DDE4E5;
+    -fx-font-size: 13px;
+}
+
+.ticket-status {
+    -fx-text-fill: #8db8be;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
