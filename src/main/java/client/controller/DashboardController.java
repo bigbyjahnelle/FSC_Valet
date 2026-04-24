@@ -48,7 +48,7 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-        userNameLabel.setText("Hello, " + SessionManager.getFirstName());
+        userNameLabel.setText("Welcome, " + SessionManager.getFirstName());
 
         ButtonEffects.applyAll(navCheckInButton);
         ButtonEffects.applyAll(navActiveVehiclesButton);
