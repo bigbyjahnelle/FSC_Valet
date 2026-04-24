@@ -92,7 +92,7 @@ public class MyRequestsController {
         return end == -1 ? null : json.substring(start, end);
     }
 
-    private VBox buildTicketRow(String[] ticket) { //Jahnelle adjusted
+    private VBox buildTicketRow(String[] ticket) {
         String number = ticket[0] != null ? ticket[0] : "—";
         String type   = ticket[1] != null ? ticket[1] : "—";
         String status = ticket[2] != null ? ticket[2] : "—";
