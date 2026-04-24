@@ -1,5 +1,6 @@
 package client.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -7,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import shared.util.SceneTransition;
 import shared.util.SessionManager;
+
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
 
 public class ProfileController {
 
@@ -25,6 +29,8 @@ public class ProfileController {
     @FXML private PasswordField confirmPasswordField;
     @FXML private Label passwordStatusLabel;
 
+    private final HttpClient httpClient = HttpClient.newHttpClient();
+
     @FXML
     public void initialize() {
         fullNameLabel.setText(SessionManager.getFullName());
@@ -32,12 +38,14 @@ public class ProfileController {
         roleLabel.setText("CUSTOMER"); // TODO: store role in SessionManager
 
         fullNameField.setText(SessionManager.getFullName());
+        phoneField.setText(SessionManager.getPhone());
     }
 
     @FXML
     private void handleSaveProfile() {
         String name  = fullNameField.getText().trim();
         String phone = phoneField.getText().trim();
+        String uid = shared.util.SessionManager.getUid();
 
         if (name.isEmpty()) {
             profileStatusLabel.setText("Name cannot be empty.");
@@ -45,9 +53,32 @@ public class ProfileController {
             return;
         }
 
-        // TODO: POST updated name/phone to server endpoint (not yet implemented)
-        profileStatusLabel.setText("Changes saved."); // placeholder until endpoint exists
-        profileStatusLabel.setStyle("-fx-text-fill: green;");
+        String json = String.format(
+                "{\"uid\":\"%s\", \"fullName\":\"%s\", \"phone\":\"%s\"}",
+                uid, name, phone
+        );
+
+        java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+                .uri(java.net.URI.create(shared.util.ServerConfig.SERVER_URL + "/api/auth/update-profile"))
+                .header("Content-Type", "application/json")
+                .POST(java.net.http.HttpRequest.BodyPublishers.ofString(json))
+                .build();
+
+        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> Platform.runLater(() -> {
+                    if (response.statusCode() == 200) {
+                        // Update the session variables individually
+                        SessionManager.setFullName(name);
+                        SessionManager.setPhone(phone);
+
+                        fullNameLabel.setText(name);
+                        profileStatusLabel.setText("Profile updated.");
+                        profileStatusLabel.setStyle("-fx-text-fill: green;");
+                    } else {
+                        profileStatusLabel.setText("Update failed.");
+                        profileStatusLabel.setStyle("-fx-text-fill: red;");
+                    }
+                }));
     }
 
     @FXML
@@ -73,9 +104,29 @@ public class ProfileController {
             return;
         }
 
-        // TODO: POST new password to server endpoint (not yet implemented)
-        passwordStatusLabel.setText("Password updated."); // placeholder until endpoint exists
-        passwordStatusLabel.setStyle("-fx-text-fill: green;");
+        String json = String.format("{\"uid\":\"%s\", \"password\":\"%s\"}",
+                shared.util.SessionManager.getUid(), newPass);
+
+        java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+                .uri(java.net.URI.create(shared.util.ServerConfig.SERVER_URL + "/api/auth/change-password"))
+                .header("Content-Type", "application/json")
+                .POST(java.net.http.HttpRequest.BodyPublishers.ofString(json))
+                .build();
+
+        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> Platform.runLater(() -> {
+                    if (response.statusCode() == 200) {
+                        passwordStatusLabel.setText("Password updated.");
+                        passwordStatusLabel.setStyle("-fx-text-fill: green;");
+
+                        // Optional: Clear fields after success
+                        newPasswordField.clear();
+                        confirmPasswordField.clear();
+                    } else {
+                        passwordStatusLabel.setText("Failed to update password.");
+                        passwordStatusLabel.setStyle("-fx-text-fill: red;");
+                    }
+                }));
     }
 
     @FXML
