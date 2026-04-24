@@ -69,28 +69,54 @@ public class MakeRequestController {
     private void submitRequest(String make, String model, int year, String color, String plate) {
         String uid = SessionManager.getUid();
 
-        String json = String.format(
-            "{\"ownerId\":\"%s\",\"make\":\"%s\",\"model\":\"%s\",\"year\":%d,\"color\":\"%s\",\"licensePlate\":\"%s\"}",
-            uid, make, model, year, color, plate
+        String carJson = String.format(
+                "{\"ownerId\":\"%s\",\"make\":\"%s\",\"model\":\"%s\",\"year\":%d,\"color\":\"%s\",\"licensePlate\":\"%s\"}",
+                uid, make, model, year, color, plate
         );
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(ServerConfig.SERVER_URL + "/api/tickets"))
+        HttpRequest carRequest = HttpRequest.newBuilder()
+                .uri(URI.create(ServerConfig.SERVER_URL + "/api/cars"))
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .POST(HttpRequest.BodyPublishers.ofString(carJson))
                 .build();
 
-        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+        httpClient.sendAsync(carRequest, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(carResponse -> Platform.runLater(() -> {
+                    if (carResponse.statusCode() == 200 || carResponse.statusCode() == 201) {
+                        String carId = extractString(carResponse.body(), "carId");
+                        submitTicket(uid, carId);
+                    } else {
+                        statusLabel.setText("Failed to register car. Please try again.");
+                    }
+                }))
+                .exceptionally(ex -> {
+                    Platform.runLater(() -> statusLabel.setText("Could not connect to server."));
+                    return null;
+                });
+    }
+
+    private void submitTicket(String uid, String carId) {
+        String ticketJson = String.format(
+                "{\"customerId\":\"%s\",\"carId\":\"%s\",\"type\":\"PARK\"}",
+                uid, carId
+        );
+
+        HttpRequest ticketRequest = HttpRequest.newBuilder()
+                .uri(URI.create(ServerConfig.SERVER_URL + "/api/tickets"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(ticketJson))
+                .build();
+
+        httpClient.sendAsync(ticketRequest, HttpResponse.BodyHandlers.ofString())
                 .thenAccept(response -> Platform.runLater(() -> {
                     if (response.statusCode() == 200 || response.statusCode() == 201) {
-                        String body = response.body();
-                        String ticketNumber = extractString(body, "ticketNumber");
-                        String type         = extractString(body, "type");
-                        String today        = java.time.LocalDate.now().toString();
+                        String ticketNumber = extractString(response.body(), "ticketNumber");
+                        String type = extractString(response.body(), "type");
+                        String today = java.time.LocalDate.now().toString();
                         ConfirmationData.set(
-                            ticketNumber != null ? ticketNumber : "—",
-                            type != null ? type : "—",
-                            today
+                                ticketNumber != null ? ticketNumber : "—",
+                                type != null ? type : "—",
+                                today
                         );
                         Stage stage = (Stage) makeField.getScene().getWindow();
                         SceneTransition.fadeSwitch(stage, "/fxml/confirmation.fxml", "FSC Valet - Confirmation");

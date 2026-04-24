@@ -39,4 +39,11 @@ public class UserService {
                 .get()
                 .toObject(User.class);
     }
+
+    public void updateUserInfo(String uid, String name, String phone) throws Exception {
+        firestore.collection("users")
+                .document(uid)
+                .update("fullName", name, "phone", phone)
+                .get();
+    }
 }
