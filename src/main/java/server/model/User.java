@@ -33,4 +33,9 @@ public class User {
 
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+
+    public String getPhoneNumber()
+    {
+        return phone;
+    }
 }
