@@ -4,48 +4,95 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.controller.MyRequestsController">
+            fx:controller="client.controller.MyRequestsController"
+            stylesheets="@../css/makeRequest.css"
+            styleClass="root">
 
-    <!-- HEADER -->
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="16">
-            <Button text="← Back" onAction="#handleBack"/>
-            <Label text="My Requests"/>
-            <padding>
-                <Insets top="16" right="24" bottom="16" left="24"/>
-            </padding>
+        <HBox styleClass="mr-header">
+            <Button text="← Back"
+                    onAction="#handleBack"
+                    styleClass="back-btn"/>
+
+
+            <Label text=" FSC VALET - MY REQUESTS" styleClass="mr-title"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button text="Help"
+                    onAction="#handleMakeRequest"
+                    styleClass="submit-btn"
+                    prefWidth="90"/>
         </HBox>
     </top>
 
-    <!-- LIST -->
     <center>
-        <VBox spacing="16">
-            <padding>
-                <Insets top="24" right="24" bottom="24" left="24"/>
-            </padding>
+        <ScrollPane fx:id="pageScroll"
+                    fitToWidth="true"
+                    styleClass="mr-scroll">
+            <content>
+                <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 28;">
 
-            <!-- Empty state -->
-            <VBox fx:id="emptyState" spacing="8" alignment="CENTER">
-                <Label text="No requests yet."/>
-                <Button text="Make a Request" onAction="#handleMakeRequest"/>
-            </VBox>
-
-            <!-- Ticket list -->
-            <ScrollPane fx:id="listScroll" fitToWidth="true" visible="false" managed="false">
-                <content>
-                    <VBox fx:id="ticketList" spacing="12">
+                    <VBox styleClass="form-card">
                         <padding>
-                            <Insets top="4" right="4" bottom="4" left="4"/>
+                            <Insets top="24" right="24" bottom="24" left="24"/>
                         </padding>
+
+                        <Label text="Request History" styleClass="section-title"/>
+                        <Region styleClass="section-divider"/>
+
+                        <Label text="Track all your valet tickets and check the current status of each request."
+                               wrapText="true"
+                               styleClass="info-text"/>
+
+                        <VBox fx:id="emptyState"
+                              alignment="CENTER"
+                              spacing="14"
+                              styleClass="empty-state-box">
+                            <ImageView fitHeight="80" fitWidth="80" preserveRatio="true">
+                                <Image url="@/images/ram.png"/>
+                            </ImageView>
+
+                            <Label text="No requests found" styleClass="empty-state-title"/>
+
+                            <Label text="You have not submitted any valet requests yet. Once you do, your tickets will appear here."
+                                   wrapText="true"
+                                   styleClass="empty-state-text"/>
+
+                            <Button text="Make a Request"
+                                    onAction="#handleMakeRequest"
+                                    styleClass="submit-btn"
+                                    prefWidth="220"/>
+                        </VBox>
+
+                        <ScrollPane fx:id="listScroll"
+                                    fitToWidth="true"
+                                    visible="false"
+                                    managed="false"
+                                    styleClass="mr-scroll inner-scroll">
+                            <content>
+                                <VBox fx:id="ticketList" spacing="14">
+                                    <padding>
+                                        <Insets top="4" right="2" bottom="4" left="2"/>
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
                     </VBox>
-                </content>
-            </ScrollPane>
-        </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
     </center>
 </BorderPane>
