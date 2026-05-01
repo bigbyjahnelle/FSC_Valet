@@ -72,6 +72,16 @@ public class CarService {
          */
     }
 
+    //This method is for getting the request for users
+    public Car getCarById(String carId) throws ExecutionException, InterruptedException
+    {
+        return firestore.collection(COLLECTION)
+                .document(carId)
+                .get()
+                .get()
+                .toObject(Car.class);
+    }
+
     /**
      * Deletes a car document by carId.
      */
