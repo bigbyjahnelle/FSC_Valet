@@ -113,17 +113,28 @@ public class MyRequestsController {
         String number = ticket[0] != null ? ticket[0] : "—";
         String type   = ticket[1] != null ? ticket[1] : "—";
         String status = ticket[2] != null ? ticket[2] : "—";
+        String make   = ticket[3] != null ? ticket[3] : "—";
+        String model  = ticket[4] != null ? ticket[4] : "—";
+        String year   = ticket[5] != null ? ticket[5] : "—";
+        String color  = ticket[6] != null ? ticket[6] : "—";
+        String plate  = ticket[7] != null ? ticket[7] : "—";
 
-        Label numLabel = new Label("Ticket: " + number);
+        Label numLabel    = new Label("Ticket: " + number);
         numLabel.getStyleClass().add("ticket-number");
 
-        Label typeLabel = new Label("Type: " + type);
+        Label vehicleLabel = new Label(year + " " + make + " " + model + " (" + color + ")");
+        vehicleLabel.getStyleClass().add("ticket-detail");
+
+        Label plateLabel  = new Label("Plate: " + plate);
+        plateLabel.getStyleClass().add("ticket-detail");
+
+        Label typeLabel   = new Label("Type: " + type);
         typeLabel.getStyleClass().add("ticket-detail");
 
         Label statusLabel = new Label("Status: " + status);
         statusLabel.getStyleClass().add("ticket-status");
 
-        VBox row = new VBox(6, numLabel, typeLabel, statusLabel);
+        VBox row = new VBox(6, numLabel, vehicleLabel, plateLabel, typeLabel, statusLabel);
         row.setPadding(new Insets(16));
         row.getStyleClass().add("ticket-card");
 
