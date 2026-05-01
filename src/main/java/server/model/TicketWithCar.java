@@ -46,4 +46,20 @@ public class TicketWithCar
             this.licensePlate = car.getLicensePlate();
         }
     }
+
+    public String getTicketId()     { return ticketId; }
+    public String getTicketNumber() { return ticketNumber; }
+    public String getCustomerId()   { return customerId; }
+    public String getCarId()        { return carId; }
+    public String getType()         { return type; }
+    public String getStatus()       { return status; }
+    public boolean isArchived()     { return archived; }
+    public String getNotes()        { return notes; }
+    public Date getCreatedAt()      { return createdAt; }
+    public Date getCompletedAt()    { return completedAt; }
+    public String getMake()         { return make; }
+    public String getModel()        { return model; }
+    public int getYear()            { return year; }
+    public String getColor()        { return color; }
+    public String getLicensePlate() { return licensePlate; }
 }
