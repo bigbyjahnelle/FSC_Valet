@@ -41,6 +41,12 @@ public class MyRequestsController {
 
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenAccept(response -> Platform.runLater(() -> {
+                    /*
+                        Debugs for if there is something wrong with getting ticket information
+                        System.out.println("MY REQUESTS - Status: " + response.statusCode());
+                        System.out.println("MY REQUESTS - Body: " + response.body());
+                    */
+
                     if (response.statusCode() == 200) {
                         parseAndDisplay(response.body());
                     }
