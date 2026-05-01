@@ -56,11 +56,23 @@ public class AuthService {
             String fullName = userRecord.getDisplayName();
             if (fullName == null) fullName = "";
 
+            String phone = "";
+
+            //This is to help try to get the phone number from the firestore for each user
+            try {
+                User firestoreUser = userService.getUserById(uId);
+                if (firestoreUser != null && firestoreUser.getPhoneNumber() != null) {
+                    phone = firestoreUser.getPhoneNumber();
+                }
+            } catch (Exception ignored) {}
+
             response.setSuccess(true);
             response.setMessage("Login Successful For: " + email);
             response.setToken(idToken);
 
             response.setFullName(fullName);
+
+            response.setPhone(phone);
 
             return response;
         } catch (FirebaseAuthException e) {
