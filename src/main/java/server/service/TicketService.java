@@ -3,15 +3,13 @@ package server.service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import org.springframework.stereotype.Service;
+import server.model.Car;
 import server.model.Ticket;
+import server.model.TicketWithCar;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -23,10 +21,12 @@ public class TicketService {
     private static final String COUNTER_DOC      = "tickets";
     private static final String COUNTER_FIELD    = "lastNumber";
 
+    private final CarService carService;
     private final Firestore firestore;
 
-    public TicketService(Firestore firestore) {
+    public TicketService(CarService carService, Firestore firestore) {
         this.firestore = firestore;
+        this.carService = carService;
     }
 
     /**
@@ -132,6 +132,18 @@ public class TicketService {
         return future.get().getDocuments().stream()
                 .map(doc -> doc.toObject(Ticket.class))
                 .collect(Collectors.toList());
+    }
+
+    //This will get the users ticket and the car info with it and keep them together from the firestore
+    public List<TicketWithCar> getTicketsWithCarByCustomer(String customerId)
+            throws ExecutionException, InterruptedException {
+        List<Ticket> tickets = getTicketsByCustomer(customerId);
+        List<TicketWithCar> results = new ArrayList<>();
+        for (Ticket ticket : tickets) {
+            Car car = carService.getCarById(ticket.getCarId());
+            results.add(new TicketWithCar(ticket, car));
+        }
+        return results;
     }
 
     // Returns count of tickets created today
