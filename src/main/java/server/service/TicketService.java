@@ -94,12 +94,20 @@ public class TicketService {
     public List<Ticket> getTicketsByCustomer(String customerId)
             throws ExecutionException, InterruptedException {
 
+        //System.out.println("getTicketsByCustomer called with: " + customerId);
+
         List<QueryDocumentSnapshot> docs = firestore.collection(COLLECTION)
                 .whereEqualTo("customerId", customerId)
                 .orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .get()
                 .getDocuments();
+
+        //System.out.println("Firestore docs returned: " + docs.size());
+        List<Ticket> tickets = docs.stream()
+                .map(doc -> doc.toObject(Ticket.class))
+                .toList();
+        //System.out.println("Tickets mapped: " + tickets.size());
 
         return docs.stream()
                 .map(doc -> doc.toObject(Ticket.class))
@@ -139,9 +147,14 @@ public class TicketService {
             throws ExecutionException, InterruptedException {
         List<Ticket> tickets = getTicketsByCustomer(customerId);
         List<TicketWithCar> results = new ArrayList<>();
-        for (Ticket ticket : tickets) {
-            Car car = carService.getCarById(ticket.getCarId());
-            results.add(new TicketWithCar(ticket, car));
+        //Also checks if there are any nulls just in-case an error slips by
+        for (Ticket t : tickets) {
+            Car car = null;
+            String carId = t.getCarId();
+            if (carId != null && !carId.isEmpty() && !carId.equals("null")) {
+                car = carService.getCarById(carId);
+            }
+            results.add(new TicketWithCar(t, car));
         }
         return results;
     }
