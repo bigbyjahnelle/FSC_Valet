@@ -40,6 +40,17 @@ public class TicketController {
         }
     }
 
+    // GET /api/tickets/customer/{customerId}/details  — returns tickets with vehicle info
+    @GetMapping("/customer/{customerId}/details")
+    public ResponseEntity<List<server.model.TicketWithCar>> getTicketsWithCar(
+            @PathVariable String customerId) {
+        try {
+            return ResponseEntity.ok(ticketService.getTicketsWithCarByCustomer(customerId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
     // GET /api/tickets/queue  (staff only)
     @GetMapping("/queue")
     public ResponseEntity<List<Ticket>> getPendingQueue() {
