@@ -5,6 +5,7 @@ public class LoginResponse {
     private String message;
     private String token;
     private String fullName;
+    private String phone;
 
     public boolean isSuccess() { return success; }
     public void setSuccess(boolean success) { this.success = success; }
@@ -17,4 +18,7 @@ public class LoginResponse {
 
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
+
+    public String getPhone() { return phone;}
+    public void setPhone(String phone) { this.phone = phone; }
 }
