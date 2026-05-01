@@ -35,7 +35,7 @@ public class MyRequestsController {
         String uid = SessionManager.getUid();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(ServerConfig.SERVER_URL + "/api/tickets/customer/" + uid))
+                .uri(URI.create(ServerConfig.SERVER_URL + "/api/tickets/customer/" + uid + "/details"))
                 .GET()
                 .build();
 
