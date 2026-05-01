@@ -74,15 +74,21 @@ public class MyRequestsController {
             int end = json.indexOf("}", i);
             if (end == -1) break;
             String entry = json.substring(i, end + 1);
-            String number = extractString(entry, "ticketNumber");
-            String type   = extractString(entry, "type");
-            String status = extractString(entry, "status");
-            if (number != null) results.add(new String[]{number, type, status});
+            String number  = extractString(entry, "ticketNumber");
+            String type    = extractString(entry, "type");
+            String status  = extractString(entry, "status");
+            String make    = extractString(entry, "make");
+            String model   = extractString(entry, "model");
+            String year    = extractInt(entry, "year");
+            String color   = extractString(entry, "color");
+            String plate   = extractString(entry, "licensePlate");
+            if (number != null) results.add(new String[]{number, type, status, make, model, year, color, plate});
             i = end + 1;
         }
         return results;
     }
 
+    //This gets the string from the firestore that was put in for the car
     private String extractString(String json, String key) {
         String search = "\"" + key + "\":\"";
         int start = json.indexOf(search);
@@ -90,6 +96,17 @@ public class MyRequestsController {
         start += search.length();
         int end = json.indexOf("\"", start);
         return end == -1 ? null : json.substring(start, end);
+    }
+
+    //This gets the int from the firestore that was put in for the car
+    private String extractInt(String json, String key) {
+        String search = "\"" + key + "\":";
+        int start = json.indexOf(search);
+        if (start == -1) return null;
+        start += search.length();
+        int end = start;
+        while (end < json.length() && (Character.isDigit(json.charAt(end)) || json.charAt(end) == '-')) end++;
+        return end > start ? json.substring(start, end) : null;
     }
 
     private VBox buildTicketRow(String[] ticket) { //Jahnelle adjusted
