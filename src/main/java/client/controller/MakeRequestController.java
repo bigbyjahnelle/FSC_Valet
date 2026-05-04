@@ -22,6 +22,7 @@ public class MakeRequestController {
     @FXML private TextField yearField;
     @FXML private TextField colorField;
     @FXML private TextField licensePlateField;
+    @FXML private TextField parkingSpaceField;
     @FXML private Label statusLabel;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
@@ -54,7 +55,8 @@ public class MakeRequestController {
         }
 
         statusLabel.setText("");
-        submitRequest(make, model, year, color, plate);
+        String parkingSpace = parkingSpaceField.getText().trim();
+        submitRequest(make, model, year, color, plate, parkingSpace);
     }
 
     private String extractString(String json, String key) {
@@ -66,7 +68,7 @@ public class MakeRequestController {
         return end == -1 ? null : json.substring(start, end);
     }
 
-    private void submitRequest(String make, String model, int year, String color, String plate) {
+    private void submitRequest(String make, String model, int year, String color, String plate, String parkingSpace) {
         String uid = SessionManager.getUid();
 
         String carJson = String.format(
@@ -84,7 +86,7 @@ public class MakeRequestController {
                 .thenAccept(carResponse -> Platform.runLater(() -> {
                     if (carResponse.statusCode() == 200 || carResponse.statusCode() == 201) {
                         String carId = extractString(carResponse.body(), "carId");
-                        submitTicket(uid, carId);
+                        submitTicket(uid, carId, parkingSpace);
                     } else {
                         statusLabel.setText("Failed to register car. Please try again.");
                     }
@@ -95,10 +97,11 @@ public class MakeRequestController {
                 });
     }
 
-    private void submitTicket(String uid, String carId) {
+    private void submitTicket(String uid, String carId, String parkingSpace) {
+        String customerName = SessionManager.getFullName();
         String ticketJson = String.format(
-                "{\"customerId\":\"%s\",\"carId\":\"%s\",\"type\":\"PARK\"}",
-                uid, carId
+                "{\"customerId\":\"%s\",\"carId\":\"%s\",\"type\":\"PARK\",\"customerName\":\"%s\",\"parkingSpace\":\"%s\"}",
+                uid, carId, customerName, parkingSpace
         );
 
         HttpRequest ticketRequest = HttpRequest.newBuilder()

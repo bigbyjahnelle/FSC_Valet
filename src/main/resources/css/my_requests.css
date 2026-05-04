@@ -178,3 +178,39 @@
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
+
+.edit-btn {
+    -fx-background-color: rgba(245, 218, 130, 0.12);
+    -fx-border-color: rgba(245, 218, 130, 0.55);
+    -fx-border-width: 1.2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #F5DA82;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+}
+
+.edit-btn:hover {
+    -fx-background-color: rgba(245, 218, 130, 0.24);
+    -fx-border-color: #F5DA82;
+}
+
+.delete-btn {
+    -fx-background-color: rgba(220, 53, 69, 0.18);
+    -fx-border-color: rgba(220, 53, 69, 0.6);
+    -fx-border-width: 1.2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #ff6b7a;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+}
+
+.delete-btn:hover {
+    -fx-background-color: rgba(220, 53, 69, 0.35);
+    -fx-border-color: #ff6b7a;
+}

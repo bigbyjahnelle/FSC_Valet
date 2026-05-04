@@ -23,6 +23,8 @@ public class Ticket {
     private String assignedStaffId; // ref → users/{uid}, null until staff claims ticket
     private boolean archived;       // true when COMPLETED or CANCELLED
     private String notes;           // optional
+    private String customerName;    // denormalized from user profile at creation time
+    private String parkingSpace;    // assigned parking spot e.g. "A-12"
     private Date createdAt;
     private Date completedAt;       // null until resolved
 
@@ -54,6 +56,12 @@ public class Ticket {
 
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
+
+    public String getCustomerName() { return customerName; }
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
+
+    public String getParkingSpace() { return parkingSpace; }
+    public void setParkingSpace(String parkingSpace) { this.parkingSpace = parkingSpace; }
 
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }

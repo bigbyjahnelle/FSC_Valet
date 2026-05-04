@@ -29,6 +29,40 @@ public class TicketController {
         }
     }
 
+    // DELETE /api/tickets/{ticketId}
+    @DeleteMapping("/{ticketId}")
+    public ResponseEntity<String> deleteTicket(@PathVariable String ticketId) {
+        try {
+            ticketService.deleteTicket(ticketId);
+            return ResponseEntity.ok("Ticket deleted.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
+    }
+
+    // PUT /api/tickets/{ticketId}
+    @PutMapping("/{ticketId}")
+    public ResponseEntity<String> updateTicket(
+            @PathVariable String ticketId,
+            @RequestBody Map<String, Object> updates) {
+        try {
+            ticketService.updateTicket(ticketId, updates);
+            return ResponseEntity.ok("Ticket updated.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
+    }
+
+    // GET /api/tickets  (staff — all tickets, newest first)
+    @GetMapping
+    public ResponseEntity<List<Ticket>> getAllTickets() {
+        try {
+            return ResponseEntity.ok(ticketService.getAllTickets());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
     // GET /api/tickets/customer/{customerId}
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<List<Ticket>> getTicketsByCustomer(@PathVariable String customerId) {

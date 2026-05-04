@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.controller.EditTicketController"
+            stylesheets="@../css/makeRequest.css">
+
+    <top>
+        <HBox styleClass="mr-header">
+            <Button text="← Cancel" styleClass="back-btn" onAction="#handleCancel"/>
+            <Label text="Edit Request" styleClass="mr-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="mr-scroll" hbarPolicy="NEVER">
+            <StackPane>
+                <padding>
+                    <Insets top="40" right="24" bottom="40" left="24"/>
+                </padding>
+
+                <VBox styleClass="form-card">
+                    <padding>
+                        <Insets top="36" right="40" bottom="36" left="40"/>
+                    </padding>
+
+                    <Label text="Edit Request" styleClass="section-title"/>
+                    <Region styleClass="section-divider" maxWidth="Infinity"/>
+
+                    <Label fx:id="ticketInfoLabel" styleClass="info-text" wrapText="true"/>
+
+                    <!-- CUSTOMER NAME -->
+                    <VBox spacing="4">
+                        <Label text="CUSTOMER NAME" styleClass="field-label"/>
+                        <HBox styleClass="input-box">
+                            <TextField fx:id="customerNameField" promptText="Customer full name"
+                                       styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- PARKING SPACE -->
+                    <VBox spacing="4">
+                        <Label text="PARKING SPACE" styleClass="field-label"/>
+                        <HBox styleClass="input-box">
+                            <TextField fx:id="parkingSpaceField" promptText="e.g. A-12"
+                                       styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- STATUS -->
+                    <VBox spacing="4">
+                        <Label text="STATUS" styleClass="field-label"/>
+                        <ComboBox fx:id="statusCombo" maxWidth="Infinity"
+                                  style="-fx-background-color: rgba(255,255,255,0.04);
+                                         -fx-border-color: #3d7079;
+                                         -fx-border-width: 1.5;
+                                         -fx-border-radius: 7;
+                                         -fx-background-radius: 7;
+                                         -fx-pref-height: 44;
+                                         -fx-font-size: 14px;"/>
+                    </VBox>
+
+                    <!-- NOTES -->
+                    <VBox spacing="4">
+                        <Label text="NOTES" styleClass="field-label"/>
+                        <HBox styleClass="input-box">
+                            <TextField fx:id="notesField" promptText="Optional notes"
+                                       styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                    <Label fx:id="saveStatusLabel" text="" styleClass="status-label"/>
+
+                    <Button text="Save Changes" styleClass="submit-btn"
+                            onAction="#handleSave" maxWidth="Infinity"/>
+                </VBox>
+            </StackPane>
+        </ScrollPane>
+    </center>
+</BorderPane>
