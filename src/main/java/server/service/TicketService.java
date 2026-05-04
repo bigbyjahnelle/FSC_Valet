@@ -138,7 +138,7 @@ public class TicketService {
                 finalUpdates.put("completedAt", new Date());
             } else {
                 finalUpdates.put("archived", false);
-                finalUpdates.put("completedAt", null);
+                finalUpdates.put("completedAt", FieldValue.delete());
             }
         }
         firestore.collection(COLLECTION).document(ticketId).update(finalUpdates).get();
@@ -146,12 +146,13 @@ public class TicketService {
 
     public List<Ticket> getAllTickets() throws ExecutionException, InterruptedException {
         return firestore.collection(COLLECTION)
-                .orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .get()
                 .getDocuments()
                 .stream()
                 .map(doc -> doc.toObject(Ticket.class))
+                .sorted(java.util.Comparator.comparing(Ticket::getCreatedAt,
+                        java.util.Comparator.nullsLast(java.util.Comparator.reverseOrder())))
                 .toList();
     }
 
