@@ -3,15 +3,13 @@ package server.service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import org.springframework.stereotype.Service;
+import server.model.Car;
 import server.model.Ticket;
+import server.model.TicketWithCar;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -23,10 +21,12 @@ public class TicketService {
     private static final String COUNTER_DOC      = "tickets";
     private static final String COUNTER_FIELD    = "lastNumber";
 
+    private final CarService carService;
     private final Firestore firestore;
 
-    public TicketService(Firestore firestore) {
+    public TicketService(CarService carService, Firestore firestore) {
         this.firestore = firestore;
+        this.carService = carService;
     }
 
     /**
@@ -94,12 +94,20 @@ public class TicketService {
     public List<Ticket> getTicketsByCustomer(String customerId)
             throws ExecutionException, InterruptedException {
 
+        //System.out.println("getTicketsByCustomer called with: " + customerId);
+
         List<QueryDocumentSnapshot> docs = firestore.collection(COLLECTION)
                 .whereEqualTo("customerId", customerId)
                 .orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .get()
                 .getDocuments();
+
+        //System.out.println("Firestore docs returned: " + docs.size());
+        List<Ticket> tickets = docs.stream()
+                .map(doc -> doc.toObject(Ticket.class))
+                .toList();
+        //System.out.println("Tickets mapped: " + tickets.size());
 
         return docs.stream()
                 .map(doc -> doc.toObject(Ticket.class))
@@ -164,6 +172,23 @@ public class TicketService {
         return future.get().getDocuments().stream()
                 .map(doc -> doc.toObject(Ticket.class))
                 .collect(Collectors.toList());
+    }
+
+    //This will get the users ticket and the car info with it and keep them together from the firestore
+    public List<TicketWithCar> getTicketsWithCarByCustomer(String customerId)
+            throws ExecutionException, InterruptedException {
+        List<Ticket> tickets = getTicketsByCustomer(customerId);
+        List<TicketWithCar> results = new ArrayList<>();
+        //Also checks if there are any nulls just in-case an error slips by
+        for (Ticket t : tickets) {
+            Car car = null;
+            String carId = t.getCarId();
+            if (carId != null && !carId.isEmpty() && !carId.equals("null")) {
+                car = carService.getCarById(carId);
+            }
+            results.add(new TicketWithCar(t, car));
+        }
+        return results;
     }
 
     // Returns count of tickets created today

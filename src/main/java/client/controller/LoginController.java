@@ -137,6 +137,10 @@ public class LoginController {
             statusLabel.setStyle("-fx-text-fill: green;");
             System.out.println("DEBUG: Received Token");
             statusLabel.setText("Login successful!");
+
+            String phone = parseFromJson(response.body(), "phone");
+            SessionManager.setPhone(phone);
+
             loadDashboard();
         } else if (response.statusCode() == 400 || response.statusCode() == 401) {
             statusLabel.setStyle("-fx-text-fill: red;");
