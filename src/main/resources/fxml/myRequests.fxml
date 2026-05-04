@@ -16,7 +16,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="client.controller.MyRequestsController"
-            stylesheets="@../css/makeRequest.css"
+            stylesheets="@../css/my_requests.css"
             styleClass="root">
 
     <top>
@@ -26,7 +26,7 @@
                     styleClass="back-btn"/>
 
 
-            <Label text=" FSC VALET - MY REQUESTS" styleClass="mr-title"/>
+            <Label text=" FSC VALET - REQUESTS" styleClass="mr-title"/>
 
             <Region HBox.hgrow="ALWAYS"/>
 
@@ -76,19 +76,14 @@
                                     prefWidth="220"/>
                         </VBox>
 
-                        <ScrollPane fx:id="listScroll"
-                                    fitToWidth="true"
-                                    visible="false"
-                                    managed="false"
-                                    styleClass="mr-scroll inner-scroll">
-                            <content>
-                                <VBox fx:id="ticketList" spacing="14">
-                                    <padding>
-                                        <Insets top="4" right="2" bottom="4" left="2"/>
-                                    </padding>
-                                </VBox>
-                            </content>
-                        </ScrollPane>
+                        <VBox fx:id="ticketList"
+                              spacing="14"
+                              visible="false"
+                              managed="false">
+                            <padding>
+                                <Insets top="4" right="2" bottom="4" left="2"/>
+                            </padding>
+                        </VBox>
                     </VBox>
 
                 </VBox>

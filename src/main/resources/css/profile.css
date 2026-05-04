@@ -8,17 +8,6 @@
     -fx-font-family: "Montserrat";
 }
 
-/* BORDERPANE/CENTER AREAS STAY TRANSPARENT */
-.border-pane {
-    -fx-background-color: transparent;
-}
-
-.stack-pane,
-.vbox,
-.hbox {
-    -fx-background-color: transparent;
-}
-
 /* ── HEADER ─────────────────────────────────── */
 .mr-header {
     -fx-background-color: rgba(8, 37, 43, 0.72);
@@ -35,7 +24,7 @@
     -fx-font-weight: bold;
 }
 
-/* BACK BUTTON */
+/* ── BACK BUTTON ─────────────────────────────── */
 .back-btn {
     -fx-background-color: transparent;
     -fx-border-color: rgba(86, 137, 145, 0.55);
@@ -96,37 +85,55 @@
     -fx-max-height: 1;
 }
 
+/* ── FIELD LABEL ─────────────────────────────── */
+.field-label {
+    -fx-text-fill: #8db8be;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 2 2;
+}
+
+/* ── READ-ONLY VALUE ─────────────────────────── */
 .info-text {
     -fx-text-fill: #DDE4E5;
-    -fx-font-size: 13px;
-    -fx-line-spacing: 2px;
+    -fx-font-size: 14px;
+    -fx-padding: 2 0 2 2;
 }
 
-/* ── EMPTY STATE ─────────────────────────────── */
-.empty-state-box {
-    -fx-background-color: rgba(255, 255, 255, 0.03);
-    -fx-border-color: rgba(86, 137, 145, 0.24);
-    -fx-border-width: 1.2;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
-    -fx-padding: 26 20 26 20;
+/* ── INPUT BOX ───────────────────────────────── */
+.input-box {
+    -fx-border-color: #3d7079;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-padding: 2 10 2 10;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-height: 44;
 }
 
-.empty-state-title {
-    -fx-text-fill: #F5DA82;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
+/* ── INPUT FIELD ─────────────────────────────── */
+.input-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E5F0F4;
+    -fx-prompt-text-fill: rgba(180, 210, 215, 0.45);
+    -fx-border-width: 0;
+    -fx-font-size: 14px;
+    -fx-font-family: "Montserrat";
 }
 
-.empty-state-text {
-    -fx-text-fill: #DDE4E5;
-    -fx-font-size: 13px;
-    -fx-text-alignment: center;
-    -fx-alignment: center;
-    -fx-max-width: 360;
+.input-field:focused {
+    -fx-background-color: transparent;
 }
 
-/* ── SUBMIT BUTTON ───────────────────────────── */
+/* ── STATUS LABEL ────────────────────────────── */
+.status-label {
+    -fx-text-fill: #e10000;
+    -fx-font-size: 12px;
+    -fx-padding: 0 0 0 2;
+}
+
+/* ── SAVE / PRIMARY BUTTON ───────────────────── */
 .submit-btn {
     -fx-background-color: linear-gradient(to right,
         #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
@@ -151,66 +158,25 @@
     -fx-opacity: 0.9;
 }
 
-/* ── TICKET CARD STYLES ──────────────────────── */
-.ticket-card {
-    -fx-background-color: rgba(255, 255, 255, 0.04);
-    -fx-border-color: rgba(86, 137, 145, 0.30);
-    -fx-border-width: 1.3;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
-    -fx-padding: 16;
-    -fx-spacing: 8;
-}
-
-.ticket-number {
-    -fx-text-fill: #F5DA82;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-}
-
-.ticket-detail {
-    -fx-text-fill: #DDE4E5;
-    -fx-font-size: 13px;
-}
-
-.ticket-status {
-    -fx-text-fill: #8db8be;
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-}
-
-.edit-btn {
-    -fx-background-color: rgba(245, 218, 130, 0.12);
-    -fx-border-color: rgba(245, 218, 130, 0.55);
-    -fx-border-width: 1.2;
-    -fx-border-radius: 6;
-    -fx-background-radius: 6;
-    -fx-text-fill: #F5DA82;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-padding: 6 16 6 16;
-    -fx-cursor: hand;
-}
-
-.edit-btn:hover {
-    -fx-background-color: rgba(245, 218, 130, 0.24);
-    -fx-border-color: #F5DA82;
-}
-
-.delete-btn {
+/* ── LOG OUT BUTTON ──────────────────────────── */
+.logout-btn {
     -fx-background-color: rgba(220, 53, 69, 0.18);
-    -fx-border-color: rgba(220, 53, 69, 0.6);
-    -fx-border-width: 1.2;
-    -fx-border-radius: 6;
-    -fx-background-radius: 6;
+    -fx-border-color: rgba(220, 53, 69, 0.55);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
     -fx-text-fill: #ff6b7a;
-    -fx-font-size: 12px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-padding: 6 16 6 16;
+    -fx-padding: 14 0 14 0;
     -fx-cursor: hand;
 }
 
-.delete-btn:hover {
+.logout-btn:hover {
     -fx-background-color: rgba(220, 53, 69, 0.35);
     -fx-border-color: #ff6b7a;
+}
+
+.logout-btn:pressed {
+    -fx-opacity: 0.75;
 }
