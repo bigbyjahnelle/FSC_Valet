@@ -24,10 +24,6 @@ public class DashboardController {
     @FXML private Button navActiveVehiclesButton;
     @FXML private Button viewAllButton;
     @FXML private Button checkInFirstButton;
-    @FXML private Button themeToggleButton;
-
-    private boolean darkMode = false;
-
     @FXML private Label activeVehiclesLabel;
     @FXML private Label availableSpotsLabel;
     @FXML private Label totalCapacityLabel;
@@ -136,12 +132,6 @@ public class DashboardController {
     private void handleActiveVehicles() {
         Stage stage = (Stage) navCheckInButton.getScene().getWindow();
         SceneTransition.fadeSwitch(stage, "/fxml/myRequests.fxml", "FSC Valet - My Requests");
-    }
-
-    @FXML
-    private void handleThemeToggle() {
-        darkMode = !darkMode;
-        themeToggleButton.setText(darkMode ? "☀" : "☾");
     }
 
     @FXML

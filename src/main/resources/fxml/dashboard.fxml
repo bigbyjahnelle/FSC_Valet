@@ -50,11 +50,6 @@
             </VBox>
 
             <Region VBox.vgrow="ALWAYS"/>
-
-            <Button fx:id="themeToggleButton"
-                    text="☾"
-                    onAction="#handleThemeToggle"
-                    styleClass="theme-toggle"/>
         </VBox>
     </left>
 
