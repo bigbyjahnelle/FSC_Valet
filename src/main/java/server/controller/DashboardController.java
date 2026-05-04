@@ -6,6 +6,7 @@ import server.model.DashboardResponse;
 import server.model.Ticket;
 import server.service.TicketService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -30,16 +31,19 @@ public class DashboardController {
             int availableSpots = TOTAL_CAPACITY - activeVehicles;
             int todayCheckins  = ticketService.getTodayCheckinCount();
 
+            List<Ticket> allTickets = ticketService.getAllTickets();
+            List<Ticket> recentTickets = allTickets.stream().limit(3).toList();
+
             DashboardResponse response = new DashboardResponse(
                     activeVehicles,
                     Math.max(availableSpots, 0),
                     TOTAL_CAPACITY,
-                    todayCheckins
+                    todayCheckins,
+                    recentTickets
             );
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            // Fall back to zeros if Firestore is unavailable
-            return ResponseEntity.ok(new DashboardResponse(0, TOTAL_CAPACITY, TOTAL_CAPACITY, 0));
+            return ResponseEntity.ok(new DashboardResponse(0, TOTAL_CAPACITY, TOTAL_CAPACITY, 0, Collections.emptyList()));
         }
     }
 }

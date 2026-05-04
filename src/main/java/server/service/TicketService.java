@@ -122,13 +122,45 @@ public class TicketService {
         List<QueryDocumentSnapshot> docs = firestore.collection(COLLECTION)
                 .whereEqualTo("status", "PENDING")
                 .whereEqualTo("archived", false)
-                .orderBy("createdAt", Query.Direction.ASCENDING)
                 .get()
                 .get()
                 .getDocuments();
 
         return docs.stream()
                 .map(doc -> doc.toObject(Ticket.class))
+                .sorted(java.util.Comparator.comparing(Ticket::getCreatedAt,
+                        java.util.Comparator.nullsLast(java.util.Comparator.naturalOrder())))
+                .toList();
+    }
+
+    public void deleteTicket(String ticketId) throws ExecutionException, InterruptedException {
+        firestore.collection(COLLECTION).document(ticketId).delete().get();
+    }
+
+    public void updateTicket(String ticketId, Map<String, Object> updates) throws ExecutionException, InterruptedException {
+        Map<String, Object> finalUpdates = new HashMap<>(updates);
+        if (finalUpdates.containsKey("status")) {
+            String status = (String) finalUpdates.get("status");
+            if ("COMPLETED".equals(status) || "CANCELLED".equals(status)) {
+                finalUpdates.put("archived", true);
+                finalUpdates.put("completedAt", new Date());
+            } else {
+                finalUpdates.put("archived", false);
+                finalUpdates.put("completedAt", FieldValue.delete());
+            }
+        }
+        firestore.collection(COLLECTION).document(ticketId).update(finalUpdates).get();
+    }
+
+    public List<Ticket> getAllTickets() throws ExecutionException, InterruptedException {
+        return firestore.collection(COLLECTION)
+                .get()
+                .get()
+                .getDocuments()
+                .stream()
+                .map(doc -> doc.toObject(Ticket.class))
+                .sorted(java.util.Comparator.comparing(Ticket::getCreatedAt,
+                        java.util.Comparator.nullsLast(java.util.Comparator.reverseOrder())))
                 .toList();
     }
 
@@ -161,12 +193,10 @@ public class TicketService {
 
     // Returns count of tickets created today
     public int getTodayCheckinCount() throws ExecutionException, InterruptedException {
-        // Query Firestore: tickets where createdAt >= start of today
-        long startOfDay = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
-                .toInstant().toEpochMilli();
+        Date startOfDay = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         ApiFuture<QuerySnapshot> future = firestore.collection("tickets")
                 .whereGreaterThanOrEqualTo("createdAt", startOfDay)
                 .get();
-        return (int) future.get().getDocuments().size();
+        return future.get().getDocuments().size();
     }
 }

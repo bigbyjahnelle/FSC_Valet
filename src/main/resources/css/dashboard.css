@@ -398,3 +398,35 @@
     -fx-font-size: 44px;
     -fx-text-fill: #cccccc;
 }
+
+/* ── Recent check-in cards ── */
+.recent-checkin-card {
+    -fx-background-color: #f4f9f9;
+    -fx-border-color: rgba(15, 66, 73, 0.14);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.recent-card-ticket {
+    -fx-text-fill: #0f4249;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.recent-card-detail {
+    -fx-text-fill: #666666;
+    -fx-font-size: 12px;
+}
+
+.recent-card-status {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 4 10 4 10;
+}
+
+.status-pending     { -fx-background-color: #fff3cd; -fx-text-fill: #856404; }
+.status-in-progress { -fx-background-color: #d1ecf1; -fx-text-fill: #0c5460; }
+.status-completed   { -fx-background-color: #d4edda; -fx-text-fill: #155724; }
+.status-cancelled   { -fx-background-color: #f8d7da; -fx-text-fill: #721c24; }
