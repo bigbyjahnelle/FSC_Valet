@@ -129,7 +129,7 @@
 /* ── SUBMIT BUTTON ───────────────────────────── */
 .submit-btn {
     -fx-background-color: linear-gradient(to right,
-        #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
+    #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
     -fx-background-insets: 0;
     -fx-text-fill: #114A50;
     -fx-font-size: 15px;
@@ -142,11 +142,56 @@
 
 .submit-btn:hover {
     -fx-background-color: linear-gradient(to right,
-        #d1a331, #dcb249, #eac451, #f8d66d, #F5DA82, #FDF4AB);
+    #d1a331, #dcb249, #eac451, #f8d66d, #F5DA82, #FDF4AB);
 }
 
 .submit-btn:pressed {
     -fx-background-color: linear-gradient(to right,
-        #8f6d1f, #a8852f, #c9a93d);
+    #8f6d1f, #a8852f, #c9a93d);
     -fx-opacity: 0.9;
+}
+
+/* ── COMBO BOX ───────────────────────────────── */
+.combo-box {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-border-color: #3d7079;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-pref-height: 44;
+    -fx-font-size: 14px;
+    -fx-font-family: "Montserrat";
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #E5F0F4;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-family: "Montserrat";
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #0a2c32;
+    -fx-border-color: #3d7079;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.combo-box-popup .list-cell {
+    -fx-text-fill: #E5F0F4;
+    -fx-background-color: transparent;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 14px;
+    -fx-font-family: "Montserrat";
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(86, 137, 145, 0.30);
+    -fx-text-fill: #F5DA82;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: rgba(86, 137, 145, 0.50);
+    -fx-text-fill: #F5DA82;
 }

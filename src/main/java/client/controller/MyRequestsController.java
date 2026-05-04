@@ -34,7 +34,6 @@ public class MyRequestsController {
 
     private void fetchTickets() {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(ServerConfig.SERVER_URL + "/api/tickets/customer/" + uid + "/details"))
                 .uri(URI.create(ServerConfig.SERVER_URL + "/api/tickets"))
                 .GET()
                 .build();
@@ -79,25 +78,15 @@ public class MyRequestsController {
         while ((i = json.indexOf("{", i)) != -1) {
             int end = findObjectEnd(json, i);
             if (end == -1) break;
-            String entry = json.substring(i, end + 1);
-            String number  = extractString(entry, "ticketNumber");
-            String type    = extractString(entry, "type");
-            String status  = extractString(entry, "status");
-            String make    = extractString(entry, "make");
-            String model   = extractString(entry, "model");
-            String year    = extractInt(entry, "year");
-            String color   = extractString(entry, "color");
-            String plate   = extractString(entry, "licensePlate");
-            if (number != null) results.add(new String[]{number, type, status, make, model, year, color, plate});
-            String entry      = json.substring(i, end + 1);
-            String ticketId   = extractString(entry, "ticketId");
-            String number     = extractString(entry, "ticketNumber");
-            String type       = extractString(entry, "type");
-            String status     = extractString(entry, "status");
-            String customerId = extractString(entry, "customerId");
+            String entry        = json.substring(i, end + 1);
+            String ticketId     = extractString(entry, "ticketId");
+            String number       = extractString(entry, "ticketNumber");
+            String type         = extractString(entry, "type");
+            String status       = extractString(entry, "status");
+            String customerId   = extractString(entry, "customerId");
             String customerName = extractString(entry, "customerName");
             String parkingSpace = extractString(entry, "parkingSpace");
-            String notes      = extractString(entry, "notes");
+            String notes        = extractString(entry, "notes");
             if (number != null) {
                 results.add(new String[]{ticketId, number, type, status, customerId, customerName, parkingSpace, notes});
             }
@@ -106,7 +95,6 @@ public class MyRequestsController {
         return results;
     }
 
-    //This gets the string from the firestore that was put in for the car
     private int findObjectEnd(String json, int startIndex) {
         int depth = 0;
         for (int i = startIndex; i < json.length(); i++) {
@@ -129,7 +117,7 @@ public class MyRequestsController {
         return end == -1 ? null : json.substring(start, end);
     }
 
-    //This gets the int from the firestore that was put in for the car
+    // Gets an int value from the JSON string
     private String extractInt(String json, String key) {
         String search = "\"" + key + "\":";
         int start = json.indexOf(search);
@@ -140,15 +128,6 @@ public class MyRequestsController {
         return end > start ? json.substring(start, end) : null;
     }
 
-    private VBox buildTicketRow(String[] ticket) { //Jahnelle adjusted
-        String number = ticket[0] != null ? ticket[0] : "—";
-        String type   = ticket[1] != null ? ticket[1] : "—";
-        String status = ticket[2] != null ? ticket[2] : "—";
-        String make   = ticket[3] != null ? ticket[3] : "—";
-        String model  = ticket[4] != null ? ticket[4] : "—";
-        String year   = ticket[5] != null ? ticket[5] : "—";
-        String color  = ticket[6] != null ? ticket[6] : "—";
-        String plate  = ticket[7] != null ? ticket[7] : "—";
     private VBox buildTicketRow(String[] ticket) {
         String ticketId     = ticket[0] != null ? ticket[0] : "";
         String number       = ticket[1] != null ? ticket[1] : "—";
@@ -159,25 +138,19 @@ public class MyRequestsController {
         String parkingSpace = ticket[6] != null && !ticket[6].isEmpty() ? ticket[6] : "—";
         String notes        = ticket[7] != null && !ticket[7].isEmpty() ? ticket[7] : "";
 
-        Label numLabel    = new Label("Ticket: " + number);
+        Label numLabel      = new Label("Ticket: " + number);
         numLabel.getStyleClass().add("ticket-number");
 
-        Label vehicleLabel = new Label(year + " " + make + " " + model + " (" + color + ")");
-        vehicleLabel.getStyleClass().add("ticket-detail");
-
-        Label plateLabel  = new Label("Plate: " + plate);
-        plateLabel.getStyleClass().add("ticket-detail");
         Label customerLabel = new Label("Customer: " + customerName + "  (" + customerId + ")");
         customerLabel.getStyleClass().add("ticket-detail");
 
-        Label typeLabel   = new Label("Type: " + type);
+        Label typeLabel     = new Label("Type: " + type);
         typeLabel.getStyleClass().add("ticket-detail");
 
-        Label statusLabel = new Label("Status: " + status);
+        Label statusLabel   = new Label("Status: " + status);
         statusLabel.getStyleClass().add("ticket-status");
 
-        VBox row = new VBox(6, numLabel, vehicleLabel, plateLabel, typeLabel, statusLabel);
-        Label spotLabel = new Label("Parking Space: " + parkingSpace);
+        Label spotLabel     = new Label("Parking Space: " + parkingSpace);
         spotLabel.getStyleClass().add("ticket-detail");
 
         VBox details = new VBox(6, numLabel, customerLabel, typeLabel, statusLabel, spotLabel);

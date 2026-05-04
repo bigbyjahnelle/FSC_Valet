@@ -62,14 +62,7 @@
                     <!-- STATUS -->
                     <VBox spacing="4">
                         <Label text="STATUS" styleClass="field-label"/>
-                        <ComboBox fx:id="statusCombo" maxWidth="Infinity"
-                                  style="-fx-background-color: rgba(255,255,255,0.04);
-                                         -fx-border-color: #3d7079;
-                                         -fx-border-width: 1.5;
-                                         -fx-border-radius: 7;
-                                         -fx-background-radius: 7;
-                                         -fx-pref-height: 44;
-                                         -fx-font-size: 14px;"/>
+                        <ComboBox fx:id="statusCombo" maxWidth="Infinity"/>
                     </VBox>
 
                     <!-- NOTES -->
