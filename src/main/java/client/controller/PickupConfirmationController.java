@@ -41,7 +41,8 @@ public class PickupConfirmationController {
         Stage stage = (Stage) doneButton.getScene().getWindow();
         if ("CUSTOMER".equals(SessionManager.getRole())) {
             SceneTransition.fadeSwitch(stage, "/fxml/customerDashboard.fxml", "FSC Valet - Customer Dashboard");
-        } else {
+        }
+        else if ("STAFF".equals(SessionManager.getRole())) {
             SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSC Valet - Dashboard");
         }
     }
