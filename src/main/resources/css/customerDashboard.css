@@ -62,6 +62,15 @@
     -fx-effect: dropshadow(gaussian, rgba(245, 218, 130, 0.22), 10, 0.2, 0, 2);
 }
 
+/* Keeps the active button's gold style when hovered instead of reverting to plain hover */
+.sidebar-button-active:hover {
+    -fx-background-color: rgba(245, 218, 130, 0.28);
+    -fx-border-color: #D4AD3F;
+    -fx-text-fill: #F5DA82;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(245, 218, 130, 0.32), 12, 0.25, 0, 2);
+}
+
 /* SCROLL */
 .customer-scroll {
     -fx-background: transparent;
@@ -108,6 +117,14 @@
     #AA8527, #C49F40, #DCB84C, #E8C865, #F5DA82, #FDF4AB);
     -fx-text-fill: #114A50;
     -fx-effect: dropshadow(gaussian, rgba(197,159,64,0.45), 10, 0.3, 0, 3);
+}
+
+/* Keeps the active nav pill's gold gradient when hovered instead of turning white */
+.nav-pill-active:hover {
+    -fx-background-color: linear-gradient(to right,
+    #9A7520, #B48F30, #CCA83C, #D8B855, #E5C872, #F3E09B);
+    -fx-text-fill: #114A50;
+    -fx-effect: dropshadow(gaussian, rgba(197,159,64,0.55), 12, 0.35, 0, 3);
 }
 
 /* FORM CARD */
@@ -179,4 +196,48 @@
 
 .checkin-btn:hover {
     -fx-opacity: 0.95;
+}
+
+/* TICKET CARDS */
+.ticket-card {
+    -fx-background-color: #f7f9fa;
+    -fx-background-radius: 8;
+    -fx-border-color: #e0e6e8;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+.ticket-number {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a3a3f;
+}
+
+.ticket-detail {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5a6e72;
+}
+
+.ticket-status-badge {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 10 4 10;
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+}
+
+.status-pending {
+    -fx-background-color: #e0a020;
+}
+
+.status-in-progress {
+    -fx-background-color: #2196F3;
+}
+
+.status-completed {
+    -fx-background-color: #4CAF50;
+}
+
+.status-cancelled {
+    -fx-background-color: #e53935;
 }
