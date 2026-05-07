@@ -35,7 +35,7 @@ public class ProfileController {
     public void initialize() {
         fullNameLabel.setText(SessionManager.getFullName());
         emailLabel.setText(SessionManager.getEmail());
-        roleLabel.setText("CUSTOMER"); // TODO: store role in SessionManager
+        roleLabel.setText(SessionManager.getRole());
 
         fullNameField.setText(SessionManager.getFullName());
         phoneField.setText(SessionManager.getPhone());
