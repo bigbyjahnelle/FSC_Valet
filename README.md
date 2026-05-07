@@ -1,76 +1,127 @@
-FSCValet
+# FSCValet
 
-FSCValet is a desktop valet parking application developed for Farmingdale State College as part of a Software Engineering group project.
-The system was created to address one of the biggest challenges on campus: parking. 
-FSCValet gives students and staff a more convenient way to manage vehicle drop-off, parking updates, and retrieval requests 
-through a structured JavaFX desktop interface.
 
-Project Overview
+## Table of Contents
+- Summary & Project Overview
+- Project Objectives
+- Team Members & Roles
+- Technologies
+- Setup
+  - Prerequisites
+  - Instructions
+- Features
+- Intended Users
+- Figma Design Process
+- Interface Screens 
+- Project Management
+- Status
 
-Parking at Farmingdale State College can be stressful, especially during busy class hours. FSCValet was designed as a solution 
-that helps reduce the time spent searching for parking by introducing a valet-based system. 
-The application allows customers to check in vehicles, view ticket and vehicle status information, and request vehicle retrieval, 
-while staff members manage parking activity from a dashboard.
+## Summary & Project Overview
 
-This repository contains the frontend and backend structure of the FSCValet system in a Maven-based Java project. 
-The application uses JavaFX for the client interface and Spring Boot for backend support, with Firebase included for data management 
-services. 
+FSCValet is a desktop valet parking application developed for Farmingdale State College as part of a Software Engineering group project. The system was created to address one of the biggest challenges on campus: parking. FSCValet gives students and staff a more convenient way to manage vehicle drop-off, parking updates, and retrieval requests through a structured JavaFX desktop interface.
 
-Team Roles
+Parking at Farmingdale State College can be stressful, especially during busy class hours. FSCValet was designed as a solution that helps reduce the time spent searching for parking by introducing a valet-based system. The application allows customers to check in vehicles, view ticket and vehicle status information, and request vehicle retrieval, while staff members manage parking activity from a dashboard.
 
-- Jahnelle Bigby – Project Manager / Frontend Development  
-  Led project planning, task assignment, sprint coordination, scrum communication, GitHub organization,
-  and contributed to frontend design and dashboard-related UI work.
+This repository contains the frontend and backend structure of the FSCValet system in a Maven-based Java project. The application uses JavaFX for the client interface and Spring Boot for backend support, with Firebase included for data management services.
 
-- Adriana Lambert – Frontend Development  
-  Contributed to screen design, JavaFX interface layout, and CSS styling.
+## Project Objective 
 
-- Jayden Montalvo – Backend Development  
-  Contributed to backend logic, project structure, and core application functionality.
+-Reduce parking difficulty for FSC students and staff
 
-- Cobin Black – Backend Development  
-  Contributed to navigation, backend integration, and system support.
+-Provide a structured digital valet parking workflow
 
-Project Objectives
+-Allow customers to view vehicle and ticket status
 
-- Reduce parking difficulty for FSC students and staff
-- Provide a structured digital valet parking workflow
-- Allow customers to view vehicle and ticket status
-- Support valet staff with a dashboard for monitoring parking activity
-- Demonstrate software engineering practices through collaborative development
+-Support valet staff with a dashboard for monitoring parking activity
 
-Features
+-Demonstrate software engineering practices through collaborative development
 
-Customer Features
-- Secure login
-- Vehicle check-in support
-- Ticket-based vehicle tracking
-- Vehicle retrieval request flow
-- Vehicle status viewing
+## Team Members & Roles 
 
-Staff Features
-- Staff dashboard
-- Active parking overview
-- Parking activity monitoring
-- Vehicle and ticket status updates
-- Parking lot management support
+Jahnelle Bigby – Project Manager / Frontend Development
+Led project planning, task assignment, sprint coordination, scrum communication, GitHub organization, and contributed to frontend design and dashboard-related UI work.
 
-Design Process
+Adriana Lambert – Frontend Development
+Contributed to screen design, JavaFX interface layout, and CSS styling.
 
-The FSCValet interface was first planned in Figma using LoFi and HiFi prototypes (by Jayden and Adrianna) before being implemented 
-as a JavaFX desktop application. This process helped the team organize the app layout, improve screen flow, and keep the interface 
-consistent throughout development.
+Jayden Montalvo – Backend Development
+Contributed to backend logic, project structure, and core application functionality.
 
-Tech Stack
+Cobin Black – Backend Development
+Contributed to navigation, backend integration, and system support.
 
-- **Language:** Java
-- **Frontend:** JavaFX, CSS
-- **Backend:** Spring Boot
-- **Database / Services:** Firebase Admin SDK
-- **Build Tool:** Maven
-- **IDE:** IntelliJ IDEA
-- **Version Control:** GitHub
-- **Project Management:** SCRUM, GitHub Projects 
+## Technologies
 
-The project structure and dependencies are managed in `pom.xml`, which includes Spring Boot, JavaFX controls/FXML, Firebase Admin SDK, 
-and Maven plugins for both the server and JavaFX client.
+- IntelliJ IDEA – Primary IDE
+- Java – Main programming language
+- JavaFX – Desktop user interface
+- CSS – Interface styling
+- Spring Boot – Backend support
+- Firebase Admin SDK – Data management services
+- Maven – Dependency management and build tool
+- GitHub – Version control and collaboration
+- Figma – LoFi and HiFi interface prototyping
+
+## Setup
+
+### Prerequisites
+1. Java installed
+2. Maven installed
+3. IntelliJ IDEA recommended
+
+### Instructions
+1. Clone the repository
+2. Open the project in IntelliJ IDEA
+3. Allow Maven to install dependencies from `pom.xml`
+4. Run the JavaFX client from `client.ClientMain`
+5. Run the backend server from `server.ServerApplication`
+
+## Features
+
+Customer Features:
+
+-Secure login
+
+-Vehicle check-in support
+
+-Ticket-based vehicle tracking
+
+-Vehicle retrieval request flow
+
+-Vehicle status viewing
+
+
+Staff Features:
+
+-Staff dashboard
+
+-Active parking overview
+
+-Parking activity monitoring
+
+-Vehicle and ticket status updates
+
+-Parking lot management support
+
+## Intended Users
+
+- FSC Students
+- FSC Staff
+- Valet Attendants
+- System Administrators
+
+## Figma Design Process
+
+
+## Interface Screens 
+
+
+## Project Management
+
+The project was managed using a SCRUM-style workflow. Work was divided into sprint goals and team responsibilities. GitHub Projects was used to organize issues, assign tasks, manage views, and track progress. GitHub also helped maintain commit history, collaboration, and code organization through branches and updates.
+
+## Status
+
+FSCValet is a working academic prototype completed as part of a Software Engineering final project. The project demonstrates the planning, interface design, development, and collaboration process involved in building a valet parking system for Farmingdale State College.
+
+Future improvements may include expanded real-time features, improved notifications, stronger authentication flow, and enhanced geofencing support.
