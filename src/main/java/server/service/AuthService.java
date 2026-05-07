@@ -57,22 +57,28 @@ public class AuthService {
             if (fullName == null) fullName = "";
 
             String phone = "";
+            String role = "CUSTOMER";
 
-            //This is to help try to get the phone number from the firestore for each user
+            //This is to help try to get the phone number and role from the firestore for each user
             try {
                 User firestoreUser = userService.getUserById(uId);
-                if (firestoreUser != null && firestoreUser.getPhoneNumber() != null) {
-                    phone = firestoreUser.getPhoneNumber();
+                if(firestoreUser != null)
+                {
+                    if (firestoreUser.getPhoneNumber() != null) {
+                        phone = firestoreUser.getPhoneNumber();
+                    }
+                    if (firestoreUser.getRole() != null) {
+                        role = firestoreUser.getRole();
+                    }
                 }
             } catch (Exception ignored) {}
 
             response.setSuccess(true);
             response.setMessage("Login Successful For: " + email);
             response.setToken(idToken);
-
             response.setFullName(fullName);
-
             response.setPhone(phone);
+            response.setRole(role);
 
             return response;
         } catch (FirebaseAuthException e) {
