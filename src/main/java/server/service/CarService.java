@@ -51,25 +51,12 @@ public class CarService {
 
         //Uses the ownerId var to filter the cars collection
         ApiFuture<QuerySnapshot> future = db.collection("cars")
-                .whereEqualTo("ownerUid", ownerId)
+                .whereEqualTo("ownerId", ownerId)
                 .get();
 
         return future.get().getDocuments().stream()
                 .map(doc -> doc.toObject(Car.class))
                 .collect(Collectors.toList());
-
-        //Not getting rid of the logic, just trying out the new logic using the ApiFuture with the database
-        /*
-        List<QueryDocumentSnapshot> docs = firestore.collection(COLLECTION)
-                .whereEqualTo("ownerId", ownerId)
-                .get()
-                .get()
-                .getDocuments();
-
-        return docs.stream()
-                .map(doc -> doc.toObject(Car.class))
-                .toList();
-         */
     }
 
     //This method is for getting the request for users
@@ -107,14 +94,6 @@ public class CarService {
         }
 
         return false;
-
-
-        /*
-        firestore.collection(COLLECTION)
-                .document(carId)
-                .delete()
-                .get();
-         */
     }
 
     /*
