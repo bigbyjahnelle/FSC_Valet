@@ -141,7 +141,17 @@ public class LoginController {
             String phone = parseFromJson(response.body(), "phone");
             SessionManager.setPhone(phone);
 
-            loadDashboard();
+            // Store the user's role then route to the correct screen
+            String role = parseFromJson(response.body(), "role");
+            if (role != null && !role.isEmpty()) {
+                SessionManager.setRole(role);
+            }
+
+            if ("CUSTOMER".equals(SessionManager.getRole())) {
+                loadCustomerDashboard();
+            } else {
+                loadDashboard();
+            }
         } else if (response.statusCode() == 400 || response.statusCode() == 401) {
             statusLabel.setStyle("-fx-text-fill: red;");
             statusLabel.setText("Invalid email or password.");
@@ -160,5 +170,10 @@ public class LoginController {
     private void loadDashboard() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSCValet - Dashboard");
+    }
+
+    private void loadCustomerDashboard() {
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        SceneTransition.fadeSwitch(stage, "/fxml/customerDashboard.fxml", "FSCValet - Customer Dashboard");
     }
 }
