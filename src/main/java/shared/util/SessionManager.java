@@ -11,6 +11,7 @@ public class SessionManager {
     private static String uid       = "";
     private static String email     = "";
     private static String phone = "";
+    private static String role = "";
 
     public static void setUser(String uid, String email, String fullName) {
         SessionManager.uid      = uid;
@@ -28,9 +29,11 @@ public class SessionManager {
     public static String getEmail()     { return email;     }
     public static String getPhone() { return phone; }
     public static void setPhone(String phone) { SessionManager.phone = phone; }
+    public static String getRole() { return role; }
+    public static void setRole(String role) { SessionManager.role = role; }
 
     public static void clear() {
-        uid = ""; email = ""; fullName = ""; firstName = ""; phone = "";
+        uid = ""; email = ""; fullName = ""; firstName = ""; phone = ""; role = "";
     }
 
     public static void setFullName(String fullName) {
