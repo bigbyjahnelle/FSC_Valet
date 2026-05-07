@@ -35,7 +35,7 @@ public class ProfileController {
     public void initialize() {
         fullNameLabel.setText(SessionManager.getFullName());
         emailLabel.setText(SessionManager.getEmail());
-        roleLabel.setText("CUSTOMER"); // TODO: store role in SessionManager
+        roleLabel.setText(SessionManager.getRole());
 
         fullNameField.setText(SessionManager.getFullName());
         phoneField.setText(SessionManager.getPhone());
@@ -139,6 +139,13 @@ public class ProfileController {
     @FXML
     private void handleBack() {
         Stage stage = (Stage) fullNameLabel.getScene().getWindow();
-        SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSC Valet - Dashboard");
+        if ("CUSTOMER".equals(SessionManager.getRole()))
+        {
+            SceneTransition.fadeSwitch(stage, "/fxml/customerDashboard.fxml", "FSC Valet - Customer Dashboard");
+        }
+        else if ("STAFF".equals(SessionManager.getRole()))
+        {
+            SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSC Valet - Dashboard");
+        }
     }
 }

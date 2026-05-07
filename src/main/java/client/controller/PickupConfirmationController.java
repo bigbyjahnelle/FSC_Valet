@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import shared.util.ConfirmationData;
 import shared.util.SceneTransition;
+import shared.util.SessionManager;
 
 public class PickupConfirmationController {
 
@@ -26,17 +27,23 @@ public class PickupConfirmationController {
 
     @FXML
     private void handleCancelRequest() {
-        goToDashboard();
+        goBack();
     }
 
     @FXML
     private void handleBackToDashboard() {
-        goToDashboard();
+        goBack();
     }
 
-    private void goToDashboard() {
+    // Routes customers back to the customer dashboard, staff back to the staff dashboard
+    private void goBack() {
         ConfirmationData.clear();
         Stage stage = (Stage) doneButton.getScene().getWindow();
-        SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSC Valet - Dashboard");
+        if ("CUSTOMER".equals(SessionManager.getRole())) {
+            SceneTransition.fadeSwitch(stage, "/fxml/customerDashboard.fxml", "FSC Valet - Customer Dashboard");
+        }
+        else if ("STAFF".equals(SessionManager.getRole())) {
+            SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSC Valet - Dashboard");
+        }
     }
 }
