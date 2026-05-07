@@ -15,7 +15,7 @@ public class ClientMain extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Montserrat-Regular.ttf"), 14);
         Font.loadFont(getClass().getResourceAsStream("/fonts/Montserrat-Bold.ttf"), 14);
 
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ram.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/VALET_APP_RAM_LOGO_FILLED.png")));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         Scene scene = new Scene(loader.load());

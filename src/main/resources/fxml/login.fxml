@@ -23,7 +23,7 @@
 
         <!-- LOGO -->
         <ImageView fitHeight="200" fitWidth="200" styleClass="logo">
-                <Image url="@/images/ram.png"/>
+                <Image url="@/images/VALET_APP_RAM_LOGO_OFFICIAL.png"/>
         </ImageView>
 
         <!-- USERNAME BOX -->

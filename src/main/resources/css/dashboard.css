@@ -18,6 +18,7 @@
 
 .sidebar-brand-row {
     -fx-padding: 0 0 4 2;
+    -fx-min-height: 72;
 }
 
 .sidebar-brand {

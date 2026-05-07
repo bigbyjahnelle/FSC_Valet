@@ -1,54 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.controller.DashboardController"
-            stylesheets="@../css/dashboard.css"
-            styleClass="dashboard-root">
+<BorderPane styleClass="dashboard-root" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.DashboardController">
 
     <!-- LEFT SIDEBAR -->
     <left>
         <VBox spacing="22" styleClass="sidebar">
             <HBox alignment="TOP_LEFT" spacing="12" styleClass="sidebar-brand-row">
-                <ImageView fitHeight="44" fitWidth="44" preserveRatio="true">
-                    <Image url="@/images/ram.png"/>
+
+                <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
+                    <HBox.margin>
+                        <Insets left="4.0" top="-8.0" />
+                    </HBox.margin>
+                    <Image url="@/images/VALET_APP_RAM_LOGO_OFFICIAL.png" />
                 </ImageView>
+
                 <VBox spacing="2">
-                    <Label text="FSC VALET" styleClass="sidebar-brand"/>
-                    <Label text="RAM Portal" styleClass="sidebar-subtitle"/>
+                    <Label styleClass="sidebar-brand" text="FSC VALET" />
+                    <Label styleClass="sidebar-subtitle" text="RAM Portal" />
                 </VBox>
             </HBox>
 
             <VBox spacing="10">
-                <Button fx:id="navCheckInButton"
-                        text="Make a Request"
-                        onAction="#handleCheckIn"
-                        styleClass="sidebar-button"/>
+                <Button fx:id="navCheckInButton" onAction="#handleCheckIn" styleClass="sidebar-button" text="Make a Request" />
 
-                <Button fx:id="navActiveVehiclesButton"
-                        text="My Requests"
-                        onAction="#handleActiveVehicles"
-                        styleClass="sidebar-button"/>
+                <Button fx:id="navActiveVehiclesButton" onAction="#handleActiveVehicles" styleClass="sidebar-button" text="My Requests" />
 
-                <Button text="Profile"
-                        onAction="#handleProfile"
-                        styleClass="sidebar-button"/>
+                <Button onAction="#handleProfile" styleClass="sidebar-button" text="Profile" />
             </VBox>
 
-            <Region VBox.vgrow="ALWAYS"/>
+            <Region VBox.vgrow="ALWAYS" />
         </VBox>
     </left>
 
@@ -60,55 +45,55 @@
 
                     <!-- TOP BAR -->
                     <HBox alignment="CENTER_RIGHT">
-                        <Label fx:id="userNameLabel" text="" styleClass="top-brand"/>
+                        <Label fx:id="userNameLabel" styleClass="top-brand" text="" />
                     </HBox>
 
                     <!-- 4 STAT CARDS -->
                     <HBox spacing="16">
-                        <VBox HBox.hgrow="ALWAYS" styleClass="stat-card">
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
                             <HBox alignment="CENTER_LEFT">
-                                <VBox HBox.hgrow="ALWAYS" spacing="6">
-                                    <Label text="Active Vehicles" styleClass="stat-card-label"/>
-                                    <Label fx:id="activeVehiclesLabel" text="0" styleClass="stat-card-value"/>
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="stat-card-label" text="Active Vehicles" />
+                                    <Label fx:id="activeVehiclesLabel" styleClass="stat-card-value" text="0" />
                                 </VBox>
                                 <StackPane styleClass="stat-icon stat-icon-blue">
-                                    <Label text="🚗" style="-fx-font-size: 22px;"/>
+                                    <Label style="-fx-font-size: 22px;" text="🚗" />
                                 </StackPane>
                             </HBox>
                         </VBox>
 
-                        <VBox HBox.hgrow="ALWAYS" styleClass="stat-card">
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
                             <HBox alignment="CENTER_LEFT">
-                                <VBox HBox.hgrow="ALWAYS" spacing="6">
-                                    <Label text="Available Spots" styleClass="stat-card-label"/>
-                                    <Label fx:id="availableSpotsLabel" text="50" styleClass="stat-card-value"/>
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="stat-card-label" text="Available Spots" />
+                                    <Label fx:id="availableSpotsLabel" styleClass="stat-card-value" text="50" />
                                 </VBox>
                                 <StackPane styleClass="stat-icon stat-icon-green">
-                                    <Label text="P" styleClass="stat-icon-letter stat-icon-letter-green"/>
+                                    <Label styleClass="stat-icon-letter stat-icon-letter-green" text="P" />
                                 </StackPane>
                             </HBox>
                         </VBox>
 
-                        <VBox HBox.hgrow="ALWAYS" styleClass="stat-card">
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
                             <HBox alignment="CENTER_LEFT">
-                                <VBox HBox.hgrow="ALWAYS" spacing="6">
-                                    <Label text="Total Capacity" styleClass="stat-card-label"/>
-                                    <Label fx:id="totalCapacityLabel" text="50" styleClass="stat-card-value"/>
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="stat-card-label" text="Total Capacity" />
+                                    <Label fx:id="totalCapacityLabel" styleClass="stat-card-value" text="50" />
                                 </VBox>
                                 <StackPane styleClass="stat-icon stat-icon-purple">
-                                    <Label text="↗" styleClass="stat-icon-letter stat-icon-letter-purple"/>
+                                    <Label styleClass="stat-icon-letter stat-icon-letter-purple" text="↗" />
                                 </StackPane>
                             </HBox>
                         </VBox>
 
-                        <VBox HBox.hgrow="ALWAYS" styleClass="stat-card">
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
                             <HBox alignment="CENTER_LEFT">
-                                <VBox HBox.hgrow="ALWAYS" spacing="6">
-                                    <Label text="Today's Check-ins" styleClass="stat-card-label"/>
-                                    <Label fx:id="todayCheckinsLabel" text="0" styleClass="stat-card-value"/>
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="stat-card-label" text="Today's Check-ins" />
+                                    <Label fx:id="todayCheckinsLabel" styleClass="stat-card-value" text="0" />
                                 </VBox>
                                 <StackPane styleClass="stat-icon stat-icon-orange">
-                                    <Label text="🕐" style="-fx-font-size: 22px;"/>
+                                    <Label style="-fx-font-size: 22px;" text="🕐" />
                                 </StackPane>
                             </HBox>
                         </VBox>
@@ -116,75 +101,69 @@
 
                     <!-- PARKING STATUS -->
                     <VBox spacing="12" styleClass="section-panel">
-                        <Label text="Parking Status" styleClass="panel-title"/>
+                        <Label styleClass="panel-title" text="Parking Status" />
 
                         <HBox alignment="CENTER_LEFT">
-                            <Label text="Occupancy Rate" styleClass="stat-card-label"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="occupancyPercentLabel" text="0%" styleClass="occupancy-percent"/>
+                            <Label styleClass="stat-card-label" text="Occupancy Rate" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="occupancyPercentLabel" styleClass="occupancy-percent" text="0%" />
                         </HBox>
 
-                        <ProgressBar fx:id="occupancyBar" progress="0" maxWidth="Infinity" styleClass="dashboard-progress-bar"/>
+                        <ProgressBar fx:id="occupancyBar" maxWidth="Infinity" progress="0" styleClass="dashboard-progress-bar" />
 
                         <HBox>
-                            <Label fx:id="parkedCountLabel" text="0 Parked" styleClass="stat-card-label"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="availableCountLabel" text="50 Available" styleClass="stat-card-label"/>
+                            <Label fx:id="parkedCountLabel" styleClass="stat-card-label" text="0 Parked" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="availableCountLabel" styleClass="stat-card-label" text="50 Available" />
                         </HBox>
                     </VBox>
 
                     <!-- RECENT CHECK-INS -->
                     <VBox spacing="14" styleClass="section-panel">
                         <HBox alignment="CENTER_LEFT">
-                            <Label text="Recent Check-ins" styleClass="panel-title"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Button fx:id="viewAllButton" text="View All" onAction="#handleViewAll" styleClass="outline-button"/>
+                            <Label styleClass="panel-title" text="Recent Check-ins" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button fx:id="viewAllButton" onAction="#handleViewAll" styleClass="outline-button" text="View All" />
                         </HBox>
 
                         <VBox fx:id="emptyState" alignment="CENTER" spacing="12" styleClass="empty-state-box">
-                            <Label text="🚗" styleClass="empty-car-icon"/>
-                            <Label text="No vehicles parked yet" styleClass="empty-state-title"/>
-                            <Button fx:id="checkInFirstButton"
-                                    text="Check In First Vehicle"
-                                    onAction="#handleCheckIn"
-                                    styleClass="primary-button"/>
+                            <Label styleClass="empty-car-icon" text="🚗" />
+                            <Label styleClass="empty-state-title" text="No vehicles parked yet" />
+                            <Button fx:id="checkInFirstButton" onAction="#handleCheckIn" styleClass="primary-button" text="Check In First Vehicle" />
                         </VBox>
 
-                        <VBox fx:id="vehicleListContainer"
-                              spacing="10"
-                              visible="false"
-                              managed="false"/>
+                        <VBox fx:id="vehicleListContainer" managed="false" spacing="10" visible="false" />
                     </VBox>
 
                     <!-- BOTTOM ACTION CARDS -->
                     <HBox spacing="16">
-                        <VBox HBox.hgrow="ALWAYS" styleClass="action-card-dashed" onMouseClicked="#handleCheckIn">
+                        <VBox onMouseClicked="#handleCheckIn" styleClass="action-card-dashed" HBox.hgrow="ALWAYS">
                             <HBox alignment="CENTER_LEFT" spacing="16">
                                 <StackPane styleClass="action-icon action-icon-blue">
-                                    <Label text="+" styleClass="action-icon-plus"/>
+                                    <Label styleClass="action-icon-plus" text="+" />
                                 </StackPane>
                                 <VBox spacing="4">
-                                    <Label text="Check In Vehicle" styleClass="action-title"/>
-                                    <Label text="Add new vehicle to parking" styleClass="action-subtitle"/>
+                                    <Label styleClass="action-title" text="Check In Vehicle" />
+                                    <Label styleClass="action-subtitle" text="Add new vehicle to parking" />
                                 </VBox>
                             </HBox>
                         </VBox>
 
-                        <VBox HBox.hgrow="ALWAYS" styleClass="action-card-dashed" onMouseClicked="#handleActiveVehicles">
+                        <VBox onMouseClicked="#handleActiveVehicles" styleClass="action-card-dashed" HBox.hgrow="ALWAYS">
                             <HBox alignment="CENTER_LEFT" spacing="16">
                                 <StackPane styleClass="action-icon action-icon-green">
-                                    <Label text="&#8801;" styleClass="action-icon-menu"/>
+                                    <Label styleClass="action-icon-menu" text="≡" />
                                 </StackPane>
                                 <VBox spacing="4">
-                                    <Label text="View Active Vehicles" styleClass="action-title"/>
-                                    <Label text="Manage parked vehicles" styleClass="action-subtitle"/>
+                                    <Label styleClass="action-title" text="View Active Vehicles" />
+                                    <Label styleClass="action-subtitle" text="Manage parked vehicles" />
                                 </VBox>
                             </HBox>
                         </VBox>
                     </HBox>
 
                     <padding>
-                        <Insets top="24" right="24" bottom="24" left="24"/>
+                        <Insets bottom="24" left="24" right="24" top="24" />
                     </padding>
                 </VBox>
             </content>
