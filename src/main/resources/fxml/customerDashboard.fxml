@@ -5,7 +5,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane styleClass="customer-root" stylesheets="@../css/customerDashboard.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane styleClass="customer-root" stylesheets="@../css/customerDashboard.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.controller.CustomerPortalController" fx:id="rootPane">
 
     <!-- LEFT SIDEBAR -->
     <left>
@@ -23,13 +24,19 @@
                 </VBox>
             </HBox>
 
+            <Label fx:id="welcomeLabel" styleClass="sidebar-subtitle" text="Welcome" />
+
             <VBox spacing="10">
-                <Button styleClass="sidebar-button, sidebar-button-active" text="Check In" />
-                <Button styleClass="sidebar-button" text="My Ticket" />
-                <Button styleClass="sidebar-button" text="Request Pickup" />
+                <Button fx:id="sideCheckInBtn" styleClass="sidebar-button, sidebar-button-active" text="Check In" onAction="#showCheckIn" />
+                <Button fx:id="sideTicketsBtn" styleClass="sidebar-button" text="My Ticket" onAction="#showMyTickets" />
+                <Button fx:id="sidePickupBtn" styleClass="sidebar-button" text="Request Pickup" onAction="#showRequestPickup" />
             </VBox>
 
             <Region VBox.vgrow="ALWAYS" />
+
+            <!-- Profile button pushed to the bottom of the sidebar -->
+            <Button styleClass="sidebar-button" text="Profile" onAction="#handleProfile" />
+
         </VBox>
     </left>
 
@@ -38,108 +45,157 @@
         <StackPane styleClass="customer-scroll">
             <VBox spacing="0" styleClass="customer-content">
 
-                    <!-- NAV PILLS -->
-                    <HBox alignment="CENTER" spacing="12" styleClass="nav-pill-bar">
-                        <Button styleClass="nav-pill, nav-pill-active" text="🚗  Check In" />
-                        <Button styleClass="nav-pill" text="🔍  My Ticket" />
-                        <Button styleClass="nav-pill" text="↪  Request Pickup" />
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets top="-25.0" />
-               </VBox.margin>
-                    </HBox>
-
-                    <!-- FORM CARD -->
-                    <VBox alignment="TOP_CENTER" style="-fx-padding: 32 32 32 32;">
-                        <VBox maxWidth="560" minHeight="-Infinity" minWidth="-Infinity" styleClass="form-card">
-
-                            <!-- Card Header -->
-                            <HBox alignment="CENTER_LEFT" spacing="8">
-                                <Label style="-fx-font-size: 16px;" text="🚗" />
-                                <Label styleClass="card-title" text="Vehicle Check-In">
-                        <HBox.margin>
-                           <Insets left="-25.0" />
-                        </HBox.margin></Label>
-                     <VBox.margin>
+                <!-- NAV PILLS -->
+                <HBox alignment="CENTER" spacing="12" styleClass="nav-pill-bar">
+                    <Button fx:id="navCheckInBtn" styleClass="nav-pill, nav-pill-active" text="🚗  Check In" onAction="#showCheckIn" />
+                    <Button fx:id="navTicketsBtn" styleClass="nav-pill" text="🔍  My Ticket" onAction="#showMyTickets" />
+                    <Button fx:id="navPickupBtn" styleClass="nav-pill" text="↪  Request Pickup" onAction="#showRequestPickup" />
+                    <opaqueInsets>
                         <Insets />
-                     </VBox.margin>
-                            </HBox>
-                            <Label styleClass="card-subtitle" text="Please provide your vehicle details. Available spots: 50" />
-                            <Region styleClass="card-divider" />
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets top="-25.0" />
+                    </VBox.margin>
+                </HBox>
 
-                            <!-- Your Information -->
-                            <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 8 0 4 0;">
-                                <Label style="-fx-font-size: 13px;" text="👤" />
-                                <Label styleClass="sub-heading" text="Your Information" />
-                            </HBox>
+                <!-- FORM CARD -->
+                <VBox alignment="TOP_CENTER" style="-fx-padding: 32 32 32 32;">
 
-                            <HBox spacing="16">
-                                <VBox spacing="6" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="field-label" text="Full Name *" />
-                                    <TextField promptText="John Doe" styleClass="field-input" />
-                                </VBox>
-                                <VBox spacing="6" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="field-label" text="Phone Number *" />
-                                    <TextField promptText="(555) 123-4567" styleClass="field-input" />
-                                </VBox>
-                            </HBox>
+                    <!-- CHECK IN SECTION -->
+                    <VBox fx:id="checkInSection" maxWidth="560" minHeight="-Infinity" minWidth="-Infinity" styleClass="form-card">
 
-                            <!-- Vehicle Details -->
-                            <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 8 0 4 0;">
-                                <Label style="-fx-font-size: 13px;" text="🚗" />
-                                <Label styleClass="sub-heading" text="Vehicle Details" />
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                            </HBox>
+                        <!-- Card Header -->
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label style="-fx-font-size: 16px;" text="🚗" />
+                            <Label styleClass="card-title" text="Vehicle Check-In">
+                                <HBox.margin>
+                                    <Insets left="-25.0" />
+                                </HBox.margin></Label>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </HBox>
+                        <Label fx:id="availableSpotsLabel" styleClass="card-subtitle" text="Please provide your vehicle details. Available spots: —" />
+                        <Region styleClass="card-divider" />
 
-                            <HBox spacing="16">
-                                <VBox spacing="6" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="field-label" text="Make *" />
-                                    <TextField promptText="Toyota" styleClass="field-input" />
-                                </VBox>
-                                <VBox spacing="6" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="field-label" text="Model *" />
-                                    <TextField promptText="Camry" styleClass="field-input" />
-                                </VBox>
-                            </HBox>
+                        <!-- Your Information -->
+                        <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 8 0 4 0;">
+                            <Label style="-fx-font-size: 13px;" text="👤" />
+                            <Label styleClass="sub-heading" text="Your Information" />
+                        </HBox>
 
-                            <HBox spacing="16">
-                                <VBox spacing="6" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="field-label" text="Color" />
-                                    <TextField promptText="Blue" styleClass="field-input" />
-                                </VBox>
-                                <VBox spacing="6" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="field-label" text="License Plate" />
-                                    <TextField promptText="ABC-1234" styleClass="field-input" />
-                                </VBox>
-                            </HBox>
-
-                            <VBox spacing="6" style="-fx-padding: 4 0 0 0;">
-                                <Label styleClass="field-label" text="Preferred Parking Area" />
-                                <TextField promptText="e.g., Main Lot, Covered, Near Exit" styleClass="field-input" />
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label styleClass="field-label" text="Full Name *" />
+                                <TextField promptText="John Doe" styleClass="field-input" />
                             </VBox>
-
-                            <VBox spacing="6" style="-fx-padding: 0 0 0 0;">
-                                <Label styleClass="field-label" text="Special Instructions (Optional)" />
-                                <TextArea prefHeight="90" promptText="Any special handling instructions..." styleClass="field-input" wrapText="true" />
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label styleClass="field-label" text="Phone Number *" />
+                                <TextField promptText="(555) 123-4567" styleClass="field-input" />
                             </VBox>
+                        </HBox>
 
-                            <Button maxWidth="Infinity" style="-fx-padding: 14 0 14 0;" styleClass="checkin-btn" text="Complete Check-In" />
-                  <VBox.margin>
-                     <Insets />
-                  </VBox.margin>
+                        <!-- Vehicle Details -->
+                        <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 8 0 4 0;">
+                            <Label style="-fx-font-size: 13px;" text="🚗" />
+                            <Label styleClass="sub-heading" text="Vehicle Details" />
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </HBox>
 
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label styleClass="field-label" text="Make *" />
+                                <TextField fx:id="ciMakeField" promptText="Toyota" styleClass="field-input" />
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label styleClass="field-label" text="Model *" />
+                                <TextField fx:id="ciModelField" promptText="Camry" styleClass="field-input" />
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label styleClass="field-label" text="Year *" />
+                                <TextField fx:id="ciYearField" promptText="2022" styleClass="field-input" />
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Region />
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label styleClass="field-label" text="Color" />
+                                <TextField fx:id="ciColorField" promptText="Blue" styleClass="field-input" />
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label styleClass="field-label" text="License Plate" />
+                                <TextField fx:id="ciPlateField" promptText="ABC-1234" styleClass="field-input" />
+                            </VBox>
+                        </HBox>
+
+                        <VBox spacing="6" style="-fx-padding: 4 0 0 0;">
+                            <Label styleClass="field-label" text="Preferred Parking Area" />
+                            <TextField fx:id="ciParkingSpaceField" promptText="e.g., Main Lot, Covered, Near Exit" styleClass="field-input" />
                         </VBox>
-               <VBox.margin>
-                  <Insets top="-4.0" />
-               </VBox.margin>
+
+                        <VBox spacing="6" style="-fx-padding: 0 0 0 0;">
+                            <Label styleClass="field-label" text="Special Instructions (Optional)" />
+                            <TextArea prefHeight="90" promptText="Any special handling instructions..." styleClass="field-input" wrapText="true" />
+                        </VBox>
+
+                        <Label fx:id="checkInStatusLabel" styleClass="field-label" text="" style="-fx-text-fill: red;" />
+                        <Button maxWidth="Infinity" style="-fx-padding: 14 0 14 0;" styleClass="checkin-btn" text="Complete Check-In" onAction="#handleCheckIn" />
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+
                     </VBox>
 
+                    <!-- MY TICKETS SECTION -->
+                    <VBox fx:id="myTicketsSection" maxWidth="560" minHeight="-Infinity" minWidth="-Infinity" styleClass="form-card" visible="false" managed="false">
+
+                        <!-- Card Header -->
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label style="-fx-font-size: 16px;" text="🎟️" />
+                            <Label styleClass="card-title" text="My Tickets" />
+                        </HBox>
+                        <Region styleClass="card-divider" />
+
+                        <VBox fx:id="ticketsEmptyState">
+                            <Label styleClass="card-subtitle" text="You have no active tickets." />
+                        </VBox>
+
+                        <VBox fx:id="ticketListContainer" visible="false" managed="false" spacing="10" />
+
+                    </VBox>
+
+                    <!-- REQUEST PICKUP SECTION -->
+                    <VBox fx:id="requestPickupSection" maxWidth="560" minHeight="-Infinity" minWidth="-Infinity" styleClass="form-card" visible="false" managed="false">
+
+                        <!-- Card Header -->
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label style="-fx-font-size: 16px;" text="↪" />
+                            <Label styleClass="card-title" text="Request Pickup" />
+                        </HBox>
+                        <Region styleClass="card-divider" />
+
+                        <Label styleClass="field-label" text="Select your vehicle:" />
+                        <ComboBox fx:id="carSelectCombo" maxWidth="Infinity" />
+                        <Label fx:id="pickupStatusLabel" styleClass="field-label" text="" style="-fx-text-fill: red;" />
+                        <Button maxWidth="Infinity" style="-fx-padding: 14 0 14 0;" styleClass="checkin-btn" text="Request Pickup" onAction="#handleRequestPickup" />
+
+                    </VBox>
+
+                    <VBox.margin>
+                        <Insets top="-4.0" />
+                    </VBox.margin>
                 </VBox>
-            </StackPane>
+
+            </VBox>
+        </StackPane>
     </center>
 
 </BorderPane>
