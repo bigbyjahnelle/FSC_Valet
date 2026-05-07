@@ -141,17 +141,31 @@ public class LoginController {
             String phone = parseFromJson(response.body(), "phone");
             SessionManager.setPhone(phone);
 
-            // Store the user's role then route to the correct screen
+            //Store the user's role then route to the correct screen
             String role = parseFromJson(response.body(), "role");
+            //System.out.println("DEBUG: Role parsed from response -> '" + role + "'");
+
             if (role != null && !role.isEmpty()) {
                 SessionManager.setRole(role);
             }
 
-            if ("CUSTOMER".equals(SessionManager.getRole())) {
+            //System.out.println("DEBUG: SessionManager role -> '" + SessionManager.getRole() + "'");
+
+            if ("CUSTOMER".equals(SessionManager.getRole()))
+            {
+                //System.out.println("DEBUG: Routing to customer dashboard");
                 loadCustomerDashboard();
-            } else {
-                loadDashboard();
             }
+            else if ("STAFF".equals(SessionManager.getRole()))
+            {
+                //System.out.println("DEBUG: Routing to staff dashboard");
+                loadDashboard();
+            } else
+            {
+                statusLabel.setStyle("-fx-text-fill: red;");
+                statusLabel.setText("Unrecognized account role: '" + SessionManager.getRole() + "'");
+            }
+
         } else if (response.statusCode() == 400 || response.statusCode() == 401) {
             statusLabel.setStyle("-fx-text-fill: red;");
             statusLabel.setText("Invalid email or password.");
