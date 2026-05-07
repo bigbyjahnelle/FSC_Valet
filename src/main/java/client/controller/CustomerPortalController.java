@@ -22,8 +22,23 @@ import java.util.List;
 
 public class CustomerPortalController {
 
-    @FXML private TabPane mainTabPane;
+    @FXML private BorderPane rootPane;
     @FXML private Label welcomeLabel;
+
+    // Section containers for show/hide navigation
+    @FXML private VBox checkInSection;
+    @FXML private VBox myTicketsSection;
+    @FXML private VBox requestPickupSection;
+
+    // Sidebar nav buttons
+    @FXML private Button sideCheckInBtn;
+    @FXML private Button sideTicketsBtn;
+    @FXML private Button sidePickupBtn;
+
+    // Top nav pill buttons
+    @FXML private Button navCheckInBtn;
+    @FXML private Button navTicketsBtn;
+    @FXML private Button navPickupBtn;
 
     // My Tickets tab
     @FXML private VBox ticketsEmptyState;
@@ -34,6 +49,7 @@ public class CustomerPortalController {
     @FXML private Label pickupStatusLabel;
 
     // Check In tab
+    @FXML private Label availableSpotsLabel;
     @FXML private TextField ciMakeField;
     @FXML private TextField ciModelField;
     @FXML private TextField ciYearField;
@@ -47,8 +63,32 @@ public class CustomerPortalController {
     @FXML
     public void initialize() {
         welcomeLabel.setText("Welcome, " + SessionManager.getFirstName());
-        fetchMyTickets();
-        fetchCarsForPickup();
+        fetchAvailableSpots();
+    }
+
+    // ── AVAILABLE SPOTS ────────────────────────────────────────────────────────
+
+    private void fetchAvailableSpots() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(ServerConfig.SERVER_URL + "/api/dashboard"))
+                .GET()
+                .build();
+
+        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> Platform.runLater(() -> {
+                    if (response.statusCode() == 200) {
+                        String spots = extractInt(response.body(), "availableSpots");
+                        if (spots != null) {
+                            availableSpotsLabel.setText(
+                                    "Please provide your vehicle details. Available spots: " + spots
+                            );
+                        }
+                    }
+                }))
+                .exceptionally(ex -> {
+                    System.out.println("Could not fetch available spots: " + ex.getMessage());
+                    return null;
+                });
     }
 
     // ── MY TICKETS TAB ─────────────────────────────────────────────────────────
@@ -63,11 +103,9 @@ public class CustomerPortalController {
 
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenAccept(response -> Platform.runLater(() -> {
-                    /*
-                        Debugs for if there is something wrong with getting ticket information
-                        System.out.println("MY TICKETS - Status: " + response.statusCode());
-                        System.out.println("MY TICKETS - Body: " + response.body());
-                    */
+                    // Debugs for if there is something wrong with getting ticket information
+                    System.out.println("MY TICKETS - Status: " + response.statusCode());
+                    System.out.println("MY TICKETS - Body: " + response.body());
                     if (response.statusCode() == 200) {
                         displayTickets(response.body());
                     }
@@ -80,13 +118,21 @@ public class CustomerPortalController {
 
     private void displayTickets(String json) {
         List<String[]> tickets = parseTicketDetails(json);
-        if (tickets.isEmpty()) return;
+
+        ticketListContainer.getChildren().clear();
+
+        if (tickets.isEmpty()) {
+            ticketsEmptyState.setVisible(true);
+            ticketsEmptyState.setManaged(true);
+            ticketListContainer.setVisible(false);
+            ticketListContainer.setManaged(false);
+            return;
+        }
 
         ticketsEmptyState.setVisible(false);
         ticketsEmptyState.setManaged(false);
         ticketListContainer.setVisible(true);
         ticketListContainer.setManaged(true);
-        ticketListContainer.getChildren().clear();
 
         for (String[] t : tickets) {
             ticketListContainer.getChildren().add(buildTicketCard(t));
@@ -241,7 +287,7 @@ public class CustomerPortalController {
                                 type != null ? type : "RETRIEVE",
                                 java.time.LocalDate.now().toString()
                         );
-                        Stage stage = (Stage) mainTabPane.getScene().getWindow();
+                        Stage stage = (Stage) rootPane.getScene().getWindow();
                         SceneTransition.fadeSwitch(stage, "/fxml/confirmation.fxml", "FSC Valet - Confirmation");
                     } else {
                         pickupStatusLabel.setText("Request failed. Please try again.");
@@ -332,7 +378,7 @@ public class CustomerPortalController {
                                 type != null ? type : "PARK",
                                 java.time.LocalDate.now().toString()
                         );
-                        Stage stage = (Stage) mainTabPane.getScene().getWindow();
+                        Stage stage = (Stage) rootPane.getScene().getWindow();
                         SceneTransition.fadeSwitch(stage, "/fxml/confirmation.fxml", "FSC Valet - Confirmation");
                     } else {
                         checkInStatusLabel.setText("Request failed. Try again.");
@@ -346,16 +392,54 @@ public class CustomerPortalController {
 
     // ── NAVIGATION ─────────────────────────────────────────────────────────────
 
+    private void setActiveTab(Button activeSideBtn, Button activeNavBtn) {
+        sideCheckInBtn.getStyleClass().remove("sidebar-button-active");
+        sideTicketsBtn.getStyleClass().remove("sidebar-button-active");
+        sidePickupBtn.getStyleClass().remove("sidebar-button-active");
+        navCheckInBtn.getStyleClass().remove("nav-pill-active");
+        navTicketsBtn.getStyleClass().remove("nav-pill-active");
+        navPickupBtn.getStyleClass().remove("nav-pill-active");
+
+        activeSideBtn.getStyleClass().add("sidebar-button-active");
+        activeNavBtn.getStyleClass().add("nav-pill-active");
+    }
+
+    @FXML
+    private void showCheckIn() {
+        setActiveTab(sideCheckInBtn, navCheckInBtn);
+        checkInSection.setVisible(true);        checkInSection.setManaged(true);
+        myTicketsSection.setVisible(false);     myTicketsSection.setManaged(false);
+        requestPickupSection.setVisible(false); requestPickupSection.setManaged(false);
+    }
+
+    @FXML
+    private void showMyTickets() {
+        setActiveTab(sideTicketsBtn, navTicketsBtn);
+        checkInSection.setVisible(false);       checkInSection.setManaged(false);
+        myTicketsSection.setVisible(true);      myTicketsSection.setManaged(true);
+        requestPickupSection.setVisible(false); requestPickupSection.setManaged(false);
+        fetchMyTickets();
+    }
+
+    @FXML
+    private void showRequestPickup() {
+        setActiveTab(sidePickupBtn, navPickupBtn);
+        checkInSection.setVisible(false);       checkInSection.setManaged(false);
+        myTicketsSection.setVisible(false);     myTicketsSection.setManaged(false);
+        requestPickupSection.setVisible(true);  requestPickupSection.setManaged(true);
+        fetchCarsForPickup();
+    }
+
     @FXML
     private void handleProfile() {
-        Stage stage = (Stage) mainTabPane.getScene().getWindow();
+        Stage stage = (Stage) rootPane.getScene().getWindow();
         SceneTransition.fadeSwitch(stage, "/fxml/profile.fxml", "FSC Valet - Profile");
     }
 
     @FXML
     private void handleLogout() {
         SessionManager.clear();
-        Stage stage = (Stage) mainTabPane.getScene().getWindow();
+        Stage stage = (Stage) rootPane.getScene().getWindow();
         SceneTransition.fadeSwitch(stage, "/fxml/login.fxml", "FSC Valet - Login");
     }
 
