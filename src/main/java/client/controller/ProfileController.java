@@ -139,6 +139,13 @@ public class ProfileController {
     @FXML
     private void handleBack() {
         Stage stage = (Stage) fullNameLabel.getScene().getWindow();
-        SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSC Valet - Dashboard");
+        if ("CUSTOMER".equals(SessionManager.getRole()))
+        {
+            SceneTransition.fadeSwitch(stage, "/fxml/customerDashboard.fxml", "FSC Valet - Customer Dashboard");
+        }
+        else if ("STAFF".equals(SessionManager.getRole()))
+        {
+            SceneTransition.fadeSwitch(stage, "/fxml/dashboard.fxml", "FSC Valet - Dashboard");
+        }
     }
 }
