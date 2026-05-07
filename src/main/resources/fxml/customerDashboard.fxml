@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane styleClass="customer-root" stylesheets="@../css/customerDashboard.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox spacing="22" styleClass="sidebar">
+            <HBox alignment="TOP_LEFT" spacing="12" styleClass="sidebar-brand-row">
+                <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
+                    <HBox.margin>
+                        <Insets left="4.0" top="-8.0" />
+                    </HBox.margin>
+                    <Image url="@/images/VALET_APP_RAM_LOGO_OFFICIAL.png" />
+                </ImageView>
+                <VBox spacing="2">
+                    <Label styleClass="sidebar-brand" text="FSC VALET" />
+                    <Label styleClass="sidebar-subtitle" text="Customer Portal" />
+                </VBox>
+            </HBox>
+
+            <VBox spacing="10">
+                <Button styleClass="sidebar-button, sidebar-button-active" text="Check In" />
+                <Button styleClass="sidebar-button" text="My Ticket" />
+                <Button styleClass="sidebar-button" text="Request Pickup" />
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <StackPane styleClass="customer-scroll">
+            <VBox spacing="0" styleClass="customer-content">
+
+                    <!-- NAV PILLS -->
+                    <HBox alignment="CENTER" spacing="12" styleClass="nav-pill-bar">
+                        <Button styleClass="nav-pill, nav-pill-active" text="🚗  Check In" />
+                        <Button styleClass="nav-pill" text="🔍  My Ticket" />
+                        <Button styleClass="nav-pill" text="↪  Request Pickup" />
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="-25.0" />
+               </VBox.margin>
+                    </HBox>
+
+                    <!-- FORM CARD -->
+                    <VBox alignment="TOP_CENTER" style="-fx-padding: 32 32 32 32;">
+                        <VBox maxWidth="560" minHeight="-Infinity" minWidth="-Infinity" styleClass="form-card">
+
+                            <!-- Card Header -->
+                            <HBox alignment="CENTER_LEFT" spacing="8">
+                                <Label style="-fx-font-size: 16px;" text="🚗" />
+                                <Label styleClass="card-title" text="Vehicle Check-In">
+                        <HBox.margin>
+                           <Insets left="-25.0" />
+                        </HBox.margin></Label>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                            </HBox>
+                            <Label styleClass="card-subtitle" text="Please provide your vehicle details. Available spots: 50" />
+                            <Region styleClass="card-divider" />
+
+                            <!-- Your Information -->
+                            <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 8 0 4 0;">
+                                <Label style="-fx-font-size: 13px;" text="👤" />
+                                <Label styleClass="sub-heading" text="Your Information" />
+                            </HBox>
+
+                            <HBox spacing="16">
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="field-label" text="Full Name *" />
+                                    <TextField promptText="John Doe" styleClass="field-input" />
+                                </VBox>
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="field-label" text="Phone Number *" />
+                                    <TextField promptText="(555) 123-4567" styleClass="field-input" />
+                                </VBox>
+                            </HBox>
+
+                            <!-- Vehicle Details -->
+                            <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 8 0 4 0;">
+                                <Label style="-fx-font-size: 13px;" text="🚗" />
+                                <Label styleClass="sub-heading" text="Vehicle Details" />
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                            </HBox>
+
+                            <HBox spacing="16">
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="field-label" text="Make *" />
+                                    <TextField promptText="Toyota" styleClass="field-input" />
+                                </VBox>
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="field-label" text="Model *" />
+                                    <TextField promptText="Camry" styleClass="field-input" />
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="16">
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="field-label" text="Color" />
+                                    <TextField promptText="Blue" styleClass="field-input" />
+                                </VBox>
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="field-label" text="License Plate" />
+                                    <TextField promptText="ABC-1234" styleClass="field-input" />
+                                </VBox>
+                            </HBox>
+
+                            <VBox spacing="6" style="-fx-padding: 4 0 0 0;">
+                                <Label styleClass="field-label" text="Preferred Parking Area" />
+                                <TextField promptText="e.g., Main Lot, Covered, Near Exit" styleClass="field-input" />
+                            </VBox>
+
+                            <VBox spacing="6" style="-fx-padding: 0 0 0 0;">
+                                <Label styleClass="field-label" text="Special Instructions (Optional)" />
+                                <TextArea prefHeight="90" promptText="Any special handling instructions..." styleClass="field-input" wrapText="true" />
+                            </VBox>
+
+                            <Button maxWidth="Infinity" style="-fx-padding: 14 0 14 0;" styleClass="checkin-btn" text="Complete Check-In" />
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+
+                        </VBox>
+               <VBox.margin>
+                  <Insets top="-4.0" />
+               </VBox.margin>
+                    </VBox>
+
+                </VBox>
+            </StackPane>
+    </center>
+
+</BorderPane>
