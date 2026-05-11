@@ -126,24 +126,21 @@ Staff Features:
 ## Login Page 
 ![Hifi](images/loginlogin.png)
 ## Create Account 
-
+![Hifi](images/correctcreateaccount.png)
 ## Profile Page 
-![Hifi](images/profile1client.png)
-![Hifi](images/profile2client.png)
+![Hifi](images/correctprofile.png)
 ## Client Dashboard
-
-## Vehicle Check In 
-![Hifi](images/vehiclecheckinclient.png)
-## Car Details 
-![Hifi](images/cardetailsclient.png)
+![Hifi](images/correctcustomerdashboard.png)
+## Make Request Page
+![Hifi](images/correctmakerequest.png)
 ## Confirmation Page 
-![Hifi](images/confirmclient.png)
+![Hifi](images/correctrequestconfirm.png)
 ## Edit Request 
-![Hifi](images/editrequestclient.png)
+![Hifi](images/correcteditrequest.png)
 ## Request History 
-![Hifi](images/requesthistoryclient.png)
+![Hifi](images/correctrequesthistory.png)
 ## Staff Dashboard
-![Hifi](images/staffportal.png)
+![Hifi](images/correctstaffdashboard.png)
 
 
 ## Project Management
