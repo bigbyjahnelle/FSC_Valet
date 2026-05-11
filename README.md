@@ -111,29 +111,38 @@ Staff Features:
 - System Administrators
 
 ## Figma Design Process
-## LoFi
+## LoFi Images
 ![Lofi](images/lofi.png)
-![Lofi](images/lofi2.png)
-## Client Side 
-## HiFi
-![Hifi](images/login.png)
+![Lofi](images/lofi2.png) 
+## HiFi Images
 ![Hifi](images/checkin.png)
 ![Hifi](images/myticket.png)
 ![Hifi](images/requestpickup.png)
-## Staff Side
 ![Hifi](images/dashboard.png)
 ![Hifi](images/checkinstaff.png)
 ![Hifi](images/activevehicles.png)
 
 ## Interface Screens of our Project  
+## Login Page 
+![Hifi](images/loginlogin.png)
+## Create Account 
 
+## Profile Page 
 ![Hifi](images/profile1client.png)
 ![Hifi](images/profile2client.png)
+## Client Dashboard
+
+## Vehicle Check In 
 ![Hifi](images/vehiclecheckinclient.png)
-![Hifi](images/confirmclient.png)
+## Car Details 
 ![Hifi](images/cardetailsclient.png)
+## Confirmation Page 
+![Hifi](images/confirmclient.png)
+## Edit Request 
 ![Hifi](images/editrequestclient.png)
+## Request History 
 ![Hifi](images/requesthistoryclient.png)
+## Staff Dashboard
 ![Hifi](images/staffportal.png)
 
 
