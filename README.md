@@ -127,6 +127,15 @@ Staff Features:
 
 ## Interface Screens of our Project  
 
+![Hifi](images/profile1client.png)
+![Hifi](images/profile2client.png)
+![Hifi](images/vehiclecheckinclient.png)
+![Hifi](images/confirmclient.png)
+![Hifi](images/cardetailsclient.png)
+![Hifi](images/editrequestclient.png)
+![Hifi](images/requesthistoryclient.png)
+![Hifi](images/staffportal.png)
+
 
 ## Project Management
 
