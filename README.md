@@ -111,8 +111,17 @@ Staff Features:
 - System Administrators
 
 ## Figma Design Process
-
-
+![Lofi](images/lofi.png)
+![Lofi](images/lofi2.png)
+![Lofi](images/login.png)
+## Client Side 
+![Hifi](images/checkin.png)
+![Hifi](images/myticket.png)
+![Hifi](images/requestpickup.png)
+## Staff Side
+![Hifi](images/dashboard.png)
+![Hifi](images/checkinstaff.png)
+![Hifi](images/activevehicles.png)
 ## Interface Screens 
 
 
