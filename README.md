@@ -152,3 +152,6 @@ The project was managed using a SCRUM-style workflow. Work was divided into spri
 FSCValet is a working academic prototype completed as part of a Software Engineering final project. The project demonstrates the planning, interface design, development, and collaboration process involved in building a valet parking system for Farmingdale State College.
 
 Future improvements may include expanded real-time features, improved notifications, stronger authentication flow, and enhanced geofencing support.
+
+## Disclaimer 
+This project was developed with the assistance of AI tools such as ChatGPT, Claude, and Figma to support screen design, layout planning, styling ideas, and general development guidance for the staff and client portals. 
