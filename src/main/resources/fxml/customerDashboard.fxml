@@ -9,33 +9,38 @@
 
     <!-- LEFT SIDEBAR -->
     <left>
-        <VBox spacing="22" styleClass="sidebar">
-            <HBox alignment="TOP_LEFT" spacing="12" styleClass="sidebar-brand-row">
-                <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
-                    <HBox.margin>
-                        <Insets left="4.0" top="-8.0" />
-                    </HBox.margin>
-                    <Image url="@/images/VALET_APP_RAM_LOGO_OFFICIAL.png" />
-                </ImageView>
-                <VBox spacing="2">
-                    <Label styleClass="sidebar-brand" text="FSC VALET" />
-                    <Label styleClass="sidebar-subtitle" text="RAM Portal" />
-                </VBox>
-            </HBox>
+        <StackPane styleClass="sidebar">
 
-            <VBox spacing="10">
-                <Button fx:id="sideCheckInBtn" onAction="#showCheckIn" styleClass="sidebar-button, sidebar-button-active" text="Check In" />
-                <Button fx:id="sideTicketsBtn" onAction="#showMyTickets" styleClass="sidebar-button" text="My Ticket" />
-                <Button fx:id="sidePickupBtn" onAction="#showRequestPickup" styleClass="sidebar-button" text="Request Pickup" />
+            <!-- Main nav content pinned to top -->
+            <VBox spacing="22" style="-fx-padding: 32 18 24 18;" StackPane.alignment="TOP_LEFT">
+                <HBox alignment="TOP_LEFT" spacing="12" styleClass="sidebar-brand-row">
+                    <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
+                        <HBox.margin>
+                            <Insets left="4.0" top="-8.0" />
+                        </HBox.margin>
+                        <Image url="@/images/VALET_APP_RAM_LOGO_OFFICIAL.png" />
+                    </ImageView>
+                    <VBox spacing="2">
+                        <Label styleClass="sidebar-brand" text="FSC VALET" />
+                        <Label styleClass="sidebar-subtitle" text="RAM Portal" />
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="10">
+                    <Button fx:id="sideCheckInBtn" onAction="#showCheckIn" styleClass="sidebar-button, sidebar-button-active" text="Check In" />
+                    <Button fx:id="sideTicketsBtn" onAction="#showMyTickets" styleClass="sidebar-button" text="My Ticket" />
+                    <Button fx:id="sidePickupBtn" onAction="#showRequestPickup" styleClass="sidebar-button" text="Request Pickup" />
+                </VBox>
             </VBox>
 
-            <Region VBox.vgrow="ALWAYS" />
-
-            <Button onAction="#handleProfile" styleClass="sidebar-button" text="Profile">
-            <VBox.margin>
-               <Insets left="5.0" />
-            </VBox.margin></Button>
-        </VBox>
+            <!-- Profile pinned to bottom -->
+            <VBox style="-fx-padding: 0 18 45 18;" StackPane.alignment="BOTTOM_LEFT" pickOnBounds="false">
+                <Button onAction="#handleProfile" styleClass="sidebar-button" text="Profile">
+               <VBox.margin>
+                  <Insets top="760.0" />
+               </VBox.margin></Button>
+            </VBox>
+        </StackPane>
     </left>
 
     <!-- MAIN CONTENT -->
@@ -43,10 +48,16 @@
         <StackPane styleClass="customer-scroll">
             <VBox spacing="0" styleClass="customer-content">
 
-                <!-- TOP BAR - matches dashboard -->
-                <HBox alignment="CENTER_RIGHT" style="-fx-padding: 0 0 8 0;">
-                    <Label fx:id="welcomeLabel" styleClass="top-brand" text="" />
-                </HBox>
+                <!-- WELCOME -->
+                <VBox alignment="CENTER" minHeight="40" style="-fx-padding: 4 0 8 0; -fx-background-color: transparent;">
+                    <Label fx:id="welcomeLabel" styleClass="welcome-banner" text="Welcome, Adrianna">
+                  <VBox.margin>
+                     <Insets left="980.0" top="-100.0" />
+                  </VBox.margin>
+                  <padding>
+                     <Insets left="100.0" right="10.0" />
+                  </padding></Label>
+                </VBox>
 
                 <!-- NAV PILLS -->
                 <HBox alignment="CENTER" spacing="12" styleClass="nav-pill-bar">
@@ -54,8 +65,11 @@
                     <Button fx:id="navTicketsBtn" onAction="#showMyTickets" styleClass="nav-pill" text="🔍  My Ticket" />
                     <Button fx:id="navPickupBtn" onAction="#showRequestPickup" styleClass="nav-pill" text="↪  Request Pickup" />
                <VBox.margin>
-                  <Insets top="-30.0" />
+                  <Insets top="-55.0" />
                </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
                 </HBox>
 
                 <!-- SECTIONS -->
@@ -66,14 +80,20 @@
 
                         <HBox alignment="CENTER_LEFT" spacing="8">
                             <Label style="-fx-font-size: 16px;" text="🚗" />
-                            <Label styleClass="card-title" text="Vehicle Check-In" />
+                            <Label styleClass="card-title" text="Vehicle Check-In">
+                        <HBox.margin>
+                           <Insets left="-25.0" />
+                        </HBox.margin></Label>
                         </HBox>
                         <Label fx:id="availableSpotsLabel" styleClass="card-subtitle" text="Please provide your vehicle details. Available spots: —" />
                         <Region styleClass="card-divider" />
 
                         <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 8 0 4 0;">
                             <Label style="-fx-font-size: 13px;" text="👤" />
-                            <Label styleClass="sub-heading" text="Your Information" />
+                            <Label styleClass="sub-heading" text="Your Information">
+                        <HBox.margin>
+                           <Insets left="-20.0" />
+                        </HBox.margin></Label>
                         </HBox>
 
                         <HBox spacing="16">
@@ -89,7 +109,10 @@
 
                         <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 8 0 4 0;">
                             <Label style="-fx-font-size: 13px;" text="🚗" />
-                            <Label styleClass="sub-heading" text="Vehicle Details" />
+                            <Label styleClass="sub-heading" text="Vehicle Details">
+                        <HBox.margin>
+                           <Insets left="-20.0" />
+                        </HBox.margin></Label>
                         </HBox>
 
                         <HBox spacing="16">
@@ -132,6 +155,9 @@
 
                         <Label fx:id="checkInStatusLabel" style="-fx-text-fill: red;" styleClass="field-label" text="" />
                         <Button maxWidth="Infinity" onAction="#handleCheckIn" style="-fx-padding: 14 0 14 0;" styleClass="checkin-btn" text="Complete Check-In" />
+                  <VBox.margin>
+                     <Insets top="-10.0" />
+                  </VBox.margin>
                     </VBox>
 
                     <!-- MY TICKETS SECTION -->
