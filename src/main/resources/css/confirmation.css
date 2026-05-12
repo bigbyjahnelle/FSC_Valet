@@ -67,11 +67,18 @@
 }
 
 .confirmation-card {
-    -fx-background-color: #f8f4ea;
+    -fx-background-color: #a19377;
     -fx-background-radius: 6;
     -fx-border-radius: 6;
     -fx-padding: 60 50 40 50;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 18, 0.18, 0, 6);
+}
+.confirmation-card {
+    -fx-background-color: linear-gradient( to bottom, #f8f4ea, #cabeb8);
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 60 50 40 50;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.28), 18, 0.18, 2, 6);
 }
 
 .confirmation-title {
