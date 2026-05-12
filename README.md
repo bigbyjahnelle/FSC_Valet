@@ -2,6 +2,7 @@
 
 
 ## Table of Contents
+- Team Members and Role 
 - Summary & Project Overview
 - Project Objectives
 - Team Members & Roles
@@ -15,6 +16,20 @@
 - Interface Screens 
 - Project Management
 - Status
+
+## Team Members & Roles 
+
+Jahnelle Bigby – Project Manager / Frontend Development
+Led project planning, task assignment, sprint coordination, scrum communication, GitHub organization, and contributed to frontend design and dashboard-related UI work.
+
+Adriana Lambert – Frontend Development
+Contributed to screen design, JavaFX interface layout, and CSS styling.
+
+Jayden Montalvo – Backend Development
+Contributed to backend logic, project structure, and core application functionality.
+
+Cobin Black – Backend Development
+Contributed to navigation, backend integration, and system support.
 
 ## Summary & Project Overview
 
@@ -35,20 +50,6 @@ This repository contains the frontend and backend structure of the FSCValet syst
 -Support valet staff with a dashboard for monitoring parking activity
 
 -Demonstrate software engineering practices through collaborative development
-
-## Team Members & Roles 
-
-Jahnelle Bigby – Project Manager / Frontend Development
-Led project planning, task assignment, sprint coordination, scrum communication, GitHub organization, and contributed to frontend design and dashboard-related UI work.
-
-Adriana Lambert – Frontend Development
-Contributed to screen design, JavaFX interface layout, and CSS styling.
-
-Jayden Montalvo – Backend Development
-Contributed to backend logic, project structure, and core application functionality.
-
-Cobin Black – Backend Development
-Contributed to navigation, backend integration, and system support.
 
 ## Technologies
 
